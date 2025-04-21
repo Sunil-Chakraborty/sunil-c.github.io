@@ -195,54 +195,73 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
         }
-        
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-       
-        .project-img {
-	  width: 100%;              /* Makes it responsive */
-	  max-width: 400px;         /* Prevents it from being too large */
-	  height: auto;             /* Maintains aspect ratio */
-	  border-radius: 8px;       /* Optional: rounded corners */
-	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for appeal */
-	  object-fit: contain;      /* Ensures entire image fits inside */
-	  margin: 0 auto;           /* Center align inside parent if needed */
-	  display: block;           /* Prevents inline gaps */
+
+	.project-card {
+	  width: 100%;		  
+	  margin: 20px auto;
+	  padding: 20px 30px;
+	  border-radius: 16px;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	  background-color: #ffffff;
+	  text-align: left;
+	  font-family: 'Segoe UI', sans-serif;
 	}
-        .project-content {
-            padding: 20px;
-        }
-        
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 10px 0;
-        }
-        
-        .tag {
-            background-color: #eef2ff;
-            color: var(--secondary-color);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
+	.project-card h3 {
+	  margin-top: 0;
+	  font-size: 1.4rem;
+	  color: #333;
+	}
+
+	.project-screenshot {
+	  margin-top: 15px;
+	  text-align: center;
+	}
+
+	.screenshot-img {
+	  max-width: 100%;
+	  border-radius: 6px;
+	  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+	  transition: transform 0.3s;
+	}
+
+	.screenshot-img:hover {
+	  transform: scale(1.03);
+	}
+
+	.btn.btn-primary {
+	  display: inline-block;
+	  margin-top: 15px;
+	  background-color: #007bff;
+	  color: white;
+	  padding: 10px 16px;
+	  border-radius: 6px;
+	  text-decoration: none;
+	}
+
+	.btn.btn-primary:hover {
+	  background-color: #0056b3;
+	}
+
+    .badge {
+	  display: inline-block;
+	  background-color: #e0e0e0;
+	  color: #333;
+	  font-size: 0.75rem;
+	  padding: 4px 10px;
+	  margin-right: 6px;
+	  margin-bottom: 6px;
+	  border-radius: 12px;
+	  font-weight: 500;
+	  text-transform: uppercase;
+	  letter-spacing: 0.5px;
+	  transition: background-color 0.3s;
+	}
+
+	.badge:hover {
+	  background-color: #007bff;
+	  color: white;
+	  cursor: default;
+	}
         
         /* Contact Section */
         .contact-grid {
@@ -474,38 +493,52 @@
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <img src="images/recepi_list.PNG" class="project-img" alt="Recepi Project">
-                <div class="project-content">
-                    <h3 class="project-title">Codification & Recipe Management</h3>
-                    <p>Developed a Django-based internal tool to manage raw material codification, recipes, and production BOM, integrated with SAP MM codes.</p>
-                    <div class="project-tags">
-                        <span class="tag">Django</span>
-                        <span class="tag">SAP</span>
-                        <span class="tag">Excel Export</span>
-                    </div>
-                    <p>
-                        <a href=" https://github.com/Sunil-Chakraborty/pyweb/blob/master/product/views.py" target="_blank">GitHub</a>
+			  <h3>Recepi Management System</h3>
+			  <p>
+				The above web application manages the formulation of compound recipes with integration of SAP codes, quantity tracking, and pricing per unit. 
+				Features include CRUD operations, search/filtering, export to Excel/PDF, and user role-based access.
+			  </p>
+			  <br>
+				<div class="tech-stack">
+				  <span class="badge">Django</span>
+				  <span class="badge">Bootstrap</span>
+				  <span class="badge">DataTables</span>
+				  <span class="badge">jQuery</span>
+				  <span class="badge">SQLite</span>
+				</div>
+				
+			  <div class="project-screenshot">
+				<img src="recepi_list.PNG" alt="Recepi List Screenshot" class="screenshot-img">
+			  </div>
+
+			  <a href="https://sunilc.pythonanywhere.com/product/recepi/" class="btn btn-primary" target="_blank">View Live Demo</a>
+			</div>
 			
-                        <a href="https://sunilc.pythonanywhere.com/product/recepi/" target="_blank">Live Demo</a>
-                    </p>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="images/project2.jpg" class="project-img" alt="Project Screenshot">
-                <div class="project-content">
-                    <h3 class="project-title">Barcode Integration System</h3>
-                    <p>Created on-the-fly barcode generation for materials and compounds using Python and integrated it with printable Django templates.</p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Barcode</span>
-                        <span class="tag">PDF Export</span>
-                    </div>
-                    <p>
-                        <a href="https://github.com/sunilchak/barcode-django" target="_blank">GitHub</a>			
-                        <a href=" https://raw.githack.com/Sunil-Chakraborty/softnook/master/clock/clock.html" target="_blank">Live Demo</a>
-                    </p>
-                </div>
-            </div>
+			<div class="project-card">
+			  <h3 class="project-title">Barcode Integration System</h3>
+              <p>Created on-the-fly barcode generation for materials and compounds using Python and integrated it with printable Django templates.</p>
+
+			  <br>
+				<div class="tech-stack">
+				  <span class="badge">Django</span>				  
+				  <span class="badge">DataTables</span>
+				  <span class="badge">jQuery</span>
+				  <span class="badge">PDF Export</span>
+				  <span class="badge">SQLite</span>
+				</div>
+			  <!---
+			  <p>
+                    <a href="https://github.com/sunilchak/barcode-django" target="_blank">GitHub</a>			
+                    <a href=" https://raw.githack.com/Sunil-Chakraborty/softnook/master/clock/clock.html" target="_blank">Live Demo</a>
+              </p> 
+			  --> 	
+			  <div class="project-screenshot">
+				<img src="bar_code.PNG" alt="Recepi List Screenshot" class="screenshot-img">
+			  </div>
+
+			  <a href="https://sunilc.pythonanywhere.com/product/recepi/" class="btn btn-primary" target="_blank">View Live Demo</a>
+			</div>
+			
             <!-- Add more project-cards as needed -->
         </div>
     </div>
