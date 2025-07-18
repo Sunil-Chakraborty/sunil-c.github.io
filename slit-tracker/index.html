@@ -1,696 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLIT Treatment Schedule</title>
-    
-    <!-- PWA Meta Tags -->
-    <meta name="description" content="SLIT Treatment Schedule Tracker">
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="SLIT Tracker">
-    
-    <!-- PWA Icons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23667eea'/><text y='75' font-size='80' fill='white'>📋</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%23667eea' rx='40'/><text x='90' y='130' font-size='100' text-anchor='middle' fill='white'>📋</text></svg>">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json,{
-        'name': 'SLIT Treatment Tracker',
-        'short_name': 'SLIT Tracker',
-        'description': 'Track your SLIT treatment schedule and progress',
-        'start_url': './',
-        'display': 'standalone',
-        'background_color': '#667eea',
-        'theme_color': '#667eea',
-        'orientation': 'portrait',
-        'icons': [
-            {
-                'src': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 192 192\'><rect width=\'192\' height=\'192\' fill=\'%23667eea\' rx=\'45\'/><text x=\'96\' y=\'140\' font-size=\'120\' text-anchor=\'middle\' fill=\'white\'>📋</text></svg>',
-                'sizes': '192x192',
-                'type': 'image/svg+xml'
-            },
-            {
-                'src': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 512 512\'><rect width=\'512\' height=\'512\' fill=\'%23667eea\' rx=\'120\'/><text x=\'256\' y=\'370\' font-size=\'320\' text-anchor=\'middle\' fill=\'white\'>📋</text></svg>',
-                'sizes': '512x512',
-                'type': 'image/svg+xml'
-            }
-        ]
-    }">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            font-size: 16px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-        }
-        
-        .header h1 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .treatment-info {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 12px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        table {
-            width: 100%;
-            min-width: 600px;
-            border-collapse: collapse;
-            background: white;
-        }
-        
-        th {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 12px 8px;
-            text-align: left;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background-color 0.3s ease;
-            vertical-align: top;
-        }
-        
-        tr:hover {
-            background-color: #f8f9ff;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .day-cell {
-            font-weight: bold;
-            color: #667eea;
-            white-space: nowrap;
-            min-width: 60px;
-        }
-        
-        .date-cell {
-            color: #555;
-            font-weight: 500;
-            white-space: nowrap;
-            min-width: 90px;
-        }
-        
-        .dose-cell {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #764ba2;
-            text-align: center;
-            min-width: 50px;
-        }
-        
-        .checkbox-cell {
-            text-align: center;
-            min-width: 80px;
-        }
-        
-        .checkbox-cell input[type="checkbox"] {
-            transform: scale(1.3);
-            accent-color: #667eea;
-            cursor: pointer;
-        }
-        
-        .remarks-cell {
-            min-width: 150px;
-            max-width: 200px;
-        }
-        
-        .remarks-input {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 8px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.8);
-            transition: border-color 0.3s ease;
-        }
-        
-        .remarks-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
-        }
-        
-        .gap-row {
-            background: linear-gradient(45deg, #ffd89b, #19547b);
-            color: white;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .gap-row td {
-            padding: 10px;
-            border: none;
-        }
-        
-        .completed-row {
-            background-color: #e8f5e8 !important;
-            border-left: 4px solid #4caf50;
-        }
-        
-        .notes {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f0f4ff;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .notes h3 {
-            color: #333;
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
-        
-        .notes p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        
-        .save-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4caf50;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .save-status.show {
-            opacity: 1;
-        }
-        
-        /* Mobile-specific adjustments */
-        @media (max-width: 768px) {
-            body {
-                padding: 5px;
-            }
-            
-            .container {
-                padding: 10px;
-                border-radius: 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .treatment-info {
-                font-size: 1rem;
-                padding: 10px;
-            }
-            
-            th {
-                padding: 8px 4px;
-                font-size: 0.7rem;
-            }
-            
-            td {
-                padding: 8px 4px;
-                font-size: 0.9rem;
-            }
-            
-            .day-cell {
-                min-width: 50px;
-            }
-            
-            .date-cell {
-                min-width: 80px;
-                font-size: 0.8rem;
-            }
-            
-            .dose-cell {
-                min-width: 40px;
-            }
-            
-            .checkbox-cell {
-                min-width: 60px;
-            }
-            
-            .remarks-cell {
-                min-width: 120px;
-                max-width: 150px;
-            }
-            
-            .remarks-input {
-                font-size: 0.8rem;
-                padding: 6px;
-            }
-            
-            .notes {
-                padding: 10px;
-            }
-            
-            .notes h3 {
-                font-size: 1rem;
-            }
-            
-            .notes p {
-                font-size: 0.9rem;
-            }
-            
-            .save-status {
-                top: 10px;
-                right: 10px;
-                font-size: 0.7rem;
-                padding: 6px 12px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.3rem;
-            }
-            
-            .treatment-info {
-                font-size: 0.9rem;
-            }
-            
-            table {
-                min-width: 500px;
-            }
-            
-            th {
-                font-size: 0.6rem;
-                padding: 6px 3px;
-            }
-            
-            td {
-                padding: 6px 3px;
-                font-size: 0.8rem;
-            }
-            
-            .remarks-input {
-                font-size: 0.7rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SLIT Treatment Schedule</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>SLIT Treatment Schedule</h1>
-        </div>
-        
-        <div class="treatment-info">
-            Treatment: VIAL-1 (1:1000)
-        </div>
-        
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Date</th>
-                        <th style="text-align:center;">Dose</th>
-                        <th style="text-align:center;">Taken</th>
-                        <th>Remarks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr data-day="day1">
-                        <td class="day-cell">DAY 1</td>
-                        <td class="date-cell">16-07-2025</td>
-                        <td class="dose-cell">1</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day1" data-day="day1">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day1" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day3">
-                        <td class="day-cell">DAY 3</td>
-                        <td class="date-cell">18-07-2025</td>
-                        <td class="dose-cell">2</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day3" data-day="day3">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day3" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day7">
-                        <td class="day-cell">DAY 7</td>
-                        <td class="date-cell">22-07-2025</td>
-                        <td class="dose-cell">4</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day7" data-day="day7">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day7" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day10">
-                        <td class="day-cell">DAY 10</td>
-                        <td class="date-cell">25-07-2025</td>
-                        <td class="dose-cell">4</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day10" data-day="day10">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day10" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day14">
-                        <td class="day-cell">DAY 14</td>
-                        <td class="date-cell">29-07-2025</td>
-                        <td class="dose-cell">6</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day14" data-day="day14">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day14" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day17">
-                        <td class="day-cell">DAY 17</td>
-                        <td class="date-cell">01-08-2025</td>
-                        <td class="dose-cell">6</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day17" data-day="day17">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day17" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day21">
-                        <td class="day-cell">DAY 21</td>
-                        <td class="date-cell">05-08-2025</td>
-                        <td class="dose-cell">8</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day21" data-day="day21">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day21" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day24">
-                        <td class="day-cell">DAY 24</td>
-                        <td class="date-cell">08-08-2025</td>
-                        <td class="dose-cell">8</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day24" data-day="day24">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day24" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day28">
-                        <td class="day-cell">DAY 28</td>
-                        <td class="date-cell">12-08-2025</td>
-                        <td class="dose-cell">9</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day28" data-day="day28">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day28" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day31">
-                        <td class="day-cell">DAY 31</td>
-                        <td class="date-cell">15-08-2025</td>
-                        <td class="dose-cell">10</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day31" data-day="day31">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day31" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day35">
-                        <td class="day-cell">DAY 35</td>
-                        <td class="date-cell">19-08-2025</td>
-                        <td class="dose-cell">10</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day35" data-day="day35">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day35" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr data-day="day38">
-                        <td class="day-cell">DAY 38</td>
-                        <td class="date-cell">22-08-2025</td>
-                        <td class="dose-cell">10</td>
-                        <td class="checkbox-cell">
-                            <input type="checkbox" id="day38" data-day="day38">
-                        </td>
-                        <td class="remarks-cell">
-                            <input type="text" class="remarks-input" data-day="day38" placeholder="Add notes...">
-                        </td>
-                    </tr>
-                    <tr class="gap-row">
-                        <td colspan="5">Two days gap</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="notes">
-            <h3>Treatment Notes</h3>
-            <p>This schedule shows the SLIT (Sublingual Immunotherapy) treatment plan for VIAL-1 at 1:1000 concentration. Check off each dose as it's taken and add any relevant remarks. Your progress is automatically saved to your browser's local storage.</p>
-        </div>
+  <div class="container">
+    <div class="app-controls">
+      <button class="control-btn" id="helpBtn" title="Help">❓</button>
+      <button class="control-btn close-btn" id="closeBtn" title="Close App">✕</button>
     </div>
-    
-    <div class="save-status" id="saveStatus">✓ Data saved</div>
-    
-    <script>
-        // Local Storage functionality
-        const STORAGE_KEY = 'slit-treatment-data';
-        
-        // Load data from localStorage on page load
-        function loadData() {
-            try {
-                const savedData = localStorage.getItem(STORAGE_KEY);
-                if (savedData) {
-                    const data = JSON.parse(savedData);
-                    
-                    // Load checkbox states
-                    Object.keys(data.checkboxes || {}).forEach(day => {
-                        const checkbox = document.querySelector(`input[type="checkbox"][data-day="${day}"]`);
-                        if (checkbox) {
-                            checkbox.checked = data.checkboxes[day];
-                            updateRowStyle(checkbox);
-                        }
-                    });
-                    
-                    // Load remarks
-                    Object.keys(data.remarks || {}).forEach(day => {
-                        const remarksInput = document.querySelector(`.remarks-input[data-day="${day}"]`);
-                        if (remarksInput) {
-                            remarksInput.value = data.remarks[day];
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Error loading data from localStorage:', error);
-            }
-        }
-        
-        // Save data to localStorage
-        function saveData() {
-            try {
-                const data = {
-                    checkboxes: {},
-                    remarks: {},
-                    lastUpdated: new Date().toISOString()
-                };
-                
-                // Save checkbox states
-                document.querySelectorAll('input[type="checkbox"][data-day]').forEach(checkbox => {
-                    const day = checkbox.getAttribute('data-day');
-                    data.checkboxes[day] = checkbox.checked;
-                });
-                
-                // Save remarks
-                document.querySelectorAll('.remarks-input[data-day]').forEach(input => {
-                    const day = input.getAttribute('data-day');
-                    data.remarks[day] = input.value;
-                });
-                
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                showSaveStatus();
-            } catch (error) {
-                console.error('Error saving data to localStorage:', error);
-            }
-        }
-        
-        // Show save status indicator
-        function showSaveStatus() {
-            const saveStatus = document.getElementById('saveStatus');
-            saveStatus.classList.add('show');
-            setTimeout(() => {
-                saveStatus.classList.remove('show');
-            }, 2000);
-        }
-        
-        // Update row styling based on checkbox state
-        function updateRowStyle(checkbox) {
-            const row = checkbox.closest('tr');
-            if (checkbox.checked) {
-                row.classList.add('completed-row');
-            } else {
-                row.classList.remove('completed-row');
-            }
-        }
-        
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load saved data
-            loadData();
-            
-            // Add event listeners for checkboxes
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    updateRowStyle(this);
-                    saveData();
-                });
-            });
-            
-            // Add event listeners for remarks inputs
-            document.querySelectorAll('.remarks-input').forEach(input => {
-                input.addEventListener('input', function() {
-                    saveData();
-                });
-                
-                // Also save on blur (when user clicks away)
-                input.addEventListener('blur', function() {
-                    saveData();
-                });
-            });
-            
-            // Save data before page unload
-            window.addEventListener('beforeunload', function() {
-                saveData();
-            });
+
+    <div class="header">
+      <h1>SLIT Treatment Schedule</h1>
+    </div>
+
+    <div class="treatment-info">Treatment: VIAL-1 (1:1000)</div>
+
+    <div class="table-container" id="vial1-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Date</th>
+            <th style="text-align:center;">Dose</th>
+            <th style="text-align:center;">Taken</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing VIAL-1 rows here -->
+          <tr>
+            <td class="day-cell">DAY 1</td>
+            <td class="date-cell">16-07-2025</td>
+            <td class="dose-cell">1</td>
+            <td class="checkbox-cell">
+              <input type="checkbox" data-day="day1" />
+            </td>
+            <td class="remarks-cell">
+              <input type="text" class="remarks-input" data-day="day1" placeholder="Add notes..." />
+            </td>
+          </tr>
+          <!-- Add other VIAL-I rows here -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container" id="vial2-container" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Date</th>
+            <th style="text-align:center;">Dose</th>
+            <th style="text-align:center;">Taken</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="vial2-body"></tbody>
+      </table>
+    </div>
+
+    <div class="nav-controls">
+      <button class="control-btn" onclick="showVial('vial1')">← VIAL-I</button>
+      <button class="control-btn" onclick="showVial('vial2')">VIAL-II →</button>
+    </div>
+
+    <div class="notes">
+      <h3>Treatment Notes</h3>
+      <p>
+        This schedule shows the SLIT (Sublingual Immunotherapy) treatment plan for VIAL-I and VIAL-II.
+        Check off each dose as it's taken and add any remarks. Progress is saved locally.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('closeBtn').addEventListener('click', function () {
+      if (window.confirm("Are you sure you want to close the app?")) {
+        window.open('', '_self');
+        window.close();
+      }
+    });
+
+    function showVial(vial) {
+      document.getElementById('vial1-container').style.display = vial === 'vial1' ? 'block' : 'none';
+      document.getElementById('vial2-container').style.display = vial === 'vial2' ? 'block' : 'none';
+    }
+
+    fetch('SLIT-2.csv')
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.trim().split('\n');
+        const tbody = document.getElementById('vial2-body');
+        rows.forEach((row, index) => {
+          const [day, date, dose] = row.split(',');
+          const id = `v2day${index + 1}`;
+          tbody.innerHTML += `
+            <tr>
+              <td class="day-cell">${day}</td>
+              <td class="date-cell">${date}</td>
+              <td class="dose-cell">${dose}</td>
+              <td class="checkbox-cell">
+                <input type="checkbox" id="${id}" data-day="${id}" />
+              </td>
+              <td class="remarks-cell">
+                <input type="text" class="remarks-input" data-day="${id}" placeholder="Add notes..." />
+              </td>
+            </tr>
+          `;
         });
-        
-        // Touch-friendly interactions for mobile
-        if ('ontouchstart' in window) {
-            document.querySelectorAll('tr').forEach(row => {
-                row.addEventListener('touchstart', function() {
-                    this.style.backgroundColor = '#f0f8ff';
-                });
-                
-                row.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.backgroundColor = '';
-                    }, 150);
-                });
-            });
-        }
-        
-        // PWA Installation
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            showInstallButton();
-        });
-        
-        function showInstallButton() {
-            const installButton = document.createElement('button');
-            installButton.innerHTML = '📱 Install App';
-            installButton.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: #667eea;
-                color: white;
-                border: none;
-                padding: 12px 20px;
-                border-radius: 25px;
-                font-size: 14px;
-                cursor: pointer;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                z-index: 1000;
-                font-family: inherit;
-            `;
-            
-            installButton.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        installButton.remove();
-                    }
-                    deferredPrompt = null;
-                }
-            });
-            
-            document.body.appendChild(installButton);
-        }
-        
-        // Hide install button after installation
-        window.addEventListener('appinstalled', () => {
-            const installButton = document.querySelector('button[innerHTML*="Install App"]');
-            if (installButton) {
-                installButton.remove();
-            }
-        });
-    </script>
+      });
+  </script>
 </body>
 </html>
