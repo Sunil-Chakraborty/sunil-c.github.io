@@ -512,157 +512,162 @@
             <div class="treatment-info">
                 Treatment: VIAL-I (1:1000)
             </div>
-            
+					
+			<div class="treatment-info">
+				<label for="day1Date">Select Day 1 Date: </label>
+				<input type="date" id="day1Date" value="2025-07-16">
+				<button id="generateDatesBtn">Generate Dates</button>
+			</div>
+
             <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Date</th>
-                            <th style="text-align:center;">Dose</th>
-                            <th style="text-align:center;">Taken</th>
-                            <th>Remarks</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-day="day1">
-                            <td class="day-cell">DAY 1</td>
-                            <td class="date-cell">16-07-2025</td>
-                            <td class="dose-cell">1</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day1" data-day="day1" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day1" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day3">
-                            <td class="day-cell">DAY 3</td>
-                            <td class="date-cell">18-07-2025</td>
-                            <td class="dose-cell">2</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day3" data-day="day3" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day3" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day7">
-                            <td class="day-cell">DAY 7</td>
-                            <td class="date-cell">22-07-2025</td>
-                            <td class="dose-cell">4</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day7" data-day="day7" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day7" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day10">
-                            <td class="day-cell">DAY 10</td>
-                            <td class="date-cell">25-07-2025</td>
-                            <td class="dose-cell">4</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day10" data-day="day10" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day10" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day14">
-                            <td class="day-cell">DAY 14</td>
-                            <td class="date-cell">29-07-2025</td>
-                            <td class="dose-cell">6</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day14" data-day="day14" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day14" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day17">
-                            <td class="day-cell">DAY 17</td>
-                            <td class="date-cell">01-08-2025</td>
-                            <td class="dose-cell">6</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day17" data-day="day17" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day17" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day21">
-                            <td class="day-cell">DAY 21</td>
-                            <td class="date-cell">05-08-2025</td>
-                            <td class="dose-cell">8</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day21" data-day="day21" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day21" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day24">
-                            <td class="day-cell">DAY 24</td>
-                            <td class="date-cell">08-08-2025</td>
-                            <td class="dose-cell">8</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day24" data-day="day24" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day24" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day28">
-                            <td class="day-cell">DAY 28</td>
-                            <td class="date-cell">12-08-2025</td>
-                            <td class="dose-cell">9</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day28" data-day="day28" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day28" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day31">
-                            <td class="day-cell">DAY 31</td>
-                            <td class="date-cell">15-08-2025</td>
-                            <td class="dose-cell">10</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day31" data-day="day31" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day31" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day35">
-                            <td class="day-cell">DAY 35</td>
-                            <td class="date-cell">19-08-2025</td>
-                            <td class="dose-cell">10</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day35" data-day="day35" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day35" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr data-day="day38">
-                            <td class="day-cell">DAY 38</td>
-                            <td class="date-cell">22-08-2025</td>
-                            <td class="dose-cell">10</td>
-                            <td class="checkbox-cell">
-                                <input type="checkbox" id="day38" data-day="day38" data-vial="vial1">
-                            </td>
-                            <td class="remarks-cell">
-                                <input type="text" class="remarks-input" data-day="day38" data-vial="vial1" placeholder="Add notes...">
-                            </td>
-                        </tr>
-                        <tr class="gap-row">
-                            <td colspan="5">Two days gap before VIAL-II</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+			  <table>
+				<thead>
+				  <tr>
+					<th>Day</th>
+					<th style="text-align:left;">Date</th>
+					<th style="text-align:center;">Dose</th>
+					<th style="text-align:center;">Taken</th>
+					<th>Remarks</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <!-- Generated VIAL-I rows go here -->
+				  
+			<tr data-day="day1">
+				<td class="day-cell">DAY 1</td>
+				<td class="date-cell"><span class="auto-date" data-offset="0"></span></td>
+				<td class="dose-cell">1</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day1" data-day="day1" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day1" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day3">
+				<td class="day-cell">DAY 3</td>
+				<td class="date-cell"><span class="auto-date" data-offset="2"></span></td>
+				<td class="dose-cell">2</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day3" data-day="day3" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day3" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day7">
+				<td class="day-cell">DAY 7</td>
+				<td class="date-cell"><span class="auto-date" data-offset="6"></span></td>
+				<td class="dose-cell">4</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day7" data-day="day7" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day7" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day10">
+				<td class="day-cell">DAY 10</td>
+				<td class="date-cell"><span class="auto-date" data-offset="9"></span></td>
+				<td class="dose-cell">4</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day10" data-day="day10" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day10" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day14">
+				<td class="day-cell">DAY 14</td>
+				<td class="date-cell"><span class="auto-date" data-offset="13"></span></td>
+				<td class="dose-cell">6</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day14" data-day="day14" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day14" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day17">
+				<td class="day-cell">DAY 17</td>
+				<td class="date-cell"><span class="auto-date" data-offset="16"></span></td>
+				<td class="dose-cell">6</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day17" data-day="day17" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day17" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day21">
+				<td class="day-cell">DAY 21</td>
+				<td class="date-cell"><span class="auto-date" data-offset="20"></span></td>
+				<td class="dose-cell">8</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day21" data-day="day21" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day21" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day24">
+				<td class="day-cell">DAY 24</td>
+				<td class="date-cell"><span class="auto-date" data-offset="23"></span></td>
+				<td class="dose-cell">8</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day24" data-day="day24" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day24" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day28">
+				<td class="day-cell">DAY 28</td>
+				<td class="date-cell"><span class="auto-date" data-offset="27"></span></td>
+				<td class="dose-cell">9</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day28" data-day="day28" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day28" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day31">
+				<td class="day-cell">DAY 31</td>
+				<td class="date-cell"><span class="auto-date" data-offset="30"></span></td>
+				<td class="dose-cell">10</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day31" data-day="day31" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day31" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day35">
+				<td class="day-cell">DAY 35</td>
+				<td class="date-cell"><span class="auto-date" data-offset="34"></span></td>
+				<td class="dose-cell">10</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day35" data-day="day35" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day35" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+			<tr data-day="day38">
+				<td class="day-cell">DAY 38</td>
+				<td class="date-cell"><span class="auto-date" data-offset="37"></span></td>
+				<td class="dose-cell">10</td>
+				<td class="checkbox-cell">
+					<input type="checkbox" id="day38" data-day="day38" data-vial="vial1">
+				</td>
+				<td class="remarks-cell">
+					<input type="text" class="remarks-input" data-day="day38" data-vial="vial1" placeholder="Add notes...">
+				</td>
+			</tr>
+				</tbody>
+			  </table>
+		</div>
             
             <div class="notes">
                 <h3>VIAL-I Treatment Notes given by Dr.Samadarshi Dutta</h3>
@@ -1031,8 +1036,52 @@
 			});
 		});
 	</script>
+	<script>
+	  function formatDate(date) {
+		const d = new Date(date);
+		const day = String(d.getDate()).padStart(2, '0');
+		const month = String(d.getMonth() + 1).padStart(2, '0');
+		const year = d.getFullYear();
+		return `${day}-${month}-${year}`;
+	  }
 
+	  document.getElementById('generateDatesBtn').addEventListener('click', () => {
+		const day1Input = document.getElementById('day1Date').value;
+		if (!day1Input) return alert("Please enter Day 1 date.");
+		const baseDate = new Date(day1Input);
+		document.querySelectorAll('.auto-date').forEach(span => {
+		  const offset = parseInt(span.dataset.offset);
+		  const resultDate = new Date(baseDate);
+		  resultDate.setDate(baseDate.getDate() + offset);
+		  span.textContent = formatDate(resultDate);
+		});
+	  });
+
+	  document.addEventListener('DOMContentLoaded', () => {
+		document.getElementById('generateDatesBtn').click();
+	  });
+	</script>
 	
+	<script>
+	  const DATE_KEY = 'slit-day1-date';
+
+	  // Load Day 1 date from localStorage on page load
+	  document.addEventListener('DOMContentLoaded', () => {
+		const savedDate = localStorage.getItem(DATE_KEY);
+		if (savedDate) {
+		  document.getElementById('day1Date').value = savedDate;
+		}
+		document.getElementById('generateDatesBtn').click(); // trigger date generation
+	  });
+
+	  // Save Day 1 date to localStorage when changed
+	  document.getElementById('day1Date').addEventListener('change', () => {
+		const newDate = document.getElementById('day1Date').value;
+		if (newDate) {
+		  localStorage.setItem(DATE_KEY, newDate);
+		}
+	  });
+	</script>
 	
 </body>
 </html>	
