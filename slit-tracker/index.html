@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
     <!-- PWA Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23667eea'/><text y='75' font-size='80' fill='white'>📋</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%23667eea' rx='40'/><text x='90' y='130' font-size='100' text-anchor='middle' fill='white'>📋</text></svg>">
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- PWA Manifest -->
     <link rel="manifest" href="data:application/json,{
         'name': 'SLIT Treatment Tracker',
@@ -511,7 +512,7 @@
         <div id="vial1-view" class="vial-view">
             <div class="treatment-info">
 		    <div>💉 <strong>Treatment:</strong> VIAL-I (1:1000)</div>		   
-		    <div>👨‍⚕️ <strong>Doctor:</strong> Dr. Samadarhi Datta</div>
+			<div>👨‍⚕️ <strong>Doctor:</strong> Dr. Samadarhi Datta</div>
 	    </div>
 					
 			<div class="treatment-info">
@@ -671,13 +672,13 @@
 		</div>
             
             <div class="notes">
-                <h3>VIAL-I Treatment Notes </h3>
+                <h3>VIAL-I Treatment Notes given by Dr.Samadarshi Dutta</h3>
                 <p> SLIT (Sublingual Immunotherapy) treatment plan for VIAL-I at 1:1000 concentration.<br>
-		Dose নেবার নিয়ম :<br>
-		সকালে খালি পেটে জিভের নীচে নির্দিষ্ট drop নিতে হবে। <br>
-		৩০-৪০ সেকেন্ড জিভ পেতে রাখতে হবে কোন ঢোক গেলা যাবে না। <br>
-		Drop নেবার  পর ৩০ মিনিট খালি পেট রাখতে হবে।	
-		</p>
+					Dose নেবার নিয়ম :<br>
+					সকালে খালি পেটে জিভের নীচে নির্দিষ্ট drop নিতে হবে। <br>
+					৩০-৪০ সেকেন্ড জিভ পেতে রাখতে হবে কোন ঢোক গেলা যাবে না। <br>
+					Drop নেবার  পর ৩০ মিনিট খালি পেট রাখতে হবে।	
+					</p>
             </div>
         </div>
         
@@ -701,7 +702,7 @@
                     <tbody>
                         <tr data-day="day41">
                             <td class="day-cell">DAY 1</td>
-                            <td class="date-cell">25-08-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="0"></span></td>
                             <td class="dose-cell">1</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day1" data-day="day41" data-vial="vial2">
@@ -712,7 +713,7 @@
                         </tr>
                         <tr data-day="day43">
                             <td class="day-cell">DAY 3</td>
-                            <td class="date-cell">27-08-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="2"></span></td>
                             <td class="dose-cell">2</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day43" data-day="day43" data-vial="vial2">
@@ -723,7 +724,7 @@
                         </tr>
                         <tr data-day="day45">
                             <td class="day-cell">DAY 7</td>
-                            <td class="date-cell">31-08-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="6"></span></td>
                             <td class="dose-cell">4</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day45" data-day="day45" data-vial="vial2">
@@ -734,7 +735,7 @@
                         </tr>
                         <tr data-day="day48">
                             <td class="day-cell">DAY 10</td>
-                            <td class="date-cell">03-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="9"></span></td>
                             <td class="dose-cell">4</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day48" data-day="day48" data-vial="vial2">
@@ -745,7 +746,7 @@
                         </tr>
                         <tr data-day="day51">
                             <td class="day-cell">DAY 14</td>
-                            <td class="date-cell">07-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="13"></span></td>
                             <td class="dose-cell">6</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day51" data-day="day51" data-vial="vial2">
@@ -756,7 +757,7 @@
                         </tr>
                         <tr data-day="day55">
                             <td class="day-cell">DAY 17</td>
-                            <td class="date-cell">10-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="16"></span></td>
                             <td class="dose-cell">6</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day55" data-day="day55" data-vial="vial2">
@@ -767,7 +768,7 @@
                         </tr>
                         <tr data-day="day58">
                             <td class="day-cell">DAY 21</td>
-                            <td class="date-cell">14-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="20"></span></td>
                             <td class="dose-cell">8</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day58" data-day="day58" data-vial="vial2">
@@ -778,7 +779,7 @@
                         </tr>
 						<tr data-day="day59">
                             <td class="day-cell">DAY 24</td>
-                            <td class="date-cell">17-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="23"></span></td>
                             <td class="dose-cell">8</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day59" data-day="day59" data-vial="vial2">
@@ -789,7 +790,7 @@
                         </tr>
 						<tr data-day="day60">
                             <td class="day-cell">DAY 28</td>
-                            <td class="date-cell">21-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="27"></span></td>
                             <td class="dose-cell">9</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day60" data-day="day60" data-vial="vial2">
@@ -800,7 +801,7 @@
                         </tr>
 						<tr data-day="day61">
                             <td class="day-cell">DAY 31</td>
-                            <td class="date-cell">24-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="30"></span></td>
                             <td class="dose-cell">10</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day61" data-day="day61" data-vial="vial2">
@@ -811,7 +812,7 @@
                         </tr>
 						<tr data-day="day62">
                             <td class="day-cell">DAY 35</td>
-                            <td class="date-cell">28-09-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="34"></span></td>
                             <td class="dose-cell">10</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day62" data-day="day62" data-vial="vial2">
@@ -822,7 +823,7 @@
                         </tr>
 						<tr data-day="day63">
                             <td class="day-cell">DAY 38</td>
-                            <td class="date-cell">01-10-2025</td>
+                            <td class="date-cell"><span class="auto-date" data-offset="37"></span></td>
                             <td class="dose-cell">10</td>
                             <td class="checkbox-cell">
                                 <input type="checkbox" id="vial2_day63" data-day="day63" data-vial="vial2">
@@ -839,14 +840,19 @@
             </div>
             
             <div class="notes">
-                <h3>VIAL-II Treatment Notes</h3>
-                <p>This schedule shows the SLIT (Sublingual Immunotherapy) treatment plan for VIAL-II at 1:1000 concentration. Check off each dose as it's taken and add any relevant remarks. Click "Next Vial" to proceed to VIAL-III after completing this phase.</p>
+                <h3>VIAL-II Treatment Notes given by Dr.Samadarshi Dutta</h3>
+                <p> SLIT (Sublingual Immunotherapy) treatment plan for VIAL-I at 1:1000 concentration.<br>
+					Dose নেবার নিয়ম :<br>
+					সকালে খালি পেটে জিভের নীচে নির্দিষ্ট drop নিতে হবে। <br>
+					৩০-৪০ সেকেন্ড জিভ পেতে রাখতে হবে কোন ঢোক গেলা যাবে না। <br>
+					Drop নেবার  পর ৩০ মিনিট খালি পেট রাখতে হবে।	
+					</p>
             </div>
         </div>
 		
 		<div class="save-status" id="saveStatus">✓ Data saved</div>
     
-    <script>
+  <script>
         // Local Storage functionality
         const STORAGE_KEY = 'slit-treatment-data';
         
@@ -918,14 +924,18 @@
         
         // Update row styling based on checkbox state
         function updateRowStyle(checkbox) {
-            const row = checkbox.closest('tr');
-            if (checkbox.checked) {
-                row.classList.add('completed-row');
-            } else {
-                row.classList.remove('completed-row');
-            }
-        }
-        
+			const row = checkbox.closest('tr');
+			if (!row) {
+				console.warn('Row not found for checkbox:', checkbox);
+				return;
+			}
+			if (checkbox.checked) {
+				row.classList.add('completed-row');
+			} else {
+				row.classList.remove('completed-row');
+			}
+		}
+				
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             // Load saved data
@@ -1024,7 +1034,7 @@
 		
     </script><!-- jQuery -->
 	
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	
 	
 	<script>
 		$(document).ready(function () {
@@ -1083,6 +1093,135 @@
 		}
 	  });
 	</script>
+	
+	<script>
+		function parseDate(str) {
+			const [day, month, year] = str.split('-').map(Number);
+			return new Date(year, month - 1, day);
+		}
+
+		function formatDate(date) {
+			return date.toLocaleDateString('en-GB').split('/').join('-');
+		}
+
+		function getVial1Dates() {
+			const rows = document.querySelectorAll('#vial1-container tbody tr');
+			const dates = [];
+
+			rows.forEach(row => {
+				const dateCell = row.querySelector('.date-cell');
+				if (dateCell && !row.classList.contains('gap-row')) {
+					dates.push(parseDate(dateCell.textContent.trim()));
+				}
+			});
+
+			return dates;
+		}
+
+		function getDayDiffs(dateList) {
+			const diffs = [];
+			for (let i = 1; i < dateList.length; i++) {
+				const diff = Math.round((dateList[i] - dateList[i - 1]) / (1000 * 60 * 60 * 24));
+				diffs.push(diff);
+			}
+			return diffs;
+		}
+
+		function generateVial2Schedule() {
+			const vial1Dates = getVial1Dates();
+			const intervals = getDayDiffs(vial1Dates);
+
+			const vial2Dates = [];
+			const startDate = new Date(vial1Dates[vial1Dates.length - 1]);
+			startDate.setDate(startDate.getDate() + 2);
+			vial2Dates.push(startDate);
+
+			intervals.forEach(diff => {
+				const lastDate = vial2Dates[vial2Dates.length - 1];
+				const nextDate = new Date(lastDate);
+				nextDate.setDate(lastDate.getDate() + diff);
+				vial2Dates.push(nextDate);
+			});
+
+			const tbody = document.getElementById('vial2-body');
+			tbody.innerHTML = '';
+
+			vial2Dates.forEach((date, i) => {
+				const dayLabel = `DAY ${i + 1}`;
+				const id = `v2day${i + 1}`;
+				const dose = i === 0 ? 1 : (i < 4 ? 2 + i : 10); // example dose logic
+
+				tbody.innerHTML += `
+					<tr>
+						<td class="day-cell">${dayLabel}</td>
+						<td class="date-cell">${formatDate(date)}</td>
+						<td class="dose-cell">${dose}</td>
+						<td class="checkbox-cell">
+							<input type="checkbox" id="${id}" data-day="${id}">
+						</td>
+						<td class="remarks-cell">
+							<input type="text" class="remarks-input" data-day="${id}" placeholder="Add notes...">
+						</td>
+					</tr>
+				`;
+			});
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			generateVial2Schedule();
+		});
+	</script>
+	
+	<script>
+		function parseDate(str) {
+		  const [day, month, year] = str.split('-').map(Number);
+		  return new Date(year, month - 1, day);
+		}
+
+		function formatDate(date) {
+		  return date.toLocaleDateString('en-GB').split('/').join('-');
+		}
+
+		function generateVialDates() {
+		  const vial1BaseInput = document.getElementById('day1Date');
+		  const vial1BaseDate = new Date(vial1BaseInput.value);
+		  if (!vial1BaseDate || isNaN(vial1BaseDate)) {
+			alert('Please select a valid VIAL-I Day 1 date.');
+			return;
+		  }
+
+		  // Generate VIAL-I dates
+		  document.querySelectorAll('#vial1-view .auto-date').forEach(span => {
+			const offset = parseInt(span.dataset.offset);
+			const date = new Date(vial1BaseDate);
+			date.setDate(date.getDate() + offset);
+			span.textContent = formatDate(date);
+		  });
+
+		  // Get final VIAL-I date from offset 37 (DAY 38)
+		  const finalVial1Span = document.querySelector('#vial1-view .auto-date[data-offset="37"]');
+		  if (!finalVial1Span) return;
+
+		  const vial1LastDate = parseDate(finalVial1Span.textContent.trim());
+		  const vial2BaseDate = new Date(vial1LastDate);
+		  vial2BaseDate.setDate(vial2BaseDate.getDate() + 3); // +2 days gap
+
+		  // Generate VIAL-II dates
+		  document.querySelectorAll('#vial2-view .auto-date').forEach(span => {
+			const offset = parseInt(span.dataset.offset);
+			const date = new Date(vial2BaseDate);
+			date.setDate(date.getDate() + offset);
+			span.textContent = formatDate(date);
+		  });
+		}
+
+		// Connect buttons + autogeneration
+		document.addEventListener('DOMContentLoaded', () => {
+		  document.getElementById('generateDatesBtn').addEventListener('click', generateVialDates);
+		  document.getElementById('generateDatesBtn').click(); // Auto-trigger once loaded
+		});
+	</script>
+
 	
 </body>
 </html>	
