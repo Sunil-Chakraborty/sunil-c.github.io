@@ -1,3 +1,4 @@
+<!--file:///D:/JU/SLIT/index2_with_vial3_full.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -505,6 +506,7 @@
             <div class="vial-tabs">
 			  <button class="vial-tab" data-target="vial1-view" style="background-color: #667eea;">VIAL-I</button>
 			  <button class="vial-tab" data-target="vial2-view" style="background-color: #764ba2;">VIAL-II</button>
+			  <button class="vial-tab" data-target="vial3-view" style="background-color: #764ba2;">VIAL-III</button>
 			  
 			</div>
         </div>
@@ -513,8 +515,8 @@
         <div id="vial1-view" class="vial-view">
             <div class="treatment-info">
 		    <div>💉 <strong>Treatment:</strong> VIAL-I (1:1000)</div>		   
-			<div>👨‍⚕️ <strong>Doctor:</strong> Dr. Samadarshi Datta</div>
-	    </div>
+			<div>👨‍⚕️ Dr. Samadarshi Datta</div>
+	    </div>s
 					
 			<div class="treatment-info">
 				<label for="day1Date">Select Day 1 Date: </label>
@@ -668,8 +670,11 @@
 					<input type="text" class="remarks-input" data-day="day38" data-vial="vial1" placeholder="Add notes...">
 				</td>
 			</tr>
-				</tbody>
-			  </table>
+			<tr class="gap-row">
+                            <td colspan="5">Two days gap before VIAL-II</td>
+                        </tr>
+			</tbody>
+		  </table>
 		</div>
             
             <div class="notes">
@@ -686,7 +691,7 @@
         <div id="vial2-view" class="vial-view hidden">
             <div class="treatment-info">
                 <div>💉 <strong>Treatment:</strong> VIAL-II (1:1000)</div>
-		<div>👨‍⚕️ <strong>Doctor:</strong> Dr. Samadarshi Datta</div>   
+		<div>👨‍⚕️  Dr. Samadarshi Datta</div>   
             </div>
             
             <div class="table-container">
@@ -700,7 +705,7 @@
                             <th>Remarks</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <tr data-day="day41">
                             <td class="day-cell">DAY 1</td>
                             <td class="date-cell"><span class="auto-date" data-offset="0"></span></td>
@@ -849,9 +854,126 @@
 					</p>
             </div>
         </div>
-		
+		<!-- VIAL-III View -->
+		<div id="vial3-view" class="vial-view hidden">
+			<div class="treatment-info">
+                <div>💉 <strong>Treatment:</strong> VIAL-III (1:1000)</div>
+				<div>👨‍⚕️  Dr. Samadarshi Datta</div>
+			</div>	
+			<div class="table-container">
+			<table>
+			  <thead>
+				<tr>
+				  <th>Day</th>
+				  <th>Date</th>
+				  <th style="text-align:center;">Dose</th>
+				  <th style="text-align:center;">Taken</th>
+				  <th>Remarks</th>
+				</tr>
+			  </thead>
+			  <tbody id="vial3-body">
+				<tr data-day="v3_day1">
+				  <td class="day-cell">DAY 1</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="0"></span></td>
+				  <td class="dose-cell">1</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day1" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day1" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day3">
+				  <td class="day-cell">DAY 3</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="2"></span></td>
+				  <td class="dose-cell">2</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day3" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day3" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day7">
+				  <td class="day-cell">DAY 7</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="6"></span></td>
+				  <td class="dose-cell">4</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day7" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day7" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day10">
+				  <td class="day-cell">DAY 10</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="9"></span></td>
+				  <td class="dose-cell">4</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day10" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day10" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day14">
+				  <td class="day-cell">DAY 14</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="13"></span></td>
+				  <td class="dose-cell">6</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day14" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day14" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day17">
+				  <td class="day-cell">DAY 17</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="16"></span></td>
+				  <td class="dose-cell">6</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day17" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day17" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day21">
+				  <td class="day-cell">DAY 21</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="20"></span></td>
+				  <td class="dose-cell">8</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day21" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day21" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day24">
+				  <td class="day-cell">DAY 24</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="23"></span></td>
+				  <td class="dose-cell">8</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day24" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day24" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day28">
+				  <td class="day-cell">DAY 28</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="27"></span></td>
+				  <td class="dose-cell">9</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day28" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day28" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day31">
+				  <td class="day-cell">DAY 31</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="30"></span></td>
+				  <td class="dose-cell">10</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day31" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day31" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day35">
+				  <td class="day-cell">DAY 35</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="34"></span></td>
+				  <td class="dose-cell">10</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day35" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day35" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+				<tr data-day="v3_day38">
+				  <td class="day-cell">DAY 38</td>
+				  <td class="date-cell"><span class="auto-date" data-offset="37"></span></td>
+				  <td class="dose-cell">10</td>
+				  <td class="checkbox-cell"><input type="checkbox" data-day="v3_day38" data-vial="vial3"></td>
+				  <td class="remarks-cell"><input type="text" class="remarks-input" data-day="v3_day38" data-vial="vial3" placeholder="Add notes..."></td>
+				</tr>
+			  </tbody>
+			</table>
+		  </div>
+
+			<div class="notes">
+				<h3>VIAL-II Treatment Notes : </h3>
+					<p> 			Dose নেবার নিয়ম :<br>
+						সকালে খালি পেটে জিভের নীচে নির্দিষ্ট drop নিতে হবে। <br>
+						৩০-৪০ সেকেন্ড জিভ পেতে রাখতে হবে কোন ঢোক গেলা যাবে না। <br>
+						Drop নেবার  পর ৩০ মিনিট খালি পেট রাখতে হবে।	
+					</p>		  
+			</div>
+		  
+		</div>
+
 		<div class="save-status" id="saveStatus">✓ Data saved</div>
-    
+  
+ 
   <script>
         // Local Storage functionality
         const STORAGE_KEY = 'slit-treatment-data';
@@ -1213,6 +1335,21 @@
 			date.setDate(date.getDate() + offset);
 			span.textContent = formatDate(date);
 		  });
+		  // 🧪 VIAL-III base date = VIAL-II Day 38 + 2
+			const finalVial2Span = document.querySelector('#vial2-view .auto-date[data-offset="37"]');
+			if (!finalVial2Span) return;
+			const vial2LastDate = parseDate(finalVial2Span.textContent.trim());
+			const vial3BaseDate = new Date(vial2LastDate);
+			vial3BaseDate.setDate(vial3BaseDate.getDate() + 3);
+
+			document.querySelectorAll('#vial3-view .auto-date').forEach(span => {
+				const offset = parseInt(span.dataset.offset);
+				const date = new Date(vial3BaseDate);
+				date.setDate(date.getDate() + offset);
+				span.textContent = formatDate(date);
+			});
+		
+		  
 		}
 
 		// Connect buttons + autogeneration
@@ -1221,7 +1358,8 @@
 		  document.getElementById('generateDatesBtn').click(); // Auto-trigger once loaded
 		});
 	</script>
-
 	
+
+
 </body>
 </html>	
