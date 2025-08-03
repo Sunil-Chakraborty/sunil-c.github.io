@@ -1,5 +1,6 @@
 <!--https://tinyurl.com/slit-tracker-->
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +20,36 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%23667eea' rx='40'/><text x='90' y='130' font-size='100' text-anchor='middle' fill='white'>📋</text></svg>">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+	
+	
+	<!-- PWA Manifest -->
+    
     <style>
         * {
             box-sizing: border-box;
         }
-        
+		
+
+		
+        .pdf-download-btn {
+			background: linear-gradient(45deg, #667eea, #764ba2);
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 25px;
+			font-size: 10px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin: 0 auto 20px;
+		}
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -39,13 +65,13 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 15px;
+            padding: 5px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             padding-bottom: 15px;
             border-bottom: 3px solid #667eea;
         }
@@ -53,16 +79,16 @@
         .header h1 {
             color: #333;
             font-size: 1.8rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .treatment-info {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
-            padding: 12px;
+            padding: 8px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
             font-size: 1.1rem;
             font-weight: bold;
@@ -85,7 +111,7 @@
         th {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
-            padding: 12px 8px;
+            padding: 5px 8px;
             text-align: left;
             font-weight: bold;
             text-transform: uppercase;
@@ -97,7 +123,7 @@
         }
         
         td {
-            padding: 12px 8px;
+            padding: 5px 8px;
             border-bottom: 1px solid #e0e0e0;
             transition: background-color 0.3s ease;
             vertical-align: top;
@@ -360,7 +386,7 @@
             
             .treatment-info {
                 font-size: 1rem;
-                padding: 10px;
+                padding: 5px;
             }
             
             th {
@@ -461,13 +487,22 @@
             .remarks-input {
                 font-size: 0.7rem;
             }
-            
-            .nav-controls {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
+           
         }
+		
+		@media print {
+		  .nav-controls {
+			display: none !important;
+		  }
+		  body,
+		  .container,
+		  .header {
+			margin-top: 0 !important;
+			padding-top: 0 !important;
+		  }
+
+		}
+		
     </style>
 </head>
 <body>
@@ -488,13 +523,14 @@
 			  
 			</div>
         </div>
-        
+        <button id="pdf_print" class="pdf-download-btn" onclick="downloadSchedulePDF()">📄 Download SLIT Schedule (PDF)</button>
+     
         <!-- VIAL-I View -->
         <div id="vial1-view" class="vial-view">
             <div class="treatment-info">
 		    <div>💉 <strong>Treatment:</strong> VIAL-I (1:1000)</div>		   
 			<div>👨‍⚕️ Dr. Samadarshi Datta</div>
-	    </div>s
+	    </div>
 					
 			<div class="treatment-info">
 				<label for="day1Date">Select Day 1 Date: </label>
@@ -1297,7 +1333,63 @@
 		});
 	</script>
 	
+	<script>
+		function downloadSchedulePDF() {
+		
+		  const navControls = document.querySelector('.nav-controls');
+	
+		  // Select the content you want to export
+		  const element = document.body;
+		  const printButton = document.getElementById('pdf_print');
+		  
+		  const generateDate = document.getElementById('generateDatesBtn');
+		  
+		  // 🔽 Hide the button before export
+		  if (printButton) printButton.style.display = 'none';
+		  //if (headingDiv) headingDiv.style.transform = 'scaleY(0.8)';  // reduce to 80% height
+		  if (generateDate) generateDate.style.display = 'none'; 
+		
+          if (navControls) navControls.style.display = 'none'; 		
 
+		  // Find the visible vial view
+		  const currentView = document.querySelector('.vial-view:not(.hidden)');
+		  const currentId = currentView ? currentView.id : 'vial1-view';
+
+		  // Map the view ID to a readable name
+		  const viewNameMap = {
+			'vial1-view': 'vial1',
+			'vial2-view': 'vial2',
+			'vial3-view': 'vial3'
+		  };
+
+		  const fileName = `slit_schedule_${viewNameMap[currentId] || 'vial1'}.pdf`;
+
+		  // Optional PDF settings
+		  
+		  const opt = {
+			  margin:       0,
+			  filename:     fileName,
+			  image:        { type: 'jpeg', quality: 0.98 },
+			  html2canvas:  { scale: 0.9, useCORS: true },
+			  jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+			};
+
+		  
+		  //html2pdf().set(opt).from(element).save();
+		  
+		   setTimeout(() => {
+				html2pdf().set(opt).from(element).save().then(() => {
+					// Show nav again and reload page
+					navControls.style.visibility = 'visible';
+					location.reload(); // 🔄 reloads the entire page
+				});
+			}, 100);
+		  
+		  
+		  
+		}
+		
+	</script>
 
 </body>
 </html>	
