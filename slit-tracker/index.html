@@ -1,4 +1,4 @@
-<!--file:///D:/JU/SLIT/index2_with_vial3_full.html -->
+<!--file:///D:/JU/SLIT/slit1.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -963,7 +963,7 @@
 		  </div>
 
 			<div class="notes">
-				<h3>VIAL-II Treatment Notes : </h3>
+				<h3>VIAL-III Treatment Notes : </h3>
 					<p> 			Dose নেবার নিয়ম :<br>
 						সকালে খালি পেটে জিভের নীচে নির্দিষ্ট drop নিতে হবে। <br>
 						৩০-৪০ সেকেন্ড জিভ পেতে রাখতে হবে কোন ঢোক গেলা যাবে না। <br>
@@ -1251,49 +1251,7 @@
 			return diffs;
 		}
 
-		function generateVial2Schedule() {
-			const vial1Dates = getVial1Dates();
-			const intervals = getDayDiffs(vial1Dates);
-
-			const vial2Dates = [];
-			const startDate = new Date(vial1Dates[vial1Dates.length - 1]);
-			startDate.setDate(startDate.getDate() + 2);
-			vial2Dates.push(startDate);
-
-			intervals.forEach(diff => {
-				const lastDate = vial2Dates[vial2Dates.length - 1];
-				const nextDate = new Date(lastDate);
-				nextDate.setDate(lastDate.getDate() + diff);
-				vial2Dates.push(nextDate);
-			});
-
-			const tbody = document.getElementById('vial2-body');
-			tbody.innerHTML = '';
-
-			vial2Dates.forEach((date, i) => {
-				const dayLabel = `DAY ${i + 1}`;
-				const id = `v2day${i + 1}`;
-				const dose = i === 0 ? 1 : (i < 4 ? 2 + i : 10); // example dose logic
-
-				tbody.innerHTML += `
-					<tr>
-						<td class="day-cell">${dayLabel}</td>
-						<td class="date-cell">${formatDate(date)}</td>
-						<td class="dose-cell">${dose}</td>
-						<td class="checkbox-cell">
-							<input type="checkbox" id="${id}" data-day="${id}">
-						</td>
-						<td class="remarks-cell">
-							<input type="text" class="remarks-input" data-day="${id}" placeholder="Add notes...">
-						</td>
-					</tr>
-				`;
-			});
-		}
-
-		document.addEventListener('DOMContentLoaded', () => {
-			generateVial2Schedule();
-		});
+		
 	</script>
 	
 	<script>
