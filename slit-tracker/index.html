@@ -1,6 +1,5 @@
 <!--https://tinyurl.com/slit-tracker-->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -500,7 +499,15 @@
 			margin-top: 0 !important;
 			padding-top: 0 !important;
 		  }
-
+		   #day1Date {
+			display: none;
+		  }
+		  #formattedDay1Date {
+			display: inline-block;
+		  }
+		  span{
+			display:inline-block;
+		  }	
 		}
 		
     </style>
@@ -535,6 +542,7 @@
 			<div class="treatment-info">
 				<label for="day1Date">Select Day 1 Date: </label>
 				<input type="date" id="day1Date" value="2025-07-16">
+				<span id="formattedDay1Date" style="font-weight: bold; margin-left: 10px; display: none;"></span>
 				<button id="generateDatesBtn">Generate Dates</button>
 			</div>
 
@@ -1390,6 +1398,32 @@
 		}
 		
 	</script>
+	
+	<script>
+	  document.addEventListener('DOMContentLoaded', function () {
+		const input = document.getElementById('day1Date');
+		const span = document.getElementById('formattedDay1Date');
+		
+		function formatDateDDMMYYYY(dateStr) {
+		  if (!dateStr || !dateStr.includes('-')) return '';
+		  const [yyyy, mm, dd] = dateStr.split('-');
+		  return `${dd}-${mm}-${yyyy}`;
+		}
+
+		function updateFormattedDate() {
+		  if (input && span && input.value) {
+			span.textContent = `(Selected: ${formatDateDDMMYYYY(input.value)})`;
+		  }
+		}
+
+		// Initial update on load
+		updateFormattedDate();
+
+		// Update on change
+		input.addEventListener('change', updateFormattedDate);
+	  });
+	</script>
+
 
 </body>
 </html>	
