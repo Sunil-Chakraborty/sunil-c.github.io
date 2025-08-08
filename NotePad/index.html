@@ -1,95 +1,135 @@
+<!--https://sunil-chakraborty.github.io/sunil-c.github.io/NotePad/
+https://tinyurl.com/mynPad
+-->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Multi-Tab Notepad</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        #tab-bar { display: flex; background: #ddd; padding: 5px; }
-        .tab { padding: 8px 15px; background: #bbb; cursor: pointer; border-radius: 5px 5px 0 0; margin-right: 5px; }
-        .tab.active { background: white; font-weight: bold; }
-        #editor { width: 100%; height: 70vh; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; }
-        #controls { padding: 10px; background: #eee; }
-        button { margin-right: 5px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Tab Notepad with LocalStorage</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .tabs { display: flex; margin-bottom: 10px; flex-wrap: wrap; }
+    .tab {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        cursor: pointer;
+        background: #f1f1f1;
+        margin-right: 5px;
+        border-radius: 5px 5px 0 0;
+    }
+    .tab.active { background: white; font-weight: bold; }
+    .tab button {
+        margin-left: 5px;
+        color: red;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    textarea { width: 100%; height: 300px; padding: 10px; font-size: 14px; }
+    .controls { margin-top: 10px; }
+</style>
 </head>
 <body>
-	<h2>Multi Tab Notepad</h2>
-    <div id="tab-bar"></div>
-    <textarea id="editor"></textarea>
-    <div id="controls">
-        <button onclick="newTab()">New Tab</button>
-        <button onclick="renameTab()">Rename Tab</button>
-        <button onclick="deleteTab()">Delete Tab</button>
-        <button onclick="saveToFile()">Save to File</button>
-    </div>
 
-    <script>
-        let tabs = [];
-        let currentTabIndex = 0;
+<h2>Multi-Tab Notepad</h2>
+<div class="tabs" id="tabContainer"></div>
+<textarea id="noteArea"></textarea>
+<div class="controls">
+    <button onclick="newTab()">New Tab</button>
+    <button onclick="renameTab()">Rename Tab</button>
+    <button onclick="saveToFile()">Save to File</button>
+</div>
 
-        function renderTabs() {
-            const tabBar = document.getElementById('tab-bar');
-            tabBar.innerHTML = '';
-            tabs.forEach((tab, index) => {
-                const tabElement = document.createElement('div');
-                tabElement.className = 'tab' + (index === currentTabIndex ? ' active' : '');
-                tabElement.textContent = tab.name;
-                tabElement.onclick = () => switchTab(index);
-                tabBar.appendChild(tabElement);
-            });
-            document.getElementById('editor').value = tabs[currentTabIndex]?.content || '';
-        }
+<script>
+let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
+    { name: 'Tab 1', content: '' },
+    { name: 'Tab 2', content: '' },
+    { name: 'Tab 3', content: '' }
+];
+let currentTab = 0;
 
-        function switchTab(index) {
-            saveCurrentContent();
-            currentTabIndex = index;
-            renderTabs();
-        }
+function saveTabsToStorage() {
+    localStorage.setItem('notepadTabs', JSON.stringify(tabs));
+}
 
-        function saveCurrentContent() {
-            if (tabs[currentTabIndex]) {
-                tabs[currentTabIndex].content = document.getElementById('editor').value;
-            }
-        }
+function renderTabs() {
+    const container = document.getElementById('tabContainer');
+    container.innerHTML = '';
+    tabs.forEach((tab, index) => {
+        const tabElement = document.createElement('div');
+        tabElement.className = 'tab' + (index === currentTab ? ' active' : '');
+        tabElement.innerHTML = `${tab.name} <button onclick="deleteTab(${index}); event.stopPropagation();">&times;</button>`;
+        tabElement.onclick = () => switchTab(index);
+        container.appendChild(tabElement);
+    });
+    document.getElementById('noteArea').value = tabs[currentTab]?.content || '';
+}
 
-        function newTab() {
-            saveCurrentContent();
-            tabs.push({ name: `Tab ${tabs.length + 1}`, content: '' });
-            currentTabIndex = tabs.length - 1;
-            renderTabs();
-        }
+function switchTab(index) {
+    saveCurrentContent();
+    currentTab = index;
+    renderTabs();
+}
 
-        function renameTab() {
-            const newName = prompt("Enter new tab name:", tabs[currentTabIndex].name);
-            if (newName) {
-                tabs[currentTabIndex].name = newName;
-                renderTabs();
-            }
-        }
+function saveCurrentContent() {
+    if (tabs[currentTab]) {
+        tabs[currentTab].content = document.getElementById('noteArea').value;
+        saveTabsToStorage();
+    }
+}
 
-        function deleteTab() {
-            if (tabs.length > 1) {
-                tabs.splice(currentTabIndex, 1);
-                currentTabIndex = Math.max(0, currentTabIndex - 1);
-                renderTabs();
-            } else {
-                alert("Cannot delete the last tab!");
-            }
-        }
-
-        function saveToFile() {
-            saveCurrentContent();
-            const blob = new Blob([tabs.map(tab => `### ${tab.name} ###\n${tab.content}`).join("\n\n")], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'notepad_tabs.txt';
-            a.click();
-        }
-
-        // Initial tab
-        tabs.push({ name: 'Tab 1', content: '' });
+function newTab() {
+    saveCurrentContent();
+    const name = prompt("Enter new tab name:", `Tab ${tabs.length + 1}`);
+    if (name) {
+        tabs.push({ name, content: '' });
+        currentTab = tabs.length - 1;
+        saveTabsToStorage();
         renderTabs();
-    </script>
+    }
+}
+
+function renameTab() {
+    const name = prompt("Enter new tab name:", tabs[currentTab].name);
+    if (name) {
+        tabs[currentTab].name = name;
+        saveTabsToStorage();
+        renderTabs();
+    }
+}
+
+function deleteTab(index) {
+    if (confirm(`Delete "${tabs[index].name}"?`)) {
+        tabs.splice(index, 1);
+        if (currentTab >= tabs.length) currentTab = tabs.length - 1;
+        saveTabsToStorage();
+        renderTabs();
+    }
+}
+
+function saveToFile() {
+    saveCurrentContent();
+    let content = tabs.map(tab => `--- ${tab.name} ---\n${tab.content}`).join("\n\n");
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'notepad_tabs.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+window.addEventListener('beforeunload', saveCurrentContent);
+
+document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
+
+renderTabs();
+</script>
+
 </body>
 </html>
