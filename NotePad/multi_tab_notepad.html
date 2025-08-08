@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Tab Notepad</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #tab-bar { display: flex; background: #ddd; padding: 5px; }
+        .tab { padding: 8px 15px; background: #bbb; cursor: pointer; border-radius: 5px 5px 0 0; margin-right: 5px; }
+        .tab.active { background: white; font-weight: bold; }
+        #editor { width: 100%; height: 70vh; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; }
+        #controls { padding: 10px; background: #eee; }
+        button { margin-right: 5px; }
+    </style>
+</head>
+<body>
+	<h2>Multi Tab Notepad</h2>
+    <div id="tab-bar"></div>
+    <textarea id="editor"></textarea>
+    <div id="controls">
+        <button onclick="newTab()">New Tab</button>
+        <button onclick="renameTab()">Rename Tab</button>
+        <button onclick="deleteTab()">Delete Tab</button>
+        <button onclick="saveToFile()">Save to File</button>
+    </div>
+
+    <script>
+        let tabs = [];
+        let currentTabIndex = 0;
+
+        function renderTabs() {
+            const tabBar = document.getElementById('tab-bar');
+            tabBar.innerHTML = '';
+            tabs.forEach((tab, index) => {
+                const tabElement = document.createElement('div');
+                tabElement.className = 'tab' + (index === currentTabIndex ? ' active' : '');
+                tabElement.textContent = tab.name;
+                tabElement.onclick = () => switchTab(index);
+                tabBar.appendChild(tabElement);
+            });
+            document.getElementById('editor').value = tabs[currentTabIndex]?.content || '';
+        }
+
+        function switchTab(index) {
+            saveCurrentContent();
+            currentTabIndex = index;
+            renderTabs();
+        }
+
+        function saveCurrentContent() {
+            if (tabs[currentTabIndex]) {
+                tabs[currentTabIndex].content = document.getElementById('editor').value;
+            }
+        }
+
+        function newTab() {
+            saveCurrentContent();
+            tabs.push({ name: `Tab ${tabs.length + 1}`, content: '' });
+            currentTabIndex = tabs.length - 1;
+            renderTabs();
+        }
+
+        function renameTab() {
+            const newName = prompt("Enter new tab name:", tabs[currentTabIndex].name);
+            if (newName) {
+                tabs[currentTabIndex].name = newName;
+                renderTabs();
+            }
+        }
+
+        function deleteTab() {
+            if (tabs.length > 1) {
+                tabs.splice(currentTabIndex, 1);
+                currentTabIndex = Math.max(0, currentTabIndex - 1);
+                renderTabs();
+            } else {
+                alert("Cannot delete the last tab!");
+            }
+        }
+
+        function saveToFile() {
+            saveCurrentContent();
+            const blob = new Blob([tabs.map(tab => `### ${tab.name} ###\n${tab.content}`).join("\n\n")], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'notepad_tabs.txt';
+            a.click();
+        }
+
+        // Initial tab
+        tabs.push({ name: 'Tab 1', content: '' });
+        renderTabs();
+    </script>
+</body>
+</html>
