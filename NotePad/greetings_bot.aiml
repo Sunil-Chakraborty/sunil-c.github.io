@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  <!-- Greetings -->
+  <category>
+    <pattern>HELLO</pattern>
+    <template>Hello there! How’s your day going?</template>
+  </category>
+
+  <category>
+    <pattern>HI</pattern>
+    <template>Hi! Great to see you.</template>
+  </category>
+
+  <category>
+    <pattern>GOOD MORNING</pattern>
+    <template>Good morning! Wishing you a fantastic day ahead.</template>
+  </category>
+
+  <category>
+    <pattern>GOOD AFTERNOON</pattern>
+    <template>Good afternoon! How’s your day so far?</template>
+  </category>
+
+  <category>
+    <pattern>GOOD EVENING</pattern>
+    <template>Good evening! How’s everything with you?</template>
+  </category>
+
+  <!-- Asking about bot -->
+  <category>
+    <pattern>HOW ARE YOU</pattern>
+    <template>I’m doing great, thanks for asking! How about you?</template>
+  </category>
+
+  <category>
+    <pattern>WHO ARE YOU</pattern>
+    <template>I’m your friendly chatbot, here to chat and help!</template>
+  </category>
+
+  <category>
+    <pattern>WHAT IS YOUR NAME</pattern>
+    <template>You can call me ChatBuddy.</template>
+  </category>
+
+  <!-- Asking user -->
+  <category>
+    <pattern>MY NAME IS *</pattern>
+    <template>Nice to meet you, <star/>! How can I assist you today?</template>
+  </category>
+
+  <category>
+    <pattern>HOW OLD ARE YOU</pattern>
+    <template>I don’t age like humans, but I’m always up-to-date!</template>
+  </category>
+
+  <!-- Small talk -->
+  <category>
+    <pattern>WHAT IS THE TIME</pattern>
+    <template>I'm not wearing a watch, but you can check your device clock. 😉</template>
+  </category>
+
+  <category>
+    <pattern>THANK YOU</pattern>
+    <template>You’re welcome! Always happy to help.</template>
+  </category>
+
+  <category>
+    <pattern>BYE</pattern>
+    <template>Goodbye! Come back and chat anytime.</template>
+  </category>
+
+  <category>
+    <pattern>SEE YOU LATER</pattern>
+    <template>See you soon! Take care.</template>
+  </category>
+
+  <!-- Fallback -->
+  <category>
+    <pattern>*</pattern>
+    <template>Sorry, I don’t have a response for that yet.</template>
+  </category>
+
+</aiml>
