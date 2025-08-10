@@ -41,7 +41,6 @@ https://tinyurl.com/mynPad
     <button onclick="newTab()">New Tab</button>
     <button onclick="renameTab()">Rename Tab</button>
     <button onclick="saveToFile()">Save to File</button>
-    <button onclick="copySelectedText()">Copy Selected Text</button>
 </div>
 
 <script>
@@ -125,23 +124,8 @@ function saveToFile() {
     URL.revokeObjectURL(url);
 }
 
-function copySelectedText() {
-    const textarea = document.getElementById('noteArea');
-    const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-
-    if (!selectedText) {
-        alert("Please select some text first.");
-        return;
-    }
-
-    navigator.clipboard.writeText(selectedText).then(() => {
-        alert("Selected text copied to clipboard!");
-    }).catch(err => {
-        console.error("Could not copy text: ", err);
-    });
-}
-
 window.addEventListener('beforeunload', saveCurrentContent);
+
 document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
 
 renderTabs();
