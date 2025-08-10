@@ -2,6 +2,7 @@
 https://tinyurl.com/mynPad
 -->
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,7 @@ https://tinyurl.com/mynPad
         cursor: pointer;
     }
     textarea { width: 100%; height: 300px; padding: 10px; font-size: 14px; }
-    .controls { margin-top: 10px; }
+    .controls { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
 </style>
 </head>
 <body>
@@ -41,6 +42,8 @@ https://tinyurl.com/mynPad
     <button onclick="newTab()">New Tab</button>
     <button onclick="renameTab()">Rename Tab</button>
     <button onclick="saveToFile()">Save to File</button>
+    <button onclick="copySelectedText()">Copy Selected Text</button>
+    <button onclick="shareSelectedText()">Share Selected Text</button>
 </div>
 
 <script>
@@ -124,8 +127,44 @@ function saveToFile() {
     URL.revokeObjectURL(url);
 }
 
-window.addEventListener('beforeunload', saveCurrentContent);
+function copySelectedText() {
+    const textarea = document.getElementById('noteArea');
+    const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
 
+    if (!selectedText) {
+        alert("Please select some text first.");
+        return;
+    }
+
+    navigator.clipboard.writeText(selectedText).then(() => {
+        alert("Selected text copied to clipboard!");
+    }).catch(err => {
+        console.error("Could not copy text: ", err);
+    });
+}
+
+function shareSelectedText() {
+    const textarea = document.getElementById('noteArea');
+    const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+
+    if (!selectedText) {
+        alert("Please select some text first.");
+        return;
+    }
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Shared from Multi-Tab Notepad',
+            text: selectedText
+        }).catch(err => {
+            console.error("Error sharing: ", err);
+        });
+    } else {
+        alert("Sharing not supported in this browser. Please copy instead.");
+    }
+}
+
+window.addEventListener('beforeunload', saveCurrentContent);
 document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
 
 renderTabs();
@@ -133,3 +172,4 @@ renderTabs();
 
 </body>
 </html>
+
