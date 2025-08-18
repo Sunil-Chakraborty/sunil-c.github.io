@@ -1,0 +1,6 @@
+Convert to Proper MP3 Bitrate
+bash
+ffmpeg -i "poem1.m4a" -ar 44100 -ac 1 -b:a 128k "poem2.mp3"
+
+Google ইনপুট সরঞ্জাম
+https://www.google.com/intl/bn/inputtools/try/
