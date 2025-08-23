@@ -1,3 +1,4 @@
 # file:///D:/JU/index9.html
 # python generate_golpo_html_gen.py
 # https://sunil-chakraborty.github.io/sunil-c.github.io/family/
+# https://tinyurl.com/pariber
