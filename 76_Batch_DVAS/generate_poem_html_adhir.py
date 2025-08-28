@@ -2,20 +2,22 @@
 # python generate_poem_html_adhir.py
 import re
 from pathlib import Path
-import shutil
 
 # Paths
 audio_dir = Path("audio")
-audio_dir.mkdir(exist_ok=True)  # ensure audio dir exists
+image_dir = Path("image")
+audio_dir.mkdir(exist_ok=True)
+image_dir.mkdir(exist_ok=True)
 
 # Read poems
 with open("Poem.txt", "r", encoding="utf-8") as f:
     raw_text = f.read()
 
-# Regex with optional audio line
+# Regex: optional audio + optional image
 pattern = re.compile(
-    r"(\d{2}/\d{2}/\d{4}, \d{2}:\d{2}) - \+91 79809 33948: ?[\"']?(.*?)[\"']?\n"
-    r"(?:audio:(.*?)\n)?"
+    r"(\d{2}/\d{2}/\d{4}, \d{2}:\d{2}) - .*?: ?[\"']?(.*?)[\"']?\n"
+    r"(?:(?:audio):(.*?)\n)?"
+    r"(?:(?:image):(.*?)\n)?"
     r"\n?(.*?)(?=\n\d{2}/\d{2}/\d{4}, \d{2}:\d{2} - |\Z)",
     re.DOTALL
 )
@@ -37,7 +39,15 @@ html = """<!DOCTYPE html>
     .index a:hover { text-decoration: underline; }
     .poem { margin-bottom: 4em; }
     p { white-space: pre-line; }
-    audio { margin-top: 10px; display: block; }
+    audio { margin-top: 10px; display: block; max-width: 100%; }
+    img { 
+      margin: 10px 0;       /* space above/below */
+      display: block; 
+      max-width: 50%;       /* reduce size to 50% */
+      height: auto; 
+      float: left;          /* left-align image */
+      margin-right: 15px;   /* add gap between image and text */
+    }
     #searchBox { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
@@ -46,63 +56,60 @@ html = """<!DOCTYPE html>
   <aside>
     <h1>📚 বাংলা কবিতা সংকলন</h1>
     <p><strong>✍ কবি : অধীর মন্ডল (+91 79809 33948)</strong></p>
-
-    <!-- 🔍 Search Box -->
     <input type="text" id="searchBox" placeholder="🔍 কবিতা খুঁজুন..." onkeyup="filterPoems()">
-
     <div class="index">
 """
 
-# Add index + main content
+# Build content
 main_content = ""
 AUDIO_EXTS = [".mp3", ".aac", ".m4a"]
 
-for idx, (_, title, audio_file, body) in enumerate(matches, start=1):
+for idx, (_, title, audio_file, image_file, body) in enumerate(matches, start=1):
     anchor = f"poem{idx}"
     title_display = title
+
+    # ==== AUDIO handling ====
     audio_html = ""
-
-    # Fallback numbering filename
     numbered_name = f"poem{idx}.mp3"
-    numbered_path = audio_dir / numbered_name
-
-    # Title-based filename variants
     safe_title = title.strip().replace(" ", "_")
-    title_candidates = [safe_title + ext for ext in AUDIO_EXTS]
 
-    # Explicit audio reference (if provided in text)
+    title_candidates = [safe_title + ext for ext in AUDIO_EXTS]
     explicit = audio_file.strip().replace(" ", "_") if audio_file else None
+
     candidates = []
     if explicit:
         candidates.append(explicit)
     candidates.append(numbered_name)
     candidates.extend(title_candidates)
 
-    # Choose first existing audio file
     found_audio = None
     for cand in candidates:
         if (audio_dir / cand).exists():
             found_audio = cand
             break
-
-    # Build audio HTML if available
     if found_audio:
         audio_html = f'<audio controls><source src="audio/{found_audio}" type="audio/mpeg"></audio>'
         title_display += " 🎵"
 
-    # Index link
+    # ==== IMAGE handling ====
+    image_html = ""
+    if image_file and (image_dir / image_file.strip()).exists():
+        image_html = f'<img src="image/{image_file.strip()}" alt="{title} illustration">'
+
+    # ==== INDEX ====
     html += f'      <a href="#{anchor}" class="poem-link">{title_display}</a>\n'
 
-    # Main content
+    # ==== MAIN CONTENT ====
     main_content += f"""
     <div class="poem" id="{anchor}">
       <h2>{title}</h2>
+      {image_html}
       {audio_html}
       <p>{body.strip()}</p>
     </div>
 """
 
-# Close aside + add search JS
+# Finish HTML
 html += f"""    </div>
   </aside>
   <main id="poemContainer">
@@ -124,6 +131,6 @@ function filterPoems() {{
 </html>
 """
 
-# Save HTML
+# Save
 Path("index.html").write_text(html, encoding="utf-8")
-print("✅ index.html generated with poemN numbering + title-based audio matching (.mp3/.aac/.m4a)!")
+print("✅ index.html generated with audio + image support!")
