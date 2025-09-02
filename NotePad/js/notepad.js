@@ -56,7 +56,7 @@ function renameTab() {
 }
 
 function deleteTab(index) {
-    if (confirm(`Delete "${tabs[index].name}"?`)) {
+    if (confirm(`Delete \"${tabs[index].name}\"?`)) {
         tabs.splice(index, 1);
         if (currentTab >= tabs.length) currentTab = tabs.length - 1;
         saveTabsToStorage();
@@ -115,16 +115,8 @@ function shareSelectedText() {
     }
 }
 
-// 🔹 Show only Input Tools
-function toggleInputTools() {
-    document.getElementById("mainContainer").style.display = "none";
-    document.getElementById("democontainer").style.display = "block";
-}
-
-// 🔹 Back to Notepad
-function backToNotepad() {
-    document.getElementById("democontainer").style.display = "none";
-    document.getElementById("mainContainer").style.display = "block";
+function openInputTools() {
+    window.open("https://www.google.com/intl/bn/inputtools/try/", "_blank");
 }
 
 // 🔹 Emoji Picker
