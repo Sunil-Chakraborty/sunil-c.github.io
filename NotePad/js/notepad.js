@@ -1,159 +1,128 @@
-let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
-    { name: 'Tab 1', content: '' },
-    { name: 'Tab 2', content: '' },
-    { name: 'Tab 3', content: '' }
-];
-let currentTab = 0;
-
-function saveTabsToStorage() {
-    localStorage.setItem('notepadTabs', JSON.stringify(tabs));
-}
+// ---------------- Tab Management ----------------
+let currentTab = null;
+let notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+let tabCounter = Object.keys(notesData).length || 1;
 
 function renderTabs() {
-    const container = document.getElementById('tabContainer');
-    container.innerHTML = '';
-    tabs.forEach((tab, index) => {
-        const tabElement = document.createElement('div');
-        tabElement.className = 'tab' + (index === currentTab ? ' active' : '');
-        tabElement.innerHTML = `${tab.name} <button onclick="deleteTab(${index}); event.stopPropagation();">&times;</button>`;
-        tabElement.onclick = () => switchTab(index);
-        container.appendChild(tabElement);
-    });
-    document.getElementById('noteArea').value = tabs[currentTab]?.content || '';
+  const tabContainer = document.getElementById("tabContainer");
+  tabContainer.innerHTML = "";
+
+  Object.keys(notesData).forEach(tabId => {
+    const tab = document.createElement("div");
+    tab.className = "tab" + (tabId === currentTab ? " active" : "");
+    tab.innerHTML = `${notesData[tabId].title} 
+      <button onclick="closeTab('${tabId}')">x</button>`;
+    tab.onclick = () => switchTab(tabId);
+    tabContainer.appendChild(tab);
+  });
 }
 
-function switchTab(index) {
-    saveCurrentContent();
-    currentTab = index;
-    renderTabs();
-}
-
-function saveCurrentContent() {
-    if (tabs[currentTab]) {
-        tabs[currentTab].content = document.getElementById('noteArea').value;
-        saveTabsToStorage();
-    }
+function switchTab(tabId) {
+  currentTab = tabId;
+  document.getElementById("noteArea").value = notesData[tabId].content;
+  renderTabs();
+  saveNotes();
 }
 
 function newTab() {
-    saveCurrentContent();
-    const name = prompt("Enter new tab name:", `Tab ${tabs.length + 1}`);
-    if (name) {
-        tabs.push({ name, content: '' });
-        currentTab = tabs.length - 1;
-        saveTabsToStorage();
-        renderTabs();
-    }
+  const tabId = "tab" + tabCounter++;
+  notesData[tabId] = { title: "Untitled", content: "" };
+  switchTab(tabId);
 }
 
 function renameTab() {
-    const name = prompt("Enter new tab name:", tabs[currentTab].name);
-    if (name) {
-        tabs[currentTab].name = name;
-        saveTabsToStorage();
-        renderTabs();
-    }
+  if (!currentTab) return;
+  const newName = prompt("Enter new tab name:", notesData[currentTab].title);
+  if (newName) {
+    notesData[currentTab].title = newName;
+    renderTabs();
+    saveNotes();
+  }
 }
 
-function deleteTab(index) {
-    if (confirm(`Delete \"${tabs[index].name}\"?`)) {
-        tabs.splice(index, 1);
-        if (currentTab >= tabs.length) currentTab = tabs.length - 1;
-        saveTabsToStorage();
-        renderTabs();
-    }
+function closeTab(tabId) {
+  delete notesData[tabId];
+  if (currentTab === tabId) {
+    const remainingTabs = Object.keys(notesData);
+    currentTab = remainingTabs.length ? remainingTabs[0] : null;
+    document.getElementById("noteArea").value = currentTab ? notesData[currentTab].content : "";
+  }
+  renderTabs();
+  saveNotes();
 }
+
+// ---------------- Save & Load ----------------
+function saveNotes() {
+  localStorage.setItem("notesData", JSON.stringify(notesData));
+}
+
+document.getElementById("noteArea").addEventListener("input", () => {
+  if (currentTab) {
+    notesData[currentTab].content = document.getElementById("noteArea").value;
+    saveNotes();
+  }
+});
 
 function saveToFile() {
-    saveCurrentContent();
-    let content = tabs.map(tab => `--- ${tab.name} ---\n${tab.content}`).join("\n\n");
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'notepad_tabs.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  if (!currentTab) return alert("No tab selected.");
+  const blob = new Blob([notesData[currentTab].content], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = notesData[currentTab].title + ".txt";
+  link.click();
 }
 
-function copySelectedText() {
-    const textarea = document.getElementById('noteArea');
-    const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-
-    if (!selectedText) {
-        alert("Please select some text first.");
-        return;
-    }
-
-    navigator.clipboard.writeText(selectedText).then(() => {
-        alert("Selected text copied to clipboard!");
-    }).catch(err => {
-        console.error("Could not copy text: ", err);
-    });
-}
-
+// ---------------- Share ----------------
 function shareSelectedText() {
-    const textarea = document.getElementById('noteArea');
-    const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+  const textarea = document.getElementById("noteArea");
+  const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+  if (!selectedText) return alert("Please select some text to share!");
 
-    if (!selectedText) {
-        alert("Please select some text first.");
-        return;
-    }
-
-    if (navigator.share) {
-        navigator.share({
-            title: 'Shared from Multi-Tab Notepad',
-            text: selectedText
-        }).catch(err => {
-            console.error("Error sharing: ", err);
-        });
-    } else {
-        alert("Sharing not supported in this browser. Please copy instead.");
-    }
+  if (navigator.share) {
+    navigator.share({ text: selectedText })
+      .catch(err => console.log("Share failed:", err));
+  } else {
+    alert("Sharing not supported in this browser.");
+  }
 }
 
-function openInputTools() {
-    window.open("https://www.google.com/intl/bn/inputtools/try/", "_blank");
-}
-
-// 🔹 Emoji Picker
-const popularEmojis = ["😀","😁","😂","🤣","😊","😍","😎","😢","😭","😡","👍","🙏","🔥","🌹","🎉","❤️","💔","⭐","💡","✅"];
+// ---------------- Emoji Picker ----------------
 function toggleEmojiPicker() {
-    const picker = document.getElementById("emojiPicker");
-    if (picker.style.display === "none" || picker.style.display === "") {
-        picker.innerHTML = "";
-        popularEmojis.forEach(emoji => {
-            const span = document.createElement("span");
-            span.textContent = emoji;
-            span.onclick = () => insertEmoji(emoji);
-            picker.appendChild(span);
-        });
-        picker.style.display = "block";
-    } else {
-        picker.style.display = "none";
-    }
+  const picker = document.getElementById("emojiPicker");
+  picker.style.display = picker.style.display === "none" || picker.style.display === "" ? "block" : "none";
+
+  if (picker.innerHTML === "") {
+    const emojis = ["😀","😂","😍","🙏","🎉","😢","😡","👍","👎","❤️","🔥","🌟","✨","🎶","📚","✍️","🚀"];
+    emojis.forEach(e => {
+      const span = document.createElement("span");
+      span.textContent = e;
+      span.onclick = () => insertEmoji(e);
+      picker.appendChild(span);
+    });
+  }
 }
 
 function insertEmoji(emoji) {
-    const textarea = document.getElementById("noteArea");
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    textarea.value = textarea.value.substring(0, start) + emoji + textarea.value.substring(end);
-    textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
-    textarea.focus();
-    saveCurrentContent();
+  const textarea = document.getElementById("noteArea");
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  textarea.value = textarea.value.slice(0, start) + emoji + textarea.value.slice(end);
+  textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+  textarea.focus();
+
+  if (currentTab) {
+    notesData[currentTab].content = textarea.value;
+    saveNotes();
+  }
 }
 
-function toggleInputTools() {
-    const wrapper = document.getElementById("inputToolsWrapper");
-    wrapper.style.display = (wrapper.style.display === "none" || wrapper.style.display === "")
-        ? "block" : "none";
-}
-
-window.addEventListener('beforeunload', saveCurrentContent);
-document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
-
-renderTabs();
+// ---------------- Initialization ----------------
+window.onload = function () {
+  if (Object.keys(notesData).length === 0) {
+    newTab();
+  } else {
+    currentTab = Object.keys(notesData)[0];
+    document.getElementById("noteArea").value = notesData[currentTab].content;
+    renderTabs();
+  }
+};
