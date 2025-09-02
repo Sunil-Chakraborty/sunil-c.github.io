@@ -119,7 +119,7 @@ function openInputTools() {
     window.open("https://www.google.com/intl/bn/inputtools/try/", "_blank");
 }
 
-// 🔹 Emoji Pickers
+// 🔹 Emoji Picker
 const popularEmojis = ["😀","😁","😂","🤣","😊","😍","😎","😢","😭","😡","👍","🙏","🔥","🌹","🎉","❤️","💔","⭐","💡","✅"];
 function toggleEmojiPicker() {
     const picker = document.getElementById("emojiPicker");
