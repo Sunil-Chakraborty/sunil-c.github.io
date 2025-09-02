@@ -1,16 +1,56 @@
-<!--https://sunil-chakraborty.github.io/sunil-c.github.io/NotePad/
-https://tinyurl.com/mynPad
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi-Tab Notepad with LocalStorage</title>
+<title>Multi-Tab Notepad with LocalStorage & Avro Bengali Typing</title>
 <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .tabs { display: flex; margin-bottom: 10px; flex-wrap: wrap; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f9f9f9;
+        color: #333;
+    }
+
+    header {
+        background: linear-gradient(135deg, #4a90e2, #0078d7);
+        color: white;
+        padding: 15px 20px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    header .right-section {
+        font-size: 0.95rem;
+        font-weight: normal;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .container {
+        max-width: 850px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .tabs {
+        display: flex;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+
     .tab {
         padding: 8px 12px;
         border: 1px solid #ccc;
@@ -18,9 +58,12 @@ https://tinyurl.com/mynPad
         cursor: pointer;
         background: #f1f1f1;
         margin-right: 5px;
-        border-radius: 5px 5px 0 0;
+        border-radius: 6px 6px 0 0;
+        transition: background 0.2s;
     }
-    .tab.active { background: white; font-weight: bold; }
+    .tab:hover { background: #e2e2e2; }
+    .tab.active { background: white; font-weight: bold; border-bottom: 2px solid #4a90e2; }
+
     .tab button {
         margin-left: 5px;
         color: red;
@@ -28,108 +71,216 @@ https://tinyurl.com/mynPad
         border: none;
         cursor: pointer;
     }
-    textarea { width: 100%; height: 300px; padding: 10px; font-size: 14px; }
-    .controls { margin-top: 10px; }
+
+    textarea {
+        width: 98%;
+        height: 300px;
+        padding: 5px;
+        font-size: 15px;
+        line-height: 1.4;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: vertical;
+    }
+
+    .controls {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .controls button {
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    .controls button:hover {
+        background: #0078d7;
+    }
+
+    #emojiPicker {
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fafafa;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    #emojiPicker span {
+        font-size: 22px;
+        margin: 5px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    #emojiPicker span:hover {
+        transform: scale(1.2);
+    }
+
+    /* Cheat Sheet Styling */
+    #cheatSheet {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #fefefe;
+        font-size: 14px;
+        line-height: 1.5;
+        display: none;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    #cheatSheet h3 { margin-top: 0; color: #0078d7; }
+    #cheatSheet table { border-collapse: collapse; width: 100%; }
+    #cheatSheet th, #cheatSheet td {
+        border: 1px solid #ddd;
+        padding: 6px 8px;
+        text-align: center;
+    }
+    #cheatSheet th { background: #f1f1f1; }
 </style>
 </head>
 <body>
 
-<h2>Multi-Tab Notepad</h2>
-<div class="tabs" id="tabContainer"></div>
-<textarea id="noteArea"></textarea>
-<div class="controls">
-    <button onclick="newTab()">New Tab</button>
-    <button onclick="renameTab()">Rename Tab</button>
-    <button onclick="saveToFile()">Save to File</button>
+<header>
+  <div>📝 Multi-Tab Notepad</div>
+  <div class="right-section">
+    <span id="date"></span>
+    <span id="quote" style="font-style:italic;"></span>
+  </div>
+</header>
+
+<div class="container">
+    <div class="tabs" id="tabContainer"></div>
+    <textarea id="noteArea" placeholder="Start typing your notes here...Press Ctrl + M to toggle  EN /  BN"></textarea>
+    <div class="controls">
+        <button onclick="newTab()">➕ New Tab</button>
+        <button onclick="renameTab()">✏️ Rename Tab</button>
+        <button onclick="saveToFile()">💾 Save to File</button>    
+        <button onclick="shareSelectedText()">📤 Share Selected Text</button>
+        <button onclick="toggleEmojiPicker()">😊 Emoji</button>
+        <button onclick="toggleCheatSheet()">📖 Cheat Sheet</button>
+    </div>
+
+    <!-- Emoji Picker -->
+    <div id="emojiPicker"></div>
+
+    <!-- Cheat Sheet Panel -->
+    <div id="cheatSheet">
+      <h3>📖 Avro Phonetic Cheat Sheet</h3>
+      <p><b>Hotkey:</b> Press <kbd>Ctrl</kbd> + <kbd>M</kbd> to toggle Avro ON/OFF.</p>
+
+      <h4>🔡 Vowels & Case Rules</h4>
+      <table>
+        <tr><th>Type</th><th>Result</th><th>Example</th></tr>
+        <tr><td>a</td><td>অ / আ</td><td>ami → আমি</td></tr>
+        <tr><td>aa / A</td><td>আ</td><td>baba → বাবা</td></tr>
+        <tr><td>i</td><td>ই / ি</td><td>ami → আমি</td></tr>
+        <tr><td>I / ee</td><td>ঈ / ী</td><td>bI / bee → বী</td></tr>
+        <tr><td>u</td><td>উ / ু</td><td>buri → বুরি</td></tr>
+        <tr><td>U / oo</td><td>ঊ / ূ</td><td>bU / boo → বুঊ</td></tr>
+        <tr><td>e</td><td>এ / ে</td><td>besh → বেশ</td></tr>
+        <tr><td>oi</td><td>ঐ / ৈ</td><td>oishob → ঐসব</td></tr>
+        <tr><td>o</td><td>অ (short)</td><td>toma → তমা ❌</td></tr>
+        <tr><td>O</td><td>ও (long)</td><td>tOma → তোমা ✅</td></tr>
+        <tr><td>ou / ow</td><td>ঔ / ৌ</td><td>doura → দৌড়া</td></tr>
+      </table>
+
+      <h4>🌟 Tricky Examples</h4>
+      <table>
+        <tr><td>toma</td><td>তমা ❌</td><td>Use <b>tOma</b> → তোমা ✅</td></tr>
+        <tr><td>tomar</td><td>তমার ❌</td><td>Use <b>tOmar</b> → তোমার ✅</td></tr>
+        <tr><td>kothaey</td><td>কথাএয় ❌</td><td>Use <b>kothay</b> → কোথায় ✅</td></tr>
+        <tr><td>bhalo</td><td>ভালো ✅</td><td></td></tr>
+        <tr><td>phool / ful</td><td>ফুল ✅</td><td></td></tr>
+      </table>
+
+      <h4>📌 Special Cases</h4>
+      <table>
+        <tr><td>ng</td><td>ং</td><td>bangla → বাংলা</td></tr>
+        <tr><td>:</td><td>ঃ</td><td>bishnu: → বিষ্ণুঃ</td></tr>
+        <tr><td>.</td><td>।</td><td>shesh. → শেষ।</td></tr>
+        <tr><td>..</td><td>॥</td><td>double dari</td></tr>
+      </table>
+    </div>
 </div>
 
 <script>
-let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
-    { name: 'Tab 1', content: '' },
-    { name: 'Tab 2', content: '' },
-    { name: 'Tab 3', content: '' }
-];
-let currentTab = 0;
+  // Date display in dd-mm-yy format
+  function updateDate() {
+	  const now = new Date();
+	  const day = String(now.getDate()).padStart(2, '0');
+	  const month = String(now.getMonth() + 1).padStart(2, '0');
+	  const year = String(now.getFullYear()).slice(-2);
+	  const time = now.toLocaleTimeString();
 
-function saveTabsToStorage() {
-    localStorage.setItem('notepadTabs', JSON.stringify(tabs));
-}
+	  const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }); 
+	  // e.g., Monday, Tuesday...
 
-function renderTabs() {
-    const container = document.getElementById('tabContainer');
-    container.innerHTML = '';
-    tabs.forEach((tab, index) => {
-        const tabElement = document.createElement('div');
-        tabElement.className = 'tab' + (index === currentTab ? ' active' : '');
-        tabElement.innerHTML = `${tab.name} <button onclick="deleteTab(${index}); event.stopPropagation();">&times;</button>`;
-        tabElement.onclick = () => switchTab(index);
-        container.appendChild(tabElement);
-    });
-    document.getElementById('noteArea').value = tabs[currentTab]?.content || '';
-}
+	  document.getElementById("date").textContent = `${weekday} ${day}-${month}-${year} ${time}`;
+  }
+  setInterval(updateDate, 1000);
+  updateDate();
 
-function switchTab(index) {
-    saveCurrentContent();
-    currentTab = index;
-    renderTabs();
-}
+  // Quotes
+  const quotes = [
+    "Start where you are. Use what you have. Do what you can.",
+    "লক্ষ্য যতই কঠিন হোক, চেষ্টা চালিয়ে যাও।",
+    "Small steps every day lead to big results.",
+    "Dream big. Work hard. Stay humble.",
+    "সাহসীরা তাদের পথ নিজেরাই তৈরি করে।"
+  ];
+  document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
 
-function saveCurrentContent() {
-    if (tabs[currentTab]) {
-        tabs[currentTab].content = document.getElementById('noteArea').value;
-        saveTabsToStorage();
-    }
-}
-
-function newTab() {
-    saveCurrentContent();
-    const name = prompt("Enter new tab name:", `Tab ${tabs.length + 1}`);
-    if (name) {
-        tabs.push({ name, content: '' });
-        currentTab = tabs.length - 1;
-        saveTabsToStorage();
-        renderTabs();
-    }
-}
-
-function renameTab() {
-    const name = prompt("Enter new tab name:", tabs[currentTab].name);
-    if (name) {
-        tabs[currentTab].name = name;
-        saveTabsToStorage();
-        renderTabs();
-    }
-}
-
-function deleteTab(index) {
-    if (confirm(`Delete "${tabs[index].name}"?`)) {
-        tabs.splice(index, 1);
-        if (currentTab >= tabs.length) currentTab = tabs.length - 1;
-        saveTabsToStorage();
-        renderTabs();
-    }
-}
-
-function saveToFile() {
-    saveCurrentContent();
-    let content = tabs.map(tab => `--- ${tab.name} ---\n${tab.content}`).join("\n\n");
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'notepad_tabs.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-window.addEventListener('beforeunload', saveCurrentContent);
-
-document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
-
-renderTabs();
+  // Cheat Sheet toggle
+  function toggleCheatSheet() {
+    const sheet = document.getElementById("cheatSheet");
+    sheet.style.display = (sheet.style.display === "none" || sheet.style.display === "") ? "block" : "none";
+  }
 </script>
+
+<!-- jQuery (required) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Avro Phonetic plugin -->
+<script src="js/avro-v1.1.4.min.js"></script>
+
+<script>
+  let avroEnabled = true;
+  $(document).ready(function () {
+    $("#noteArea").avro();
+  });
+
+  function toggleAvro() {
+    if (avroEnabled) {
+      $("#noteArea").avro('unbind');
+      avroEnabled = false;
+      alert("Avro OFF → English typing");
+    } else {
+      $("#noteArea").avro();
+      avroEnabled = true;
+      alert("Avro ON → বাংলা typing");
+    }
+  }
+
+  // Hotkey Ctrl + M
+  document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key === "m") {
+      e.preventDefault();
+      toggleAvro();
+    }
+  });
+</script>
+
+<!-- External JavaScript file -->
+<script src="js/notepad.js"></script>
 
 </body>
 </html>
