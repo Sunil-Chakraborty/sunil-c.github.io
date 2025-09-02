@@ -7,7 +7,7 @@ https://tinyurl.com/mynPad
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi-Tab Notepad with Google Bengali Input Tools + Emoji Picker</title>
+<title>Multi-Tab Notepad with LocalStorage & Bengali Input Tools</title>
 <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     .tabs { display: flex; margin-bottom: 10px; flex-wrap: wrap; }
@@ -30,52 +30,28 @@ https://tinyurl.com/mynPad
     }
     textarea { width: 100%; height: 300px; padding: 10px; font-size: 14px; }
     .controls { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
-    #democontainer { display:none; margin-top:15px; }
-    iframe { width:100%; height:450px; border:1px solid #ccc; }
-    #emojiPicker {
-        display:none;
-        margin-top:10px;
-        padding:8px;
-        border:1px solid #ccc;
-        background:#f9f9f9;
-        border-radius:6px;
-    }
-    #emojiPicker span {
-        cursor:pointer;
-        font-size:22px;
-        margin:4px;
-    }
+    iframe { border: 1px solid #ccc; margin-top: 15px; }
 </style>
 </head>
 <body>
 
-<!-- 🔹 Wrap all notepad UI inside a main container -->
-<div id="mainContainer">
-    <h2>Multi-Tab Notepad</h2>
-    <div class="tabs" id="tabContainer"></div>
-    <textarea id="noteArea"></textarea>
-    <div class="controls">
-        <button onclick="newTab()">New Tab</button>
-        <button onclick="renameTab()">Rename Tab</button>
-        <button onclick="saveToFile()">Save to File</button>
-        <button onclick="shareSelectedText()">Share Selected Text</button>
-        <button onclick="toggleInputTools()">Google Bengali Input Tools</button>
-        <button onclick="toggleEmojiPicker()">😊 Emoji</button>
-    </div>
-
-    <!-- Emoji Picker -->
-    <div id="emojiPicker"></div>
+<h2>Multi-Tab Notepad</h2>
+<div class="tabs" id="tabContainer"></div>
+<textarea id="noteArea"></textarea>
+<div class="controls">
+    <button onclick="newTab()">New Tab</button>
+    <button onclick="renameTab()">Rename Tab</button>
+    <button onclick="saveToFile()">Save to File</button>    
+    <button onclick="shareSelectedText()">Share Selected Text</button>
+    <button onclick="openInputTools()">Google Bengali Input Tools</button>
+    <button onclick="toggleEmojiPicker()">😊 Emoji</button>
 </div>
 
-<!-- 🔹 Only Google Bengali Input Tools -->
-<div id="democontainer">
-    <h3>Google Bengali Input Tools</h3>
-    <iframe src="https://www.google.com/intl/bn/inputtools/try/"></iframe>
-    <br>
-    <button onclick="backToNotepad()">⬅ Back to Notepad</button>
-</div>
+<!-- Emoji Picker -->
+<div id="emojiPicker"></div>
 
-<!-- External JS -->
+<!-- External JavaScript file -->
 <script src="js/notepad.js"></script>
+
 </body>
 </html>
