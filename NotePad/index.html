@@ -1,7 +1,6 @@
 <!--https://sunil-chakraborty.github.io/sunil-c.github.io/NotePad/
 https://tinyurl.com/mynPad
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +20,23 @@ https://tinyurl.com/mynPad
         background: linear-gradient(135deg, #4a90e2, #0078d7);
         color: white;
         padding: 15px 20px;
-        text-align: center;
         font-size: 1.5rem;
         font-weight: bold;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    header .right-section {
+        font-size: 0.95rem;
+        font-weight: normal;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5px;
     }
 
     .container {
@@ -137,7 +149,14 @@ https://tinyurl.com/mynPad
 </head>
 <body>
 
-<header>📝 Multi-Tab Notepad</header>
+<header>
+  <div>📝 Multi-Tab Notepad</div>
+  <div class="right-section">
+    <span id="date"></span>
+    <span id="quote" style="font-style:italic;"></span>
+  </div>
+</header>
+
 <div class="container">
     <div class="tabs" id="tabContainer"></div>
     <textarea id="noteArea" placeholder="Start typing your notes here..."></textarea>
@@ -159,9 +178,32 @@ https://tinyurl.com/mynPad
     <div id="emojiPicker"></div>
 </div>
 
+<script>
+  // Date display in dd-mm-yy format
+  function updateDate() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = String(now.getFullYear()).slice(-2);
+    const time = now.toLocaleTimeString();
+    document.getElementById("date").textContent = `${day}-${month}-${year} ${time}`;
+  }
+  setInterval(updateDate, 1000);
+  updateDate();
+
+  // Quotes
+  const quotes = [
+    "Start where you are. Use what you have. Do what you can.",
+    "লক্ষ্য যতই কঠিন হোক, চেষ্টা চালিয়ে যাও।",
+    "Small steps every day lead to big results.",
+    "Dream big. Work hard. Stay humble.",
+    "সাহসীরা তাদের পথ নিজেরাই তৈরি করে।"
+  ];
+  document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
+</script>
+
 <!-- External JavaScript file -->
 <script src="js/notepad.js"></script>
 
 </body>
 </html>
-
