@@ -147,6 +147,12 @@ function insertEmoji(emoji) {
     saveCurrentContent();
 }
 
+function toggleInputTools() {
+    const wrapper = document.getElementById("inputToolsWrapper");
+    wrapper.style.display = (wrapper.style.display === "none" || wrapper.style.display === "")
+        ? "block" : "none";
+}
+
 window.addEventListener('beforeunload', saveCurrentContent);
 document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
 
