@@ -1,8 +1,3 @@
-
-<!--https://sunil-chakraborty.github.io/sunil-c.github.io/NotePad/
-https://tinyurl.com/mynPad
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,20 +146,17 @@ https://tinyurl.com/mynPad
 <script>
   // Date
   function updateDate() {
-	  const now = new Date();
-	  const day = String(now.getDate()).padStart(2, '0');
-	  const month = String(now.getMonth() + 1).padStart(2, '0');
-	  const year = String(now.getFullYear()).slice(-2);
-	  const time = now.toLocaleTimeString();
-
-	  const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }); 
-	  // e.g., Monday, Tuesday...
-
-	  document.getElementById("date").textContent = `${weekday} ${day}-${month}-${year} ${time}`;
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = String(now.getFullYear()).slice(-2);
+    const time = now.toLocaleTimeString();
+    const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }); 
+    document.getElementById("date").textContent = `${weekday} ${day}-${month}-${year} ${time}`;
   }
   setInterval(updateDate, 1000);
   updateDate();
-  
+
   // Quotes
   const quotes = [
     "Start where you are. Use what you have. Do what you can.",
@@ -181,16 +173,19 @@ https://tinyurl.com/mynPad
     sheet.style.display = (sheet.style.display === "none" || sheet.style.display === "") 
       ? "block" : "none";
   }
+
   // Calender toggle
   function toggleCalender() {
     const sheet = document.getElementById("banglaCalender");
     sheet.style.display = (sheet.style.display === "none" || sheet.style.display === "") 
       ? "block" : "none";
   }
+
   // Avro toggle using clone+rebind
   let avroEnabled = true;
   $(document).ready(function(){
     $("#noteArea").avro(); // enable Avro by default
+    enableAvroMobilePatch(); // also activate mobile patch
   });
 
   function toggleAvro() {
@@ -208,7 +203,7 @@ https://tinyurl.com/mynPad
       // Enable Avro → rebind Avro on fresh clone
       const fresh = document.getElementById("noteArea");
       $(fresh).avro();
-
+      enableAvroMobilePatch(); // reapply mobile patch
       avroEnabled = true;
       document.getElementById("avroToggle").textContent = "🅱️ Bengali ON";
     }
@@ -222,6 +217,31 @@ https://tinyurl.com/mynPad
     }
   });
 
+  // Mobile patch: use input/composition events
+  function enableAvroMobilePatch() {
+    const area = document.getElementById("noteArea");
+
+    area.addEventListener("input", function() {
+      if (!avroEnabled) return;
+      const pos = area.selectionStart;
+      const before = area.value.substring(0, pos);
+      const after = area.value.substring(pos);
+      const converted = Avro.Phonetic.parse(before);
+      area.value = converted + after;
+      area.selectionStart = area.selectionEnd = converted.length;
+    });
+
+    area.addEventListener("compositionend", function() {
+      if (!avroEnabled) return;
+      const pos = area.selectionStart;
+      const before = area.value.substring(0, pos);
+      const after = area.value.substring(pos);
+      const converted = Avro.Phonetic.parse(before);
+      area.value = converted + after;
+      area.selectionStart = area.selectionEnd = converted.length;
+    });
+  }
+
   // Dummy tab functions
   function newTab(){alert("New Tab");}
   function renameTab(){alert("Rename Tab");}
@@ -230,7 +250,6 @@ https://tinyurl.com/mynPad
 
 <!-- Your Notepad core -->
 <script src="js/notepad.js"></script>
-
 
 </body>
 </html>
