@@ -224,28 +224,38 @@ https://tinyurl.com/mynPad
 
   // Mobile patch: use input/composition events
   function enableAvroMobilePatch() {
-    const area = document.getElementById("noteArea");
+	  const area = document.getElementById("noteArea");
+	
+	  area.addEventListener("input", function(e) {
+	    if (!avroEnabled) return;
+	
+	    const pos = area.selectionStart;
+	    const before = area.value.substring(0, pos);
+	    const after = area.value.substring(pos);
+	
+	    // Run Avro transliteration but preserve the latest typed char
+	    const lastChar = before.slice(-1);
+	    const base = before.slice(0, -1);
+	    const converted = Avro.Phonetic.parse(base) + lastChar;
+	
+	    area.value = converted + after;
+	    const newPos = converted.length;
+	    area.selectionStart = area.selectionEnd = newPos;
+	  });
+	
+	  area.addEventListener("compositionend", function() {
+	    if (!avroEnabled) return;
+	
+	    const pos = area.selectionStart;
+	    const before = area.value.substring(0, pos);
+	    const after = area.value.substring(pos);
+	
+	    const converted = Avro.Phonetic.parse(before);
+	    area.value = converted + after;
+	    area.selectionStart = area.selectionEnd = converted.length;
+	  });
+	}
 
-    area.addEventListener("input", function() {
-      if (!avroEnabled) return;
-      const pos = area.selectionStart;
-      const before = area.value.substring(0, pos);
-      const after = area.value.substring(pos);
-      const converted = Avro.Phonetic.parse(before);
-      area.value = converted + after;
-      area.selectionStart = area.selectionEnd = converted.length;
-    });
-
-    area.addEventListener("compositionend", function() {
-      if (!avroEnabled) return;
-      const pos = area.selectionStart;
-      const before = area.value.substring(0, pos);
-      const after = area.value.substring(pos);
-      const converted = Avro.Phonetic.parse(before);
-      area.value = converted + after;
-      area.selectionStart = area.selectionEnd = converted.length;
-    });
-  }
 
   // Dummy tab functions
   function newTab(){alert("New Tab");}
