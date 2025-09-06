@@ -49,7 +49,130 @@
            style="width:100%; height:auto; display:block; margin:auto;">
     </div>
   </div>
+ <script>
+	let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
+		{ name: 'Tab 1', content: '' },
+		{ name: 'Tab 2', content: '' },
+		{ name: 'Tab 3', content: '' }
+	];
+	let currentTab = 0;
 
+	function saveTabsToStorage() {
+		localStorage.setItem('notepadTabs', JSON.stringify(tabs));
+	}
+
+	function renderTabs() {
+		const container = document.getElementById('tabContainer');
+		container.innerHTML = '';
+		tabs.forEach((tab, index) => {
+			const tabElement = document.createElement('div');
+			tabElement.className = 'tab' + (index === currentTab ? ' active' : '');
+			tabElement.innerHTML = `${tab.name} <button onclick="deleteTab(${index}); event.stopPropagation();">&times;</button>`;
+			tabElement.onclick = () => switchTab(index);
+			container.appendChild(tabElement);
+		});
+		document.getElementById('noteArea').value = tabs[currentTab]?.content || '';
+	}
+
+	function switchTab(index) {
+		saveCurrentContent();
+		currentTab = index;
+		renderTabs();
+	}
+
+	function saveCurrentContent() {
+		if (tabs[currentTab]) {
+			tabs[currentTab].content = document.getElementById('noteArea').value;
+			saveTabsToStorage();
+		}
+	}
+
+	function newTab() {
+		saveCurrentContent();
+		const name = prompt("Enter new tab name:", `Tab ${tabs.length + 1}`);
+		if (name) {
+			tabs.push({ name, content: '' });
+			currentTab = tabs.length - 1;
+			saveTabsToStorage();
+			renderTabs();
+		}
+	}
+
+	function renameTab() {
+		const name = prompt("Enter new tab name:", tabs[currentTab].name);
+		if (name) {
+			tabs[currentTab].name = name;
+			saveTabsToStorage();
+			renderTabs();
+		}
+	}
+
+	function deleteTab(index) {
+		if (confirm(`Delete "${tabs[index].name}"?`)) {
+			tabs.splice(index, 1);
+			if (currentTab >= tabs.length) currentTab = tabs.length - 1;
+			saveTabsToStorage();
+			renderTabs();
+		}
+	}
+
+	function saveToFile() {
+		saveCurrentContent();
+		let content = tabs.map(tab => `--- ${tab.name} ---\n${tab.content}`).join("\n\n");
+		const blob = new Blob([content], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'notepad_tabs.txt';
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	}
+
+	function copySelectedText() {
+		const textarea = document.getElementById('noteArea');
+		const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+
+		if (!selectedText) {
+			alert("Please select some text first.");
+			return;
+		}
+
+		navigator.clipboard.writeText(selectedText).then(() => {
+			alert("Selected text copied to clipboard!");
+		}).catch(err => {
+			console.error("Could not copy text: ", err);
+		});
+	}
+
+	function shareSelectedText() {
+		const textarea = document.getElementById('noteArea');
+		const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+
+		if (!selectedText) {
+			alert("Please select some text first.");
+			return;
+		}
+
+		if (navigator.share) {
+			navigator.share({
+				title: 'Shared from Multi-Tab Notepad',
+				text: selectedText
+			}).catch(err => {
+				console.error("Error sharing: ", err);
+			});
+		} else {
+			alert("Sharing not supported in this browser. Please copy instead.");
+		}
+	}
+
+	window.addEventListener('beforeunload', saveCurrentContent);
+	document.getElementById('noteArea').addEventListener('input', saveCurrentContent);
+
+	renderTabs();
+	</script>
+  
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Avro plugin (desktop) -->
@@ -168,18 +291,8 @@
       }
     }
 
-    // ---------- Dummy tab actions ----------
-    function newTab(){ alert('New Tab'); }
-    function renameTab(){ alert('Rename Tab'); }
-    function saveToFile(){ 
-      const text=document.getElementById('noteArea').value||'';
-      const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download='note.txt';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
+  
   </script>
 </body>
 </html>
+
