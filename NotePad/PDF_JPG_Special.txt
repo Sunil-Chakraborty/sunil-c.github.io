@@ -1,0 +1,19 @@
+convert cheat_sheet.pdf -append cheatSheet.jpg
+
+file:///C:/Program%20Files/ImageMagick-7.1.2-Q16/index.html
+
+PDF (with multiple pages) to JPG (one jpg file)
+gitbash
+$ magick -density 200 cheat_sheet.pdf -background white -alpha remove -alpha off -quality 90 -append -resize 920x cheatSheet.jpg
+
+Explanation:
+----------------
+-background white → sets the background color.
+
+-alpha remove -alpha off → removes transparency (so no black fill).
+
+-density 300 → keeps text crisp.
+
+-quality 100 → best JPEG quality.
+
+-append → all pages in one image.
