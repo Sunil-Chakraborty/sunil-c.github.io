@@ -55,6 +55,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Avro plugin (desktop) -->
   <script src="js/avro-v1.1.4.min.js"></script>
+  <!-- Avro phonetic parser (needed for mobile patch transliteration) -->
+  <script src="https://cdn.jsdelivr.net/gh/omicronlab/avro-js@master/dist/avro.phonetic.js"></script>
   <script>
   // ---------- Tabs ----------
   let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
@@ -272,3 +274,4 @@
   </script>
 </body>
 </html>
+
