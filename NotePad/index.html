@@ -43,12 +43,13 @@ https://tinyurl.com/mynPad
       <button class="btn" onclick="renameTab()">✏️ Rename Tab</button>
       <button class="btn" onclick="saveToFile()">💾 Save to File</button>
       <button class="btn" id="avroToggle" onclick="toggleAvro()">🅱️ Bengali ON</button>
+	  <button class="btn" onclick="shareSelectedText()">Share Selected Text</button>
       <button class="btn" onclick="toggleCheatSheet()">📖 Cheat Sheet (PDF)</button>
     </div>
 
     <!-- Cheat sheet PDF, toggled inline -->
     <div id="cheatSheet">
-      <iframe src="cheat_sheet.pdf#toolbar=0&navpanes=0"></iframe>
+      <iframe src="cheatSheet.jpg#toolbar=0&navpanes=0"></iframe>
     </div>
   </div>
 
@@ -165,7 +166,28 @@ https://tinyurl.com/mynPad
         const newPos = newBefore.length;
         area.selectionStart = area.selectionEnd = newPos;
       }
+	  
+	  function shareSelectedText() {
+			const textarea = document.getElementById('noteArea');
+			const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
 
+			if (!selectedText) {
+				alert("Please select some text first.");
+				return;
+			}
+
+			if (navigator.share) {
+				navigator.share({
+					title: 'Shared from Multi-Tab Notepad',
+					text: selectedText
+				}).catch(err => {
+					console.error("Error sharing: ", err);
+				});
+			} else {
+				alert("Sharing not supported in this browser. Please copy instead.");
+			}
+		}
+		
       // On mobile keyboards, both events help: input during typing, compositionend after IME commits
       area.addEventListener('input', handleTransliteration);
       area.addEventListener('compositionend', handleTransliteration);
