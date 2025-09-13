@@ -44,15 +44,16 @@ https://tinyurl.com/mynPad
       <button class="btn" onclick="saveToFile()">💾 Save to File</button>
       <button class="btn" id="avroToggle" onclick="toggleAvro()">🅱️ Bengali ON</button>
 	  <button class="btn" onclick="shareSelectedText()">Share Selected Text</button>
-      <button class="btn" onclick="toggleCheatSheet()">📖 Cheat Sheet (JPG)</button>
+      <button class="btn" onclick="toggleCheatSheet()">📖 Cheat Sheet (PDF)</button>
     </div>
 
     <!-- Cheat sheet PDF, toggled inline -->
-    <div id="cheatSheet" 
-     style="max-height: 90vh; overflow-y: auto; border:1px solid #ccc; padding:5px;">
+    <!-- Cheat sheet JPG, mobile compatible -->
+	<div id="cheatSheet" 
+		 style="max-height: 90vh; overflow-y: auto; border:1px solid #ccc; padding:5px;">
 	  <img src="cheatSheet.jpg" 
-	       alt="ImageMagick Cheat Sheet"
-	       style="width:100%; height:auto; display:block; margin:auto;">
+		   alt="ImageMagick Cheat Sheet"
+		   style="width:100%; height:auto; display:block; margin:auto;">
 	</div>
   </div>
 
@@ -60,7 +61,8 @@ https://tinyurl.com/mynPad
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Avro plugin (desktop) -->
   <script src="js/avro-v1.1.4.min.js"></script>
- 
+  <!-- Your notepad core (tabs, save, etc.) -->
+  <script src="js/notepad.js"></script>
 
   <script>
     // ---------- Date ----------
@@ -210,8 +212,5 @@ https://tinyurl.com/mynPad
       URL.revokeObjectURL(a.href);
     }
   </script>
- <!-- Your notepad core (tabs, save, etc.) -->
-  <script src="js/notepad.js"></script>
-	
 </body>
 </html>
