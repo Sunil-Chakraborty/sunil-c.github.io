@@ -1,216 +1,255 @@
-
-<!--https://sunil-chakraborty.github.io/sunil-c.github.io/NotePad/
-https://tinyurl.com/mynPad
--->
-
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Multi-Tab Notepad — Avro Bengali</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#f7f8fb;color:#222}
-    header{background:linear-gradient(135deg,#4a90e2,#0078d7);color:#fff;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center}
-    header .title{font-size:1.4rem;font-weight:700}
-    header .meta{margin-top:4px;opacity:.95}
-    .container{max-width:960px;margin:18px auto;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:18px}
-    .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-    .tab{padding:8px 12px;border:1px solid #dcdfe6;background:#f3f5f9;border-radius:8px 8px 0 0;cursor:pointer}
-    .tab.active{background:#fff;font-weight:600;border-bottom-color:#fff}
-    textarea{width:100%;min-height:320px;padding:10px 12px;border:1px solid #dcdfe6;border-radius:10px;resize:vertical;font-size:16px;line-height:1.6}
-    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
-    .btn{background:#4a90e2;border:none;color:#fff;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px}
-    .btn:hover{background:#0078d7}
-    #cheatSheet{display:none;margin-top:14px;height:70vh;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
-    #cheatSheet iframe{width:100%;height:100%;border:none}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Tab Notepad with Avro Bengali Typing</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #333;
+  }
+
+  header {
+    background: linear-gradient(135deg, #4a90e2, #0078d7);
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  header .right-section {
+    font-size: 0.95rem;
+    margin-top: 5px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .tabs {
+    display: flex;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    cursor: pointer;
+    background: #f1f1f1;
+    margin-right: 5px;
+    border-radius: 6px 6px 0 0;
+  }
+  .tab.active { background: white; font-weight: bold; }
+
+  textarea {
+    width: 98%;
+    height: 300px;
+    padding: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+  }
+
+  .controls {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .controls button {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .controls button:hover { background: #0078d7; }
+
+  #cheatSheet {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fefefe;
+    font-size: 14px;
+    line-height: 1.5;
+    display: none;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  #cheatSheet h3 { margin-top: 0; color: #0078d7; }
+  #cheatSheet table { border-collapse: collapse; width: 100%; margin-bottom: 10px; }
+  #cheatSheet th, #cheatSheet td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    text-align: center;
+  }
+  #cheatSheet th { background: #f1f1f1; }
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="title">📝 Multi-Tab Notepad</div>
-    <div class="meta"><span id="date"></span></div>
-  </header>
-
-  <div class="container">
-    <div class="tabs" id="tabContainer"></div>
-
-    <textarea id="noteArea" placeholder="Start typing... (বাংলা: Avro ON / English: toggle)"></textarea>
-
-    <div class="controls">
-      <button class="btn" onclick="newTab()">➕ New Tab</button>
-      <button class="btn" onclick="renameTab()">✏️ Rename Tab</button>
-      <button class="btn" onclick="saveToFile()">💾 Save to File</button>
-      <button class="btn" id="avroToggle" onclick="toggleAvro()">🅱️ Bengali ON</button>
-	  <button class="btn" onclick="shareSelectedText()">Share Selected Text</button>
-      <button class="btn" onclick="toggleCheatSheet()">📖 Cheat Sheet (PDF)</button>
-    </div>
-
-    <!-- Cheat sheet PDF, toggled inline -->
-    <!-- Cheat sheet JPG, mobile compatible -->
-	<div id="cheatSheet" 
-		 style="max-height: 90vh; overflow-y: auto; border:1px solid #ccc; padding:5px;">
-	  <img src="cheatSheet.jpg" 
-		   alt="ImageMagick Cheat Sheet"
-		   style="width:100%; height:auto; display:block; margin:auto;">
-	</div>
+<header>
+  <div>📝 Multi-Tab Notepad</div>
+  <div class="right-section">
+    <span id="date"></span>
+	<p id="quote" style="font-style:italic;"></p>
   </div>
+</header>
 
-  <!-- jQuery (must be before Avro & our script) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Avro plugin (desktop) -->
-  <script src="js/avro-v1.1.4.min.js"></script>
-  <!-- Your notepad core (tabs, save, etc.) -->
-  <script src="js/notepad.js"></script>
+<div class="container">
+  <div class="tabs" id="tabContainer"></div>
+  <textarea id="noteArea" placeholder="Start typing your notes here..."></textarea>
 
-  <script>
-    // ---------- Date ----------
-    function updateDate(){
-      const now=new Date();
-      const dd=String(now.getDate()).padStart(2,'0');
-      const mm=String(now.getMonth()+1).padStart(2,'0');
-      const yy=String(now.getFullYear()).slice(-2);
-      const time=now.toLocaleTimeString();
-      document.getElementById('date').textContent=`${dd}-${mm}-${yy} ${time}`;
-    }
-    setInterval(updateDate,1000); updateDate();
+  <div class="controls">
+    <button onclick="newTab()">➕ New Tab</button>
+    <button onclick="renameTab()">✏️ Rename Tab</button>
+    <button onclick="saveToFile()">💾 Save to File</button>
+	<button onclick="shareSelectedText()">📤 Share Selected Text</button>
+    <button id="avroToggle" onclick="toggleAvro()">🅱️ Bengali ON</button>
+    <button onclick="toggleCheatSheet()">📖 Cheat Sheet</button>
+	<button onclick="toggleCalender()">📖 Bengali Calender</button>
+  </div>
+  <div id="cheatSheet" style="display:none; margin-top:20px; height:500px;">
+	  <iframe src="cheat_sheet.pdf" width="100%" height="100%" style="border:none;"></iframe>
+  </div> 
+  <div id="banglaCalender" style="display:none; margin-top:20px; height:500px;">
+	  <iframe src="bengali-calendar-1432.pdf" width="100%" height="100%" style="border:none;"></iframe>
+  </div> 
+</div>
 
-    // ---------- UI ----------
-    function toggleCheatSheet(){
-      const el=document.getElementById('cheatSheet');
-      el.style.display = (el.style.display===''||el.style.display==='none') ? 'block':'none';
-    }
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Avro JS -->
+<script src="js/avro-v1.1.4.min.js"></script>
 
-    // ---------- Avro: desktop plugin + mobile patch ----------
-    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-    const usePlugin = !isMobile;   // plugin on desktop only
-    let avroEnabled = true;
+<script>
+  // Date
+  function updateDate() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = String(now.getFullYear()).slice(-2);
+    const time = now.toLocaleTimeString();
+    const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }); 
+    document.getElementById("date").textContent = `${weekday} ${day}-${month}-${year} ${time}`;
+  }
+  setInterval(updateDate, 1000);
+  updateDate();
 
-    // Initialize after DOM ready
-    document.addEventListener('DOMContentLoaded', function(){
-      if (usePlugin && avroEnabled && typeof $!=='undefined' && typeof $.fn.avro==='function'){
-        $('#noteArea').avro();
-      }
-      enableAvroMobilePatch(); // attach mobile handlers (no-op on desktop)
-    });
+  // Quotes
+  const quotes = [
+    "Start where you are. Use what you have. Do what you can.",
+    "লক্ষ্য যতই কঠিন হোক, চেষ্টা চালিয়ে যাও।",
+    "Small steps every day lead to big results.",
+    "Dream big. Work hard. Stay humble.",
+    "সাহসীরা তাদের পথ নিজেরাই তৈরি করে।"
+  ];
+  document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
 
-    // Toggle Avro using clone+rebind (safe for plugin and for mobile handlers)
-    function toggleAvro(){
-      const oldArea=document.getElementById('noteArea');
-      // Replace with a fresh clone to drop all handlers cleanly
-      const clone=oldArea.cloneNode(true);
-      clone.value=oldArea.value;
+  // Cheat Sheet toggle
+  function toggleCheatSheet() {
+    const sheet = document.getElementById("cheatSheet");
+    sheet.style.display = (sheet.style.display === "none" || sheet.style.display === "") 
+      ? "block" : "none";
+  }
+
+  // Calender toggle
+  function toggleCalender() {
+    const sheet = document.getElementById("banglaCalender");
+    sheet.style.display = (sheet.style.display === "none" || sheet.style.display === "") 
+      ? "block" : "none";
+  }
+
+  // Avro toggle using clone+rebind
+  let avroEnabled = true;
+  $(document).ready(function(){
+    $("#noteArea").avro(); // enable Avro by default
+    enableAvroMobilePatch(); // also activate mobile patch
+  });
+
+  function toggleAvro() {
+    const oldArea = document.getElementById("noteArea");
+
+    if (avroEnabled) {
+      // Disable Avro → clone without bindings
+      const clone = oldArea.cloneNode(true);
+      clone.value = oldArea.value;
       oldArea.parentNode.replaceChild(clone, oldArea);
 
-      avroEnabled = !avroEnabled;
-      document.getElementById('avroToggle').textContent = avroEnabled ? '🅱️ Bengali ON' : '🔤 English ON';
-
-      // Re-bind for the fresh textarea
-      if (avroEnabled && usePlugin && typeof $!=='undefined' && typeof $.fn.avro==='function'){
-        $('#noteArea').avro();
-      }
-      enableAvroMobilePatch(); // (re)attach input/composition handlers; guarded internally
+      avroEnabled = false;
+      document.getElementById("avroToggle").textContent = "🔤 English ON";
+    } else {
+      // Enable Avro → rebind Avro on fresh clone
+      const fresh = document.getElementById("noteArea");
+      $(fresh).avro();
+      enableAvroMobilePatch(); // reapply mobile patch
+      avroEnabled = true;
+      document.getElementById("avroToggle").textContent = "🅱️ Bengali ON";
     }
+  }
 
-    // Hotkey: Ctrl+M
-    document.addEventListener('keydown', function(e){
-      if (e.ctrlKey && e.key==='m'){ e.preventDefault(); toggleAvro(); }
+  // Hotkey Ctrl + M
+  document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key === "m") {
+      e.preventDefault();
+      toggleAvro();
+    }
+  });
+
+  // Mobile patch: use input/composition events
+  function enableAvroMobilePatch() {
+    const area = document.getElementById("noteArea");
+
+    area.addEventListener("input", function() {
+      if (!avroEnabled) return;
+      const pos = area.selectionStart;
+      const before = area.value.substring(0, pos);
+      const after = area.value.substring(pos);
+      const converted = Avro.Phonetic.parse(before);
+      area.value = converted + after;
+      area.selectionStart = area.selectionEnd = converted.length;
     });
 
-    // ---------- Mobile patch (space/newline preserved) ----------
-    function enableAvroMobilePatch(){
-      const area=document.getElementById('noteArea');
-      if (!area) return;
-      // Only handle on mobile. Desktop keeps plugin behavior.
-      if (usePlugin) return;
-      // Avoid double-attach on the same node
-      if (area.dataset.avroPatched==='1') return;
+    area.addEventListener("compositionend", function() {
+      if (!avroEnabled) return;
+      const pos = area.selectionStart;
+      const before = area.value.substring(0, pos);
+      const after = area.value.substring(pos);
+      const converted = Avro.Phonetic.parse(before);
+      area.value = converted + after;
+      area.selectionStart = area.selectionEnd = converted.length;
+    });
+  }
 
-      // Transliterate only the last word before the caret; preserve trailing space/newline
-      function transliterateBeforeCaretPreserveWhitespace(before){
-        if (!before) return before;
+  // Dummy tab functions
+  function newTab(){alert("New Tab");}
+  function renameTab(){alert("Rename Tab");}
+  function saveToFile(){alert("Save File");}
+</script>
 
-        const lastChar = before.slice(-1);
-        const isWS = (lastChar===' ' || lastChar==='\n' || lastChar==='\t');
+<!-- Your Notepad core -->
+<script src="js/notepad.js"></script>
 
-        // Helper to convert last ascii word in a string
-        function convertLastAsciiWord(str){
-          const m = str.match(/([A-Za-z']+)$/);
-          if (!m) return str;
-          const word = m[1];
-          const start = str.length - word.length;
-          const converted = (typeof Avro!=='undefined' && Avro.Phonetic && Avro.Phonetic.parse)
-              ? Avro.Phonetic.parse(word) : word;
-          return str.slice(0, start) + converted;
-        }
-
-        if (isWS){
-          // User typed a whitespace → convert the previous word, keep the whitespace as-is
-          const base = before.slice(0,-1);
-          const convertedBase = convertLastAsciiWord(base);
-          return convertedBase + lastChar;  // preserve typed space/newline
-        }else{
-          // User is typing within a word → convert that partial word
-          return convertLastAsciiWord(before);
-        }
-      }
-
-      function handleTransliteration(){
-        if (!avroEnabled) return;
-        const pos = area.selectionStart;
-        const val = area.value;
-        const before = val.slice(0, pos);
-        const after  = val.slice(pos);
-
-        const newBefore = transliterateBeforeCaretPreserveWhitespace(before);
-        if (newBefore === before) return; // nothing to change
-
-        area.value = newBefore + after;
-        const newPos = newBefore.length;
-        area.selectionStart = area.selectionEnd = newPos;
-      }
-	  
-	  function shareSelectedText() {
-			const textarea = document.getElementById('noteArea');
-			const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
-
-			if (!selectedText) {
-				alert("Please select some text first.");
-				return;
-			}
-
-			if (navigator.share) {
-				navigator.share({
-					title: 'Shared from Multi-Tab Notepad',
-					text: selectedText
-				}).catch(err => {
-					console.error("Error sharing: ", err);
-				});
-			} else {
-				alert("Sharing not supported in this browser. Please copy instead.");
-			}
-		}
-		
-      // On mobile keyboards, both events help: input during typing, compositionend after IME commits
-      area.addEventListener('input', handleTransliteration);
-      area.addEventListener('compositionend', handleTransliteration);
-
-      area.dataset.avroPatched='1';
-    }
-
-    // ---------- Dummy tab actions (replace with real ones in notepad.js as needed) ----------
-    function newTab(){ alert('New Tab'); }
-    function renameTab(){ alert('Rename Tab'); }
-    function saveToFile(){ 
-      const text=document.getElementById('noteArea').value||'';
-      const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download='note.txt';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
-  </script>
 </body>
 </html>
