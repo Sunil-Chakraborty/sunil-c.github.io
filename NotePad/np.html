@@ -9,56 +9,15 @@
     header{background:linear-gradient(135deg,#4a90e2,#0078d7);color:#fff;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center}
     header .title{font-size:1.4rem;font-weight:700}
     header .meta{margin-top:4px;opacity:.95}
-    .container{max-width:960px;margin:18px auto;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:18px}
+    .container{max-width:900px;margin:18px auto;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:18px}
     .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
     .tab{padding:8px 12px;border:1px solid #dcdfe6;background:#f3f5f9;border-radius:8px 8px 0 0;cursor:pointer}
     .tab.active{background:#fff;font-weight:600;border-bottom-color:#fff}
-    textarea{width:100%;min-height:320px;padding:10px 12px;border:1px solid #dcdfe6;border-radius:10px;resize:vertical;font-size:16px;line-height:1.6}
+    textarea{width:90%;min-height:320px;padding:10px 12px;border:1px solid #dcdfe6;border-radius:10px;resize:vertical;font-size:16px;line-height:1.6}
     .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
     .btn{background:#4a90e2;border:none;color:#fff;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px}
     .btn:hover{background:#0078d7}
-    #cheatSheet {
-		margin-top: 20px;
-		border: 1px solid #ccc;
-		padding: 10px;
-		background: #fafafa;
-		border-radius: 8px;
-		max-width: 100%;
-	  }
-	  #cheatSheet h3 {
-		margin: 0 0 10px 0;
-		font-size: 1.2rem;
-	  }
-	  .cheatSheet-container {
-		max-height: 500px;   /* control visible height */
-		overflow-y: auto;    /* vertical scroll if image is tall */
-		text-align: center;
-		border: 1px solid #ddd;
-		background: #fff;
-		padding: 5px;
-	  }
-	  .cheatSheet-container img {
-		width: 100%;
-		max-width: none;
-		transition: transform 0.3s ease;
-	  }
-	  .cheatSheet-controls {
-		margin-top: 10px;
-		text-align: center;
-	  }
-	  .cheatSheet-controls button {
-		margin: 0 5px;
-		padding: 6px 12px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		background: #0078d7;
-		color: white;
-		font-size: 14px;
-	  }
-	  .cheatSheet-controls button:hover {
-		background: #005fa3;
-	  }
+    
     #emojiPicker{display:none;margin-top:10px;padding:8px;border:1px solid #ccc;border-radius:8px;background:#fafafa;font-size:22px;line-height:2;cursor:pointer}
     #emojiPicker span{margin:4px;cursor:pointer;display:inline-block;transition:transform 0.1s ease-in-out}
     #emojiPicker span:hover{transform:scale(1.3)}
@@ -72,25 +31,25 @@
 
   <div class="container">
     <div class="tabs" id="tabContainer"></div>
-    <textarea id="noteArea" placeholder="Start typing... (বাংলা: Avro ON / English: toggle)"></textarea>
+    <textarea id="noteArea" placeholder="Start typing.বাংলা .. ( Click লিপান্তর : toggle)"></textarea>
 
     <div class="controls">
       <button class="btn" onclick="newTab()">➕ New Tab</button>
       <button class="btn" onclick="renameTab()">✏️ Rename Tab</button>
-      <button class="btn" onclick="saveToFile()">💾 Save to File</button>
-      <button class="btn" id="avroToggle" onclick="toggleAvro()">🅱️ Bengali ON</button>
+      <button class="btn" onclick="saveToFile()">💾 Save to File</button>     
       <button class="btn" onclick="shareSelectedText()">🔗 Share Selected</button>
-      <button class="btn" onclick="toggleCheatSheet()">📖 Cheat Sheet (JPG)</button>
       <button class="btn" onclick="toggleEmojiPicker()">😊 Emoji</button>
+	  <button class="btn" onclick="toggleGoogleInput()">✍️ লিপান্তর (Transliteration)</button>
     </div>
-
-    <div id="cheatSheet">
-  	  <h3>📑 Bengoli Cheat Sheet</h3>
-  	  <div class="cheatSheet-container">
-  		<img src="cheatSheet.jpg" alt="ImageMagick Cheat Sheet">
-  	  </div>
-  	 
+	
+	<div id="googleInputContainer" style="display:none; margin-top:10px;">
+	  <div style="width:100%; height:229px; overflow:hidden; border:1px solid #ccc;">
+		<iframe src="https://www.google.com/intl/bn/inputtools/try/"
+				style="width:100%; height:1000px; margin-top:-240px; border:none;">
+		</iframe>
 	  </div>
+	</div>
+
     <div id="emojiPicker"></div>
   </div>
 
@@ -307,12 +266,23 @@
       alert("Sharing not supported in this browser. Please copy instead.");
     }
   }
+  
+  function toggleGoogleInput() {
+	  const box = document.getElementById("googleInputContainer");
+	  if (box.style.display === "none" || box.style.display === "") {
+		box.style.display = "block";
+	  } else {
+		box.style.display = "none";
+	  }
+	}
+
 
   // ---------- Init ----------
   window.addEventListener('beforeunload', saveCurrent);
   document.getElementById('noteArea').addEventListener('input', saveCurrent);
   renderTabs();
   </script>
+ 
+  
 </body>
 </html>
-
