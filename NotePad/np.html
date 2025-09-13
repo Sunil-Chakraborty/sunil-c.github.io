@@ -39,16 +39,12 @@
       <button class="btn" onclick="saveToFile()">💾 Save to File</button>     
       <button class="btn" onclick="shareSelectedText()">🔗 Share Selected</button>
       <button class="btn" onclick="toggleEmojiPicker()">😊 Emoji</button>
-	  <button class="btn" onclick="toggleGoogleInput()">✍️ লিপান্তর (Transliteration)</button>
+	  <a href="https://www.google.com/intl/bn/inputtools/try/" target="_blank">
+  		✍️ লিপান্তর (Transliteration) – Open Full Page
+	  </a>
     </div>
 	
-	<div id="googleInputContainer" style="display:none; margin-top:10px;">
-	  <div style="width:100%; height:229px; overflow:hidden; border:1px solid #ccc;">
-		<iframe src="https://www.google.com/intl/bn/inputtools/try/"
-				style="width:100%; height:1000px; margin-top:-240px; border:none;">
-		</iframe>
-	  </div>
-	</div>
+	
 
     <div id="emojiPicker"></div>
   </div>
@@ -286,3 +282,4 @@
   
 </body>
 </html>
+
