@@ -40,7 +40,6 @@
       <button class="btn" onclick="shareSelectedText()">🔗 Share Selected</button>
       <button class="btn" onclick="toggleEmojiPicker()">😊 Emoji</button>
 	  <button class="btn" onclick="toggleGoogleInput()">✍️ লিপান্তর (Transliteration)</button>
-
     </div>
 	
 	<div id="googleInputContainer" style="display:none; margin-top:10px;">
@@ -51,14 +50,13 @@
 	  </div>
 	</div>
 
-
     <div id="emojiPicker"></div>
   </div>
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Avro plugin (desktop) -->
-  <script src="js/avro-v1.1.4.min.js"></script>
+ 
   <script>
   // ---------- Tabs ----------
   let tabs = JSON.parse(localStorage.getItem('notepadTabs')) || [
@@ -192,7 +190,7 @@
   }
 
   // ---------- Avro ----------
-  let avroEnabled = true;
+ 
   const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
   const usePlugin = !isMobile;
 
@@ -200,8 +198,7 @@
     if (usePlugin && typeof $!=='undefined' && typeof $.fn.avro==='function') {
       $('#noteArea').avro();
     }
-    enableAvroMobilePatch();
-    updateAvroButton();
+    
   });
 
   function toggleAvro() {
@@ -216,10 +213,7 @@
     }
   }
 
-  function updateAvroButton() {
-    document.getElementById('avroToggle').textContent = avroEnabled ? '🅱️ Bengali ON' : '🔤 English ON';
-  }
-
+  
   function enableAvroMobilePatch() {
     const area = document.getElementById('noteArea');
     if (!area || usePlugin || area.dataset.avroPatched === '1') return;
@@ -288,5 +282,3 @@
   
 </body>
 </html>
-
-
