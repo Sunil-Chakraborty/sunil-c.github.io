@@ -1,18 +1,15 @@
-#  https://docs.streamlit.io/
-# streamlit run student_dashboard_csv.py
-# student_dashboard_csv.py
-# ------------------------------------------
-# Interactive Student Performance Dashboard
+# ----------------------------------------------------
+# 🎓 Interactive Student Performance Dashboard
 # Built with Streamlit + Plotly
-# ------------------------------------------
-# https://www.kdnuggets.com/7-python-libraries-every-analytics-engineer-should-know
-
+# ----------------------------------------------------
+# Run locally with:
+#   streamlit run student_dashboard_csv.py
+# ----------------------------------------------------
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
-
 
 # ------------------------------------------
 # Page configuration
@@ -29,23 +26,28 @@ st.markdown("This dashboard visualizes student marks and performance across diff
 # ------------------------------------------
 # Load Data
 # ------------------------------------------
-# data_path = os.path.join("data", "marks.csv")
-
 BASE_DIR = os.path.dirname(__file__)
 data_path = os.path.join(BASE_DIR, "data", "marks.csv")
 
-
 @st.cache_data
 def load_data(path):
-    df = pd.read_csv(path)
-    return df
+    """Safely load CSV data."""
+    return pd.read_csv(path)
 
 try:
     data = load_data(data_path)
 except Exception as e:
-    st.error(f"Error loading data: {e}")
+    st.error(f"❌ Error loading data: {e}")
     st.stop()
 
+# Sanity check
+if data is None or not hasattr(data, "columns"):
+    st.error("Data failed to load properly — please check the CSV file path or format.")
+    st.stop()
+
+# ------------------------------------------
+# Data Preview
+# ------------------------------------------
 st.subheader("📄 Data Preview")
 st.dataframe(data, use_container_width=True)
 
@@ -53,20 +55,24 @@ st.dataframe(data, use_container_width=True)
 # Identify important columns
 # ------------------------------------------
 required_cols = {"Name", "Class", "Gender"}
-exclude_cols = required_cols | {"Discipline"} if "Discipline" in data.columns else required_cols
 
-# Detect numeric subject columns
+if "Discipline" in data.columns:
+    exclude_cols = required_cols | {"Discipline"}
+else:
+    exclude_cols = required_cols
+
+# Detect numeric columns (subjects)
 numeric_cols = [
     col for col in data.columns
     if col not in exclude_cols and pd.api.types.is_numeric_dtype(data[col])
 ]
 
 if not numeric_cols:
-    st.warning("No numeric subject columns found. Please check your CSV data.")
+    st.warning("⚠️ No numeric subject columns found. Please check your CSV data.")
     st.stop()
 
 # ------------------------------------------
-# Sidebar filters
+# Sidebar Filters
 # ------------------------------------------
 st.sidebar.header("🔍 Filters")
 
@@ -96,6 +102,7 @@ st.subheader("📊 Summary Statistics")
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Students", len(filtered_data))
+
 if "Discipline" in filtered_data.columns:
     col2.metric("Selected Discipline", selected_discipline)
 else:
@@ -111,8 +118,8 @@ st.subheader("📈 Average Marks by Subject")
 
 subject_avg = (
     filtered_data.groupby("Gender")[numeric_cols].mean().reset_index()
-    if "Gender" in filtered_data.columns else
-    pd.DataFrame()
+    if "Gender" in filtered_data.columns
+    else pd.DataFrame()
 )
 
 if not subject_avg.empty:
@@ -153,7 +160,7 @@ else:
     st.warning(f"No valid numeric data found for {subject_for_dist}.")
 
 # ------------------------------------------
-# Discipline-wise Average (if applicable)
+# Discipline-wise Average
 # ------------------------------------------
 if "Discipline" in data.columns:
     st.subheader("🏫 Average Marks by Discipline")
