@@ -13,6 +13,7 @@ import pandas as pd
 import plotly.express as px
 import os
 
+
 # ------------------------------------------
 # Page configuration
 # ------------------------------------------
@@ -28,7 +29,13 @@ st.markdown("This dashboard visualizes student marks and performance across diff
 # ------------------------------------------
 # Load Data
 # ------------------------------------------
-data_path = os.path.join("data", "marks.csv")
+# data_path = os.path.join("data", "marks.csv")
+
+
+BASE_DIR = os.path.dirname(__file__)
+csv_path = os.path.join(BASE_DIR, "data", "marks.csv")
+
+data_path = pd.read_csv(csv_path)
 
 @st.cache_data
 def load_data(path):
