@@ -125,7 +125,7 @@ if theme_option == "Dark":
 
         /* --- Metric Value --- */
         div[data-testid="stMetricValue"] {
-            color: #00E0FF !important;   /* bright cyan value */
+            color: #FFD166 !important;   /* bright cyan value */
             font-size: 28px !important;
             font-weight: 700 !important;
             text-align: center !important;
