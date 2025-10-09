@@ -4,6 +4,10 @@
 # ----------------------------------------------------
 # Run locally:  streamlit run dashboard.py
 # ----------------------------------------------------
+# http://localhost:8501/
+# https://share.streamlit.io/
+
+# https://sunilc-student-dashboard.streamlit.app/
 
 import streamlit as st
 import pandas as pd
