@@ -1,3 +1,18 @@
+# ----------------------------------------------------
+# 🎓 Interactive Student Intake Dashboard
+# Streamlit + Plotly | Mobile-Responsive | Dark/Light Mode
+# ----------------------------------------------------
+# Run locally:  streamlit run Student_DB.py
+# ----------------------------------------------------
+# http://localhost:8501/
+# https://share.streamlit.io/
+
+# https://sunilc-student-dashboard/Student_DB.streamlit.app/
+
+
+
+
+
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -143,4 +158,5 @@ else:
 st.sidebar.markdown('---')
 st.sidebar.info('The gap is calculated as: Sanctioned Intake - Actual Intake.')
 st.sidebar.info('A **positive Gap** means the actual intake was **less** than sanctioned.')
+
 st.sidebar.info('A **negative Gap** means the actual intake was **more** than sanctioned (over-intake).')
