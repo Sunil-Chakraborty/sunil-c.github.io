@@ -54,7 +54,7 @@ def load_data(file_path):
     
     return melted_df
 
-FILE_PATH = "intake_gaps.csv"
+FILE_PATH = "data/intake_gaps.csv"
 data = load_data(FILE_PATH)
 
 # --- Streamlit Layout ---
