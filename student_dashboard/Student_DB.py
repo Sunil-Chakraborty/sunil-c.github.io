@@ -57,7 +57,7 @@ def load_data(file_path):
     
     return melted_df
 
-FILE_PATH = "intake_gaps.csv"
+FILE_PATH = "data/intake_gaps.csv"
 data = load_data(FILE_PATH)
 
 # --- Streamlit Layout ---
@@ -160,3 +160,4 @@ st.sidebar.info('The gap is calculated as: Sanctioned Intake - Actual Intake.')
 st.sidebar.info('A **positive Gap** means the actual intake was **less** than sanctioned.')
 
 st.sidebar.info('A **negative Gap** means the actual intake was **more** than sanctioned (over-intake).')
+
