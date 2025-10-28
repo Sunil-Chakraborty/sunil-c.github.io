@@ -21,6 +21,22 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# --- Configuration & Read-Only Style ---
+st.set_page_config(
+    page_title="Intake Gap Analysis Dashboard",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS to hide the Streamlit menu and footer (for a read-only feel)
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 # --- Data Loading and Preparation ---
 @st.cache_data
