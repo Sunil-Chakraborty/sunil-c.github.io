@@ -55,8 +55,16 @@ def load_data(file_path):
     
     return melted_df
 
-FILE_PATH = "intake_gaps.csv"
-data = load_data(FILE_PATH)
+#FILE_PATH = "intake_gaps.csv"
+#data = load_data(FILE_PATH)
+
+# ------------------------------------------
+# LOAD DATA
+# ------------------------------------------
+BASE_DIR = os.path.dirname(__file__)
+data_path = os.path.join(BASE_DIR, "data", "intake_gaps.csv")
+data = load_data(data_path)
+
 
 # --- Streamlit Layout ---
 st.title('📊 Intake Gap Analysis Dashboard')
