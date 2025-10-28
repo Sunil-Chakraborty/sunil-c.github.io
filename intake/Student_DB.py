@@ -1,3 +1,15 @@
+# ----------------------------------------------------
+# 🎓 Interactive Student Intake Dashboard
+# Streamlit + Plotly | Mobile-Responsive | Dark/Light Mode
+# ----------------------------------------------------
+# Run locally:  streamlit run Student_DB.py
+# ----------------------------------------------------
+# http://localhost:8501/
+# https://share.streamlit.io/
+
+# https://sunilc-intake.streamlit.app/
+
+
 import streamlit as st
 import pandas as pd
 import altair as alt
