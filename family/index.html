@@ -13,7 +13,7 @@
     #searchBox { width: 100%; padding: 8px; margin: 10px 0; font-size: 1em; border: 1px solid #ccc; border-radius: 4px; }
     .index a { display: block; margin: 0.5em 0; color: #0066cc; text-decoration: none; }
     .index a:hover { text-decoration: underline; }
-    #.index a.has-media { color: green; font-weight: bold; }
+    .index a.has-media { color: green; font-weight: bold; }
     .poem { margin-bottom: 4em; }
     p { white-space: pre-line; }
     .media-card {
@@ -46,10 +46,10 @@
       margin: 0;
     }
     .audio-thumb {
-      width: 100px;      /* thumbnail size */
-      height: 100px;     /* fixed height to keep circle shape */
-      border-radius: 50%; /* makes it round */
-      object-fit: cover;  /* ensures image fills the circle without stretching */
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
       margin-bottom: 8px;
       display: block;
       margin-left: auto;
@@ -57,13 +57,31 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
-
+    /* 🎨 Painting frame (6 images in flexbox) */
+    .painting-frame {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .painting-frame img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+    .painting-frame img:hover {
+      transform: scale(1.05);
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
 </head>
 <body>
   <aside>
-    <h1>📚 পারিবারিক সংকলন   </h1>
+    <h1>👨‍👩‍👧‍👦 পারিবারিক কার্যক্রম</h1>
     <input type="text" id="searchBox" placeholder="🔍 খুঁজে দেখুন ..." onkeyup="filterPoems()">
     <div class="index">
       <a href="#poem1" class="has-media"> ওকে ছুঁয়ো না ছুঁয়ো না ছিঃ - অমিতাভ দাশগুপ্ত </a>
@@ -74,7 +92,7 @@
       <a href="#poem6" class="has-media">কাজরি - হিন্দুস্তানি আধা-ধ্রুপদী সঙ্গীত - শুভ্র ভট্টাচার্য   </a>
       <a href="#poem7" class="has-media"> হারিয়ে - প্রেমেন্দ্র মিত্র </a>
       <a href="#poem8" class="has-media"> তুই ফেলে এসেছিস কারে - রবীন্দ্রনাথ ঠাকুর </a>
-      
+      <a href="#poem9" class="has-media">ছবি প্রদর্শনী  - সায়ন্তনী চক্রবর্তী </a>
     </div>
   </aside>
   <main id="poemContainer">
@@ -162,9 +180,7 @@
                   <iframe src="https://drive.google.com/file/d/1grQRdwgr5kE4MbzuqYGWmjpkVZpm2HLo/preview" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
                 </div>
       <p>আশ্রম সংগীত · ভবানী দয়ানী মহাবাণী - লেখক :  অজ্ঞাত
-	  
 ভৈরবী-ঝাঁপতাল
-
 ভবানী দয়ানী মহাবাণী
 সুরনর-মুনি-জন মানি সকল বুধজ্ঞানী।
 
@@ -440,6 +456,26 @@
 মন, মন রে আমার</p>
     </div>
 
+    <div class="poem" id="poem9">
+      <h2>ছবি প্রদর্শনী </h2>
+      <p><strong><em>চিত্রকার  : সায়ন্তনী চক্রবর্তী </em></strong></p>
+      
+                <div class="painting-frame">
+                  <img src="media/paint1.jpg" alt="Painting 1">
+                  <img src="media/paint2.jpg" alt="Painting 2">
+                  <img src="media/paint3.jpg" alt="Painting 3">
+                  <img src="media/paint4.jpg" alt="Painting 4">
+                  <img src="media/paint5.jpg" alt="Painting 5">
+                  <img src="media/paint6.jpg" alt="Painting 6">
+                  <img src="media/paint7.jpg" alt="Painting 7">
+                  <img src="media/paint8.jpg" alt="Painting 8">
+                  <img src="media/paint9.jpg" alt="Painting 9">
+                  <img src="media/paint10.jpg" alt="Painting 10">
+                  <img src="media/paint11.jpg" alt="Painting 11">
+                  <img src="media/paint12.jpg" alt="Painting 12">
+                </div>
+      <p></p>
+    </div>
 
   </main>
 
@@ -448,11 +484,7 @@ function filterPoems() {
   let input = document.getElementById("searchBox").value.toLowerCase();
   let links = document.querySelectorAll(".index a");
   links.forEach(link => {
-    if (link.textContent.toLowerCase().includes(input)) {
-      link.style.display = "block";
-    } else {
-      link.style.display = "none";
-    }
+    link.style.display = link.textContent.toLowerCase().includes(input) ? "block" : "none";
   });
 }
 </script>
