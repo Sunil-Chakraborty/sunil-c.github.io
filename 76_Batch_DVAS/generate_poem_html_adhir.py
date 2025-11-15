@@ -1,7 +1,22 @@
 # file:///D:/JU/index.html
 # python generate_poem_html_adhir.py
+
+"""
+1. Adobe Podcast - Enhance Speech
+Link: https://podcast.adobe.com/enhance (Search for "Enhance Speech from Adobe")
+
+Best For: Purely cleaning up spoken word (like your poetry) to make it sound like it was recorded in a professional studio. It's excellent for removing noise and echo.
+
+Supports: Audio (.mp3, .wav) and Video (.mp4, .mov, etc.).
+
+Free Usage: It offers a generous amount of free daily usage.
+"""
+
+
+
 import re
 from pathlib import Path
+import os
 
 # Paths
 audio_dir = Path("audio")
@@ -62,15 +77,22 @@ html = """<!DOCTYPE html>
 
 # Build content
 main_content = ""
-AUDIO_EXTS = [".mp3", ".aac", ".m4a"]
-
+AUDIO_EXTS = [".mp3", ".aac", ".m4a", ".wav"]
+ 
 for idx, (_, title, audio_file, image_file, body) in enumerate(matches, start=1):
     anchor = f"poem{idx}"
     title_display = title
 
     # ==== AUDIO handling ====
     audio_html = ""
-    numbered_name = f"poem{idx}.mp3"
+    
+    # 1. Use os.path.splitext() to get the extension from the audio_file variable.
+    #    The function returns a tuple: (root, extension). We only need the extension.
+    _, ext = os.path.splitext(audio_file)
+    
+    # 2. Construct the numbered_name using the index and the extracted extension.
+    numbered_name = f"poem{idx}{ext}"
+    
     safe_title = title.strip().replace(" ", "_")
 
     title_candidates = [safe_title + ext for ext in AUDIO_EXTS]
