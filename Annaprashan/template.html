@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- rebuild -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Annaprashan — The First Rice Ceremony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Great+Vibes&family=Playfair+Display:ital@1&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7A1E2B; --maroon-deep:#4E1119; --gold:#C9A84C; --gold-soft:#E7CE8C;
+    --cream:#F7ECD9; --teal:#1F4B4C; --ink:#2A1810;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%;}
+  body{
+    margin:0; background:var(--maroon-deep);
+    background-image:radial-gradient(circle at 15% 20%, rgba(201,168,76,0.10), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(201,168,76,0.08), transparent 50%);
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    color:var(--cream); overflow:hidden; display:flex; align-items:center; justify-content:center;
+  }
+  .stage{ position:relative; width:100%; height:100%; max-width:640px; margin:0 auto; display:flex; flex-direction:column; }
+  header{ text-align:center; padding:calc(18px + env(safe-area-inset-top,0px)) 46px 10px; flex-shrink:0; position:relative; }
+  .eyebrow{ font-family:'Poppins', Arial, sans-serif; font-size:11px; letter-spacing:0.14em; color:var(--gold-soft); opacity:0.85; margin:0 0 4px; }
+  .hero-caption{ text-align:center; }
+  .hero-caption .cap-annaprashan{ font-family:'Great Vibes', 'Cormorant Garamond', cursive; font-size:clamp(30px,9vw,42px); color:#E7B4BC; margin:0; line-height:1; }
+  .hero-caption .cap-dinner{ display:inline-block; font-family:'Poppins', Arial, sans-serif; font-size:10.5px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--maroon-deep); background:var(--gold); padding:5px 16px; border-radius:2px; margin:6px 0 4px; }
+  .hero-caption .cap-of{ font-family:'Playfair Display', serif; font-style:italic; font-size:13px; color:var(--gold-soft); margin:2px 0; }
+  .hero-caption .cap-name{ font-family:'Great Vibes', 'Cormorant Garamond', cursive; font-size:clamp(24px,7vw,34px); color:#E7B4BC; margin:2px 0 0; line-height:1; }
+  h1{ margin:0; font-size:clamp(24px,6.6vw,34px); font-weight:600; color:var(--cream); letter-spacing:0.01em; }
+  h1 em{ font-style:italic; color:var(--gold); }
+  .addToggle{
+    display:none;
+  }
+  .editToggle{
+    position:absolute; top:10px; right:10px; z-index:7;
+    width:34px; height:34px; border-radius:50%; border:1px solid rgba(201,168,76,0.55);
+    background:rgba(20,10,8,0.45); backdrop-filter:blur(2px); color:var(--gold-soft);
+    display:none; /* change to "flex" to show the edit button again */ align-items:center; justify-content:center; cursor:pointer;
+  }
+  .editToggle svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; }
+  .frame{ position:relative; flex:1; margin:6px 14px 0; border-radius:14px; overflow:hidden; background:#000;
+    box-shadow:0 0 0 1px rgba(201,168,76,0.35), 0 18px 40px rgba(0,0,0,0.5); }
+  .slide{ position:absolute; inset:0; opacity:0; transition:opacity 1.1s ease; }
+  .slide.active{ opacity:1; z-index:2; }
+  .slide img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
+    animation-duration:7s; animation-timing-function:ease-in-out; animation-fill-mode:forwards; }
+  .slide.active img{ animation-name:kenburns; }
+  @keyframes kenburns{ 0%{transform:scale(1) translate(0,0);} 100%{transform:scale(1.14) translate(var(--kx,-2%), var(--ky,-1%));} }
+  .vignette{ position:absolute; inset:0; z-index:3; pointer-events:none;
+    background:linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 100%); }
+  .cornerA,.cornerB,.cornerC,.cornerD{ position:absolute; width:46px; height:46px; z-index:4; opacity:0.85; pointer-events:none; }
+  .cornerA{top:8px;left:8px;} .cornerB{top:8px;right:8px;transform:scaleX(-1);}
+  .cornerC{bottom:8px;left:8px;transform:scaleY(-1);} .cornerD{bottom:8px;right:8px;transform:scale(-1,-1);}
+  .caption-wrap{ position:absolute; left:0; right:0; bottom:0; z-index:5; padding:0 18px 16px; text-align:center; }
+  .cap-title{ font-size:clamp(19px,5.6vw,25px); font-weight:600; color:var(--cream); margin:0 0 3px; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+  .cap-sub{ font-family:'Poppins', Arial, sans-serif; font-size:12.5px; color:var(--gold-soft); letter-spacing:0.02em; margin:0; text-shadow:0 1px 6px rgba(0,0,0,0.6); }
+  .tap-l,.tap-r{ position:absolute; top:0; bottom:0; width:32%; z-index:6; background:transparent; border:0; }
+  .tap-l{left:0;} .tap-r{right:0;}
+  .controls{ flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:18px; padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px)); }
+  .dots{ display:flex; gap:7px; flex-wrap:wrap; max-width:110px; justify-content:center; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:rgba(231,206,140,0.35); transition:background 0.3s, transform 0.3s; }
+  .dot.active{ background:var(--gold); transform:scale(1.3); }
+  .btn{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(201,168,76,0.5); background:rgba(201,168,76,0.08);
+    color:var(--gold-soft); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; flex-shrink:0; }
+  .btn:active{ transform:scale(0.92); }
+  .btn svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.2; }
+  .btn.play svg{ fill:currentColor; stroke:none; }
+
+  .panel-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:20; display:none; align-items:flex-end; justify-content:center; }
+  .panel-backdrop.open{ display:flex; }
+  .panel{ width:100%; max-width:640px; background:var(--cream); color:var(--ink); border-radius:18px 18px 0 0;
+    padding:18px 20px calc(20px + env(safe-area-inset-bottom,0px)); font-family:'Poppins', Arial, sans-serif; }
+  .panel h2{ margin:0 0 12px; font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--maroon); font-weight:600; }
+  .field{ margin-bottom:12px; }
+  .field label{ display:block; font-size:11px; letter-spacing:0.05em; color:var(--maroon); margin-bottom:5px; text-transform:uppercase; }
+  .field input[type="text"]{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(122,30,43,0.3); font-size:15px; font-family:inherit; background:#fff; color:var(--ink); }
+  .field input[type="file"]{ width:100%; font-size:13px; }
+  .thumb{ width:60px; height:60px; border-radius:8px; object-fit:cover; margin-top:8px; display:none; }
+  .panel-actions{ display:flex; gap:10px; margin-top:6px; }
+  .panel-actions button{ flex:1; padding:11px; border-radius:9px; border:0; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; }
+  .btnAdd{ background:var(--maroon); color:var(--cream); }
+  .btnCancel{ background:transparent; color:var(--maroon); border:1px solid rgba(122,30,43,0.3) !important; }
+  .status{ font-size:12px; margin-top:10px; color:var(--teal); min-height:16px; }
+  
+  .editToggle{ display:none !important; }	
+ 
+
+
+</style>
+</head>
+<body>
+<div class="stage">
+  <header>
+    <div class="hero-caption">
+      <p class="cap-annaprashan">Annaprashan</p>
+      <span class="cap-dinner">Dinner Party</span>
+      <p class="cap-of">of</p>
+      <p class="cap-name">Agastya Chakraborty</p>
+    </div>
+    <button class="addToggle" id="addToggle" aria-label="Add a photo">+</button>
+  </header>
+
+  <div class="frame" id="frame">
+    <div class="vignette"></div>
+    <div class="caption-wrap" id="captionWrap">
+      <p class="cap-title" id="capTitle"></p>
+      <p class="cap-sub" id="capSub"></p>
+    </div>
+    <button class="tap-l" id="tapL" aria-label="Previous"></button>
+    <button class="tap-r" id="tapR" aria-label="Next"></button>
+    <button class="editToggle" id="editToggle" aria-label="Edit title and subtitle">
+      <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prevBtn" aria-label="Previous slide"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
+    <div class="dots" id="dots"></div>
+    <button class="btn play" id="playBtn" aria-label="Play or pause"><svg id="playIcon" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></button>
+    <button class="btn" id="nextBtn" aria-label="Next slide"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg></button>
+  </div>
+</div>
+
+<div class="panel-backdrop" id="panelBackdrop">
+  <div class="panel">
+    <h2 id="panelHeading">Add a memory</h2>
+    <div class="field" id="fileField">
+      <label>Photo</label>
+      <input type="file" id="fileInput" accept="image/*">
+      <img class="thumb" id="thumbPreview" alt="">
+    </div>
+    <div class="field">
+      <label>Title</label>
+      <input type="text" id="titleInput" placeholder="e.g. The First Bite">
+    </div>
+    <div class="field">
+      <label>Subtitle</label>
+      <input type="text" id="subInput" placeholder="e.g. Baba offers the ceremonial rice">
+    </div>
+    <div class="panel-actions">
+      <button class="btnCancel" id="cancelBtn">Cancel</button>
+      <button class="btnAdd" id="confirmAdd">Add to story</button>
+    </div>
+    <p class="status" id="statusMsg"></p>
+  </div>
+</div>
+
+<script type="application/json" id="slidesData">__SLIDES_JSON__</script>
+<script>
+(function(){
+  // Capture the document's original source before any dynamic rendering,
+  // so we can publish clean full-document snapshots later.
+  var ORIGINAL_HTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+  var ORIGINAL_JSON_TEXT = document.getElementById('slidesData').textContent;
+
+  var slides = JSON.parse(ORIGINAL_JSON_TEXT);
+  var frame = document.getElementById('frame');
+  var dotsWrap = document.getElementById('dots');
+  var capTitle = document.getElementById('capTitle');
+  var capSub = document.getElementById('capSub');
+  var idx = 0, timer = null, playing = true;
+  var DURATION = 4200;
+  var artifactCap = null;
+
+  // After adding a photo and publishing, the whole page reloads fresh —
+  // this restores which slide we were on so the new one is visible.
+  try {
+    var savedIdx = sessionStorage.getItem('annaprashan_jumpToIndex');
+    if (savedIdx !== null) {
+      idx = Math.max(0, Math.min(parseInt(savedIdx, 10) || 0, slides.length - 1));
+      sessionStorage.removeItem('annaprashan_jumpToIndex');
+    }
+  } catch (e) {}
+
+  function buildSlideEl(s, active){
+    var div = document.createElement('div');
+    div.className = 'slide' + (active ? ' active' : '');
+    div.dataset.title = s.title || '';
+    div.dataset.sub = s.sub || '';
+    div.style.setProperty('--kx', s.kx || '-2%');
+    div.style.setProperty('--ky', s.ky || '-1%');
+    var img = document.createElement('img');
+    img.src = s.src;
+    img.alt = s.title || '';
+    div.appendChild(img);
+    return div;
+  }
+
+  function renderAll(){
+    // remove existing .slide elements
+    Array.prototype.slice.call(frame.querySelectorAll('.slide')).forEach(function(el){ el.remove(); });
+    var anchor = frame.querySelector('.cornerA');
+    slides.forEach(function(s, i){
+      frame.insertBefore(buildSlideEl(s, i === idx), anchor);
+    });
+    dotsWrap.innerHTML = '';
+    slides.forEach(function(s, i){
+      var d = document.createElement('div');
+      d.className = 'dot' + (i === idx ? ' active' : '');
+      d.addEventListener('click', function(){ goTo(i); resetTimer(); });
+      dotsWrap.appendChild(d);
+    });
+    updateCaption();
+  }
+
+  function updateCaption(){
+    var s = slides[idx];
+    capTitle.textContent = s ? (s.title || '') : '';
+    capSub.textContent = s ? (s.sub || '') : '';
+    document.getElementById('captionWrap').style.display = (s && s.showCaption === false) ? 'none' : '';
+    Array.prototype.slice.call(frame.querySelectorAll('.slide')).forEach(function(el, i){ el.classList.toggle('active', i === idx); });
+    Array.prototype.slice.call(dotsWrap.children).forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+  }
+
+  function goTo(i){ idx = (i + slides.length) % slides.length; updateCaption(); }
+  function next(){ goTo(idx + 1); }
+  function prev(){ goTo(idx - 1); }
+  function currentDuration(){
+    var s = slides[idx];
+    return (s && s.duration) ? s.duration : DURATION;
+  }
+  function resetTimer(){
+    clearTimeout(timer); clearInterval(timer);
+    if (playing){ timer = setTimeout(function(){ next(); resetTimer(); }, currentDuration()); }
+  }
+  function setPlaying(p){
+    playing = p;
+    document.getElementById('playIcon').innerHTML = playing
+      ? '<rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect>'
+      : '<path d="M6 4l14 8-14 8V4z"></path>';
+    resetTimer();
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', function(){ next(); resetTimer(); });
+  document.getElementById('prevBtn').addEventListener('click', function(){ prev(); resetTimer(); });
+  document.getElementById('tapR').addEventListener('click', function(){ next(); resetTimer(); });
+  document.getElementById('tapL').addEventListener('click', function(){ prev(); resetTimer(); });
+  document.getElementById('playBtn').addEventListener('click', function(){ setPlaying(!playing); });
+
+  renderAll();
+  setPlaying(true);
+
+  // --- Add-a-memory / edit-caption panel ---
+  var backdrop = document.getElementById('panelBackdrop');
+  var fileField = document.getElementById('fileField');
+  var fileInput = document.getElementById('fileInput');
+  var thumb = document.getElementById('thumbPreview');
+  var titleInput = document.getElementById('titleInput');
+  var subInput = document.getElementById('subInput');
+  var statusMsg = document.getElementById('statusMsg');
+  var panelHeading = document.getElementById('panelHeading');
+  var confirmBtn = document.getElementById('confirmAdd');
+  var pendingDataUrl = null;
+  var panelMode = 'add'; // 'add' | 'edit'
+  var editIndex = -1;
+
+  function openPanel(mode){
+    panelMode = mode;
+    if (mode === 'edit'){
+      editIndex = idx;
+      var s = slides[editIndex] || {};
+      panelHeading.textContent = 'Edit caption';
+      fileField.style.display = 'none';
+      titleInput.value = s.title || '';
+      subInput.value = s.sub || '';
+      confirmBtn.textContent = 'Save changes';
+    } else {
+      panelHeading.textContent = 'Add a memory';
+      fileField.style.display = '';
+      confirmBtn.textContent = 'Add to story';
+      resetPanel();
+    }
+    statusMsg.textContent = '';
+    backdrop.classList.add('open');
+  }
+
+  document.getElementById('addToggle').addEventListener('click', function(){ openPanel('add'); });
+  document.getElementById('editToggle').addEventListener('click', function(){ openPanel('edit'); });
+  document.getElementById('cancelBtn').addEventListener('click', function(){
+    backdrop.classList.remove('open');
+    resetPanel();
+  });
+  function resetPanel(){
+    fileInput.value = ''; titleInput.value = ''; subInput.value = '';
+    thumb.style.display = 'none'; pendingDataUrl = null;
+  }
+  fileInput.addEventListener('change', function(){
+    var f = fileInput.files[0];
+    if (!f) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      pendingDataUrl = e.target.result;
+      thumb.src = pendingDataUrl;
+      thumb.style.display = 'block';
+    };
+    reader.readAsDataURL(f);
+  });
+
+  function randSign(){ return (Math.random() > 0.5 ? 1 : -1); }
+
+  document.getElementById('confirmAdd').addEventListener('click', function(){
+    if (panelMode === 'edit'){
+      if (editIndex < 0 || !slides[editIndex]) return;
+      slides[editIndex].title = titleInput.value.trim();
+      slides[editIndex].sub = subInput.value.trim();
+      idx = editIndex;
+      renderAll();
+      statusMsg.textContent = 'Saving…';
+      try { sessionStorage.setItem('annaprashan_jumpToIndex', String(idx)); } catch (e) {}
+      persist();
+      return;
+    }
+    if (!pendingDataUrl){ statusMsg.textContent = 'Choose a photo first.'; return; }
+    var newSlide = {
+      src: pendingDataUrl,
+      title: titleInput.value.trim() || 'A New Memory',
+      sub: subInput.value.trim() || '',
+      kx: (randSign() * (2 + Math.round(Math.random()*2))) + '%',
+      ky: (randSign() * (1 + Math.round(Math.random()*2))) + '%'
+    };
+    slides.push(newSlide);
+    idx = slides.length - 1;
+    renderAll();
+    resetTimer();
+    statusMsg.textContent = 'Added. Saving…';
+    try { sessionStorage.setItem('annaprashan_jumpToIndex', String(idx)); } catch (e) {}
+    persist();
+  });
+
+  async function getArtifactCap(){
+    if (artifactCap) return artifactCap;
+    try { artifactCap = await claude.use('artifact'); } catch(e){ artifactCap = null; }
+    return artifactCap;
+  }
+
+  async function persist(){
+    var cap = await getArtifactCap();
+    var newJson = JSON.stringify(slides);
+    var newHtml = ORIGINAL_HTML.split(ORIGINAL_JSON_TEXT).join(newJson);
+    if (!cap){
+      try { sessionStorage.removeItem('annaprashan_jumpToIndex'); } catch (e) {}
+      statusMsg.textContent = 'Added for this view — this session can\'t save permanently.';
+      setTimeout(function(){ backdrop.classList.remove('open'); resetPanel(); }, 900);
+      return;
+    }
+    try{
+      await cap.publish(newHtml);
+      statusMsg.textContent = 'Saved to the story.';
+      ORIGINAL_HTML = newHtml;
+      ORIGINAL_JSON_TEXT = newJson;
+      setTimeout(function(){ backdrop.classList.remove('open'); resetPanel(); }, 700);
+    } catch(err){
+      statusMsg.textContent = 'Could not save (' + (err && err.code ? err.code : 'error') + '). Photo is still showing for now.';
+    }
+  }
+})();
+</script>
+</body>
+</html>
