@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harinavi DVAS School - 76 Batch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Great+Vibes&family=Playfair+Display:ital@1&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7A1E2B; --maroon-deep:#4E1119; --gold:#C9A84C; --gold-soft:#E7CE8C;
+    --cream:#F7ECD9; --teal:#1F4B4C; --ink:#2A1810; --card-bg:#2E1319;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0; min-height:100%; background:var(--maroon-deep);
+    background-image:radial-gradient(circle at 15% 10%, rgba(201,168,76,0.10), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(201,168,76,0.08), transparent 50%);
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    color:var(--cream);
+  }
+  @media (prefers-color-scheme: light){ body{ background:var(--maroon-deep); } }
+
+  /* ---------- Landing page ---------- */
+  .landing-header{ text-align:center; padding:calc(30px + env(safe-area-inset-top,0px)) 20px 8px; }
+  .batch-title{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-size:clamp(34px,8vw,50px);
+    font-weight:600; letter-spacing:0.04em;
+    color:#E7B4BC; margin:0; line-height:1.05;
+    text-shadow:0 2px 10px rgba(0,0,0,0.35);
+  }
+  .school-logo{ display:flex; justify-content:center; align-items:center; margin:14px auto 16px; }
+  .school-logo img{
+    width:82px; height:82px; object-fit:contain; display:block;
+    border-radius:50%; background:#fff; padding:5px;
+    border:1px solid rgba(201,168,76,0.65);
+    box-shadow:0 4px 14px rgba(0,0,0,0.25), 0 0 14px rgba(201,168,76,0.15);
+  }
+  .landing-profile{
+    max-width:920px; margin:8px auto 24px; padding:0 18px;
+  }
+  .landing-profile-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px; align-items:start;
+  }
+  .landing-profile-card{
+    margin:0; border-radius:14px; overflow:hidden;
+    background:rgba(0,0,0,0.20); border:1px solid rgba(201,168,76,0.28);
+    box-shadow:0 4px 12px rgba(0,0,0,0.18);
+  }
+  .landing-profile-card img{
+    width:100%; aspect-ratio:1/1; object-fit:cover; display:block;
+  }
+  .landing-profile-card figcaption{
+    padding:6px 5px 8px; text-align:center; color:var(--gold-soft);
+    font-family:'Poppins',Arial,sans-serif; font-size:10px; line-height:1.2;
+  }
+  #mainContent{ display:none; }
+  #mainContent.visible{ display:block; }
+
+  /* ---------- Search ---------- */
+  .search-wrap{ max-width:720px; margin:18px auto 6px; padding:0 20px; }
+  .search-box{
+    display:flex; align-items:center; gap:10px;
+    background:rgba(0,0,0,0.28); border:1px solid rgba(201,168,76,0.4); border-radius:999px;
+    padding:11px 18px;
+  }
+  .search-box svg{ width:18px; height:18px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .search-box input{
+    flex:1; min-width:0; border:0; outline:0; background:transparent; color:var(--cream);
+    font-family:'Poppins', Arial, sans-serif; font-size:15px;
+  }
+  .search-box input::placeholder{ color:rgba(231,206,140,0.55); }
+  .search-clear{ border:0; background:transparent; color:var(--gold-soft); font-size:18px; line-height:1; cursor:pointer; padding:2px 4px; display:none; }
+  .search-count{ max-width:720px; margin:0 auto; padding:8px 24px 0; font-family:'Poppins', Arial, sans-serif; font-size:12px; color:var(--gold-soft); opacity:0.8; text-align:center; }
+
+  /* ---------- Hero / invitation banner ---------- */
+  .invite-banner{ max-width:720px; margin:18px auto 4px; padding:0 20px; }
+  .invite-banner img{
+    width:100%; display:block; border-radius:16px; cursor:pointer;
+    box-shadow:0 0 0 1px rgba(201,168,76,0.35), 0 14px 32px rgba(0,0,0,0.45);
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+    max-width:960px; margin:18px auto 40px; padding:0 16px;
+  }
+  .card{
+    flex:1 1 150px; max-width:220px; background:var(--card-bg);
+    border-radius:12px; overflow:hidden; cursor:pointer;
+    box-shadow:0 0 0 1px rgba(201,168,76,0.22), 0 6px 16px rgba(0,0,0,0.35);
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover, .card:active{ transform:translateY(-3px); box-shadow:0 0 0 1px rgba(201,168,76,0.45), 0 10px 22px rgba(0,0,0,0.45); }
+  .card .thumb-wrap{ position:relative; aspect-ratio:3/4; overflow:hidden; background:#1c0b0f; }
+  .play-badge{
+    position:absolute; inset:0; z-index:1;
+    display:flex; align-items:center; justify-content:center; pointer-events:none;
+  }
+  .play-badge .circle{
+    width:46px; height:46px; border-radius:50%; background:rgba(10,4,5,0.55);
+    border:1px solid rgba(231,206,140,0.7);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .play-badge svg{ width:18px; height:18px; color:var(--gold-soft); margin-left:2px; }
+  .card .file-tag{
+    position:absolute; left:6px; bottom:6px; z-index:2;
+    font-family:'Poppins', monospace; font-size:9.5px; letter-spacing:0.01em;
+    color:var(--gold-soft); background:rgba(0,0,0,0.55); border-radius:4px;
+    padding:2px 6px; pointer-events:none; max-width:calc(100% - 12px);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .document-thumb{
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    background:rgba(201,168,76,0.08); color:var(--gold-soft);
+    font-family:'Poppins',Arial,sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em;
+  }
+  .document-thumb svg{ width:46px; height:46px; fill:none; stroke:currentColor; stroke-width:1.5; }
+  /* Keep document cover images contained within the existing card thumbnail. */
+  .card .document-cover{
+    width:calc(100% - 16px); height:calc(100% - 16px);
+    margin:8px; object-fit:contain; box-sizing:border-box;
+  }
+  .card .card-cap{ padding:9px 11px 11px; }
+  .card .card-title{ font-size:15px; font-weight:600; color:var(--cream); margin:0; line-height:1.2; }
+  .card .card-sub{ font-family:'Poppins', Arial, sans-serif; font-size:10.5px; color:var(--gold-soft); margin:3px 0 0; line-height:1.3; opacity:0.9; }
+  .no-results{ width:100%; text-align:center; font-family:'Poppins', Arial, sans-serif; font-size:14px; color:var(--gold-soft); opacity:0.75; padding:30px 10px; }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(10,4,5,0.94); z-index:50;
+    display:none; align-items:center; justify-content:center; flex-direction:column;
+    padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-imgwrap{ flex:1; width:100%; max-width:720px; display:flex; align-items:center; justify-content:center; min-height:0; }
+  .lightbox img, .lightbox video{ max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
+  .lightbox-cap{ text-align:center; padding:12px 10px 4px; }
+  .lightbox-cap .lb-title{ font-size:clamp(18px,5vw,24px); font-weight:600; color:var(--cream); margin:0; }
+  .lightbox-cap .lb-sub{ font-family:'Poppins', Arial, sans-serif; font-size:12.5px; color:var(--gold-soft); margin:3px 0 0; }
+  .lightbox-controls{ display:flex; align-items:center; justify-content:center; gap:16px; padding-top:14px; flex-shrink:0; }
+  .lb-btn{
+    width:42px; height:42px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(201,168,76,0.1); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .lb-btn svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.2; }
+  .lb-close{
+    position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:16px;
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(0,0,0,0.4); color:var(--gold-soft); font-size:20px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+
+  /* ---------- Nav drawer (photos / videos / music) ---------- */
+  .nav-toggle{
+    position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:16px; z-index:61;
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(20,10,8,0.5); backdrop-filter:blur(3px); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .nav-toggle svg{ width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2; }
+  .nav-overlay{
+    position:fixed; inset:0; z-index:60; background:rgba(10,4,5,0.5);
+    display:none;
+  }
+  .nav-overlay.open{ display:block; }
+  .nav-drawer{
+    position:fixed; top:0; left:0; bottom:0; z-index:62;
+    width:min(78vw, 280px); background:var(--card-bg);
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+    transform:translateX(-100%); transition:transform 0.25s ease;
+    padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px));
+    display:flex; flex-direction:column; gap:22px;
+    font-family:'Poppins', Arial, sans-serif;
+  }
+  .nav-drawer.open{ transform:translateX(0); }
+  .nav-drawer h3{
+    font-family:'Cormorant Garamond', serif; font-size:13px; font-weight:600;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-soft);
+    opacity:0.8; margin:0 0 10px;
+  }
+  .nav-close{
+    align-self:flex-end; width:32px; height:32px; border-radius:50%; border:1px solid rgba(201,168,76,0.4);
+    background:transparent; color:var(--gold-soft); font-size:18px; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; margin-bottom:-6px;
+  }
+  .nav-item{
+    display:flex; align-items:center; gap:10px; width:100%;
+    padding:10px 12px; border-radius:9px; border:1px solid transparent;
+    background:transparent; color:var(--cream); font-family:inherit; font-size:14.5px;
+    cursor:pointer; text-align:left;
+  }
+  .nav-item svg{ width:17px; height:17px; flex-shrink:0; fill:none; stroke:var(--gold-soft); stroke-width:2; }
+  .nav-item .count{ margin-left:auto; font-size:11.5px; color:var(--gold-soft); opacity:0.75; }
+  .nav-item.active{ background:rgba(201,168,76,0.14); border-color:rgba(201,168,76,0.4); }
+  .nav-subgroups{display:flex;flex-direction:column;gap:2px;margin:0 0 5px 18px;}
+  .nav-subgroup{display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px 7px 12px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--gold-soft);font:inherit;font-size:12.5px;text-align:left;cursor:pointer;}
+  .nav-subgroup::before{content:"↳";opacity:.65;font-size:13px;}
+  .nav-subgroup .sub-count{margin-left:auto;font-size:10.5px;opacity:.75;}
+  .nav-subgroup.active{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:var(--cream);}
+  .nav-music-row{
+    display:flex; align-items:center; gap:10px; width:100%;
+    padding:10px 12px; border-radius:9px; border:1px solid rgba(201,168,76,0.3);
+    background:rgba(201,168,76,0.07); color:var(--cream); font-size:14.5px;
+  }
+  .nav-music-row svg{ width:17px; height:17px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .nav-music-row button{
+    margin-left:auto; border:0; background:var(--gold); color:var(--maroon-deep);
+    font-family:inherit; font-size:12px; font-weight:600; padding:6px 12px;
+    border-radius:999px; cursor:pointer;
+  }
+
+  .audio-file-list{display:flex;flex-direction:column;gap:10px;}
+  .audio-file-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:1px solid rgba(201,168,76,0.25);border-radius:10px;background:rgba(201,168,76,0.06);color:var(--cream);text-align:left;}
+  .audio-file-details{display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere;flex:1;}
+  .audio-file-name{font-weight:600;}
+  .audio-file-caption{font-size:13px;line-height:1.45;color:var(--gold-soft);white-space:pre-wrap;overflow-wrap:anywhere;}
+  .audio-file-item button{border:0;border-radius:999px;background:var(--gold);color:var(--maroon-deep);padding:7px 13px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;}
+  .audio-file-player{width:100%;margin-top:16px;}
+
+  /* ---------- More drawer / modals ---------- */
+  .more-divider{ height:1px; background:rgba(201,168,76,0.18); margin:0 0 2px; }
+  .info-modal{
+    position:fixed; inset:0; z-index:70; background:rgba(10,4,5,0.86);
+    display:none; align-items:center; justify-content:center;
+    padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(18px + env(safe-area-inset-bottom,0px));
+  }
+  .info-modal.open{ display:flex; }
+  .info-modal-card{
+    position:relative; width:min(720px,100%); max-height:90vh; overflow:auto;
+    background:var(--card-bg); border:1px solid rgba(201,168,76,0.35);
+    border-radius:16px; box-shadow:0 18px 50px rgba(0,0,0,0.55); padding:24px 20px 22px;
+  }
+  .info-modal-card h2{
+    margin:0 34px 16px 0; color:var(--gold-soft);
+    font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,36px);
+  }
+  .story-text{ white-space:pre-wrap; font-size:17px; line-height:1.65; color:var(--cream); }
+  .document-list{ display:flex; flex-direction:column; gap:10px; }
+  .document-item{
+    display:flex; align-items:center; gap:10px; width:100%; padding:12px 14px;
+    border:1px solid rgba(201,168,76,0.25); border-radius:10px;
+    background:rgba(201,168,76,0.06); color:var(--cream);
+    font-family:'Poppins',Arial,sans-serif; text-align:left; cursor:pointer;
+  }
+  .document-item svg{ width:19px; height:19px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .document-item span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pdf-frame{
+    width:100%; height:min(72vh,700px); border:1px solid rgba(201,168,76,0.2);
+    border-radius:10px; background:#fff;
+  }
+  /* ---------- Newspaper-style TXT document ---------- */
+  .document-text{
+    white-space:pre-wrap;
+    overflow:auto;
+    max-height:min(72vh,700px);
+    padding:18px 20px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.96);
+    color:#2A1810;
+    font-family:'Noto Sans Bengali','Nirmala UI','Vrinda',Arial,sans-serif;
+    font-size:16px;
+    line-height:1.85;
+    text-align:justify;
+
+    /* Newspaper columns */
+    column-count:2;
+    column-gap:30px;
+    column-rule:1px solid rgba(42,24,16,0.18);
+    column-fill:auto;
+  }
+	.cap-annaprashan{ font-family:'Great Vibes', 'Cormorant Garamond', arial; font-size:clamp(20px,3vw,20px); text-align:center; color:#E7B4BC; margin:0; line-height:1; }
+  /* On wider screens use three newspaper columns. */
+  @media (min-width:900px){
+    .document-text{
+      column-count:3;
+      column-gap:34px;
+    }
+  }
+
+  /* Keep the story comfortable on narrow phones. */
+  @media (max-width:520px){
+    .document-text{
+      column-count:2;
+      column-gap:22px;
+      padding:14px 12px;
+      font-size:14px;
+      line-height:1.8;
+    }
+  }
+  
+
+  /* ---------- Profile photo zoom ---------- */
+  .landing-profile-card img{cursor:zoom-in; transition:transform .18s ease;}
+  .landing-profile-card img:focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+  .profile-zoom{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:calc(54px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));background:rgba(10,4,5,.94);}
+  .profile-zoom.open{display:flex;}
+  .profile-zoom img{display:block;max-width:min(96vw,1100px);max-height:calc(100dvh - 90px);width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 12px 42px rgba(0,0,0,.65);cursor:zoom-out;}
+  .profile-zoom-close{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:14px;width:42px;height:42px;border:1px solid rgba(201,168,76,.65);border-radius:50%;background:rgba(0,0,0,.5);color:var(--gold-soft);font-size:28px;line-height:1;cursor:pointer;}
+  .profile-zoom-caption{position:absolute;left:16px;right:16px;bottom:calc(10px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--gold-soft);font-family:'Poppins',Arial,sans-serif;font-size:13px;}
+
+
+	
+	
+	   
+	.school-intro .school-name {
+		display: block;
+		color: #E7B4BC;
+		font-family: "Cormorant Garamond", Georgia, serif;
+		font-size: clamp(28px, 4.5vw, 40px);
+		font-weight: 700;
+		letter-spacing: 0.7px;
+		line-height: 1;
+		margin-bottom: 5px;
+	}
+
+	.school-intro .school-history {
+		color: #F7E9DC;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: clamp(20px, 3.5vw, 27px);
+		line-height: 2;
+		margin: 0 0 24px;
+	}
+
+	.school-intro .batch-quote {
+		color: #F3D99B;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: 22px;
+		line-height: 1.9;
+		margin: 0;
+	}
+
+	.school-intro .batch-year {
+		display: block;
+		color: #F3D99B;
+		font-family: "Cormorant Garamond", Georgia, serif;
+		font-size: clamp(60px, 10vw, 80px);
+		font-weight: 700;
+		line-height: 1.2;
+		margin: 6px 0;
+		text-shadow: 0 2px 12px rgba(201, 168, 76, 0.2);
+	}
+
+	.school-intro .batch-label {
+		display: block;
+		color: #F7E9DC;
+		font-size: 21px;
+		letter-spacing: 1px;
+	}
+
+	.school-intro .school-footer {
+		color: #D9C6C9;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: 17px;
+		line-height: 1.8;
+		margin: 22px 0 0;
+	}
+
+	@media (max-width: 480px) {
+		.school-intro {
+			padding: 24px 14px;
+			border-radius: 12px;
+		}
+
+		.school-intro .school-name {
+			font-size: 27px;
+		}
+
+		.school-intro .school-history {
+			font-size: 21px;
+		}
+
+		.school-intro .batch-quote {
+			font-size: 20px;
+		}
+
+		.school-intro .batch-label {
+			font-size: 19px;
+		}
+
+		.school-intro .school-footer {
+			font-size: 16px;
+		}
+	}
+
+
+  /* ---------- Compact landing header ---------- */
+  .landing-header {
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 12px 2px;
+  }
+  .school-intro {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 12px;
+  }
+  .school-intro .school-name {
+    font-size: clamp(23px, 4vw, 34px);
+    line-height: 1.12;
+    margin: 0 0 3px;
+  }
+  .school-intro .school-history {
+    font-size: clamp(15px, 2.8vw, 20px);
+    line-height: 1.35;
+    margin: 3px 0 5px;
+  }
+  .school-intro .batch-quote {
+    font-size: clamp(15px, 2.7vw, 20px);
+    line-height: 1.3;
+  }
+  .school-intro .batch-year {
+    display: inline;
+    font-size: clamp(25px, 5vw, 38px);
+    line-height: 1;
+    margin: 0 3px;
+  }
+  .school-intro .batch-label {
+    display: inline;
+    font-size: clamp(14px, 2.5vw, 18px);
+    letter-spacing: 0;
+  }
+  .school-intro .school-footer {
+    font-size: clamp(12px, 2vw, 15px);
+    line-height: 1.3;
+    margin: 5px 0 0;
+  }
+  .school-intro .school-divider {
+    margin: 5px auto;
+  }
+  @media (max-width: 480px) {
+    .school-intro { padding: 6px 8px; }
+    .school-intro .school-name { font-size: 23px; }
+    .school-intro .school-history { font-size: 15px; }
+    .school-intro .batch-quote { font-size: 15px; }
+    .school-intro .school-footer { font-size: 12px; }
+  }
+  
+	  /* Keep the menu button separate from the school name */
+	.nav-toggle {
+		position: fixed;
+		top: calc(10px + env(safe-area-inset-top, 0px));
+		left: 10px;
+		z-index: 1001;
+	}
+
+	/* Keep the school name clear of the menu button */
+	.landing-header {
+		box-sizing: border-box;
+		padding: 12px 12px 8px;
+		padding-left: 58px;
+		text-align: center;
+	}
+
+	/* Restore balanced spacing on wider screens */
+	@media (min-width: 600px) {
+		.landing-header {
+			padding-left: 20px;
+		}
+	}
+
+  /* Elegant, compact school identity card */
+  .school-intro {
+    position: relative;
+    isolation: isolate;
+    max-width: 780px;
+    margin: 8px auto 12px;
+    padding: clamp(14px, 3vw, 24px) clamp(14px, 4vw, 32px);
+    overflow: hidden;
+    border: 1px solid rgba(231,206,140,.66);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,248,231,.10), rgba(255,255,255,.025) 48%, rgba(201,168,76,.10));
+    box-shadow: 0 12px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(5px);
+  }
+  .school-intro::before, .school-intro::after {
+    content: ""; position: absolute; z-index: -1; color: rgba(231,206,140,.18);
+    font-size: clamp(48px, 9vw, 82px); line-height: 1; pointer-events: none;
+  }
+  .school-intro::before { top: 2px; left: 10px; }
+  .school-intro::after { bottom: 0; right: 12px; }
+  .school-intro .school-name {
+    color: #F4DFA8; font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600; letter-spacing: .015em; text-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .school-intro .school-divider {
+    width: min(180px, 45%); border: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .school-intro .school-history { color: #F7ECD9; }
+  .school-intro .batch-quote { color: #E7B4BC; }
+  .school-intro .batch-year { color: var(--gold-soft); text-shadow: 0 2px 12px rgba(0,0,0,.28); }
+  .school-intro .school-footer { color: rgba(247,236,217,.82); letter-spacing: .025em; }
+  @media (max-width: 480px) {
+    .school-intro { border-radius: 15px; margin-top: 6px; margin-bottom: 8px; }
+  }
+
+  /* External links inside More */
+  .external-link-list { display:flex; flex-direction:column; gap:10px; }
+  .external-link-card {
+    display:flex; align-items:center; gap:12px; width:100%; padding:14px;
+    border:1px solid rgba(201,168,76,.3); border-radius:13px;
+    background:linear-gradient(120deg, rgba(201,168,76,.10), rgba(255,255,255,.025));
+    color:var(--cream); text-decoration:none;
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .external-link-card:hover, .external-link-card:focus-visible {
+    transform:translateY(-1px); border-color:rgba(231,206,140,.75);
+    background:rgba(201,168,76,.14); outline:none;
+  }
+  .external-link-icon {
+    width:38px; height:38px; display:grid; place-items:center; flex:0 0 38px;
+    border-radius:11px; background:rgba(201,168,76,.15); color:var(--gold-soft);
+    font:600 20px 'Poppins',Arial,sans-serif;
+  }
+  .external-link-copy { min-width:0; display:flex; flex:1; flex-direction:column; gap:4px; }
+  .external-link-title { font:600 14px 'Poppins',Arial,sans-serif; color:var(--gold-soft); }
+  .external-link-description { font:12px/1.45 'Poppins',Arial,sans-serif; color:rgba(247,236,217,.76); overflow-wrap:anywhere; }
+  .external-link-arrow { color:var(--gold); font-size:20px; flex-shrink:0; }
+
+</style>
+</head>
+<body>
+
+  <!-- =====================================================
+       LANDING PAGE
+       1976 HS Batch -> Logo -> Invitation Banner
+  ====================================================== -->
+  <header class="landing-header">
+
+   
+	   
+
+	<div class="school-intro">
+
+		<p class="school-name">
+			Harinavi D.V.A.S. High School
+		</p>
+
+		<hr class="school-divider">
+
+		<p class="school-history">
+			ইতিহাসে ও স্মৃতিকথায় দেড়শো বছর অতিক্রান্ত
+		</p>
+
+		<p class="batch-quote">
+			“ আমরা ছিলাম ”
+			<span class="batch-year">’৭৬</span>
+			<span class="batch-label">এর শেষ H.S. Batch</span>
+		</p>
+
+		<hr class="school-divider">
+
+		<p class="school-footer">
+			একসাথে কাটানো দিনগুলি, স্মৃতিতে অমলিন
+		</p>
+
+	</div>
+	
+  </header>
+
+  
+  
+  <div class="school-logo">
+		<img src="images/logo.png" alt="হরিনাভি এংলো সংস্কৃত স্কুল Logo">
+  </div>
+ 
+
+ 
+  <div class="invite-banner" id="inviteBanner"></div>
+  
+  <!-- Profile images from ./profile are shown on the landing page. -->
+  <section class="landing-profile" id="landingProfile" aria-label="Profile photographs">
+    <div class="landing-profile-grid" id="landingProfileGrid"></div>
+  </section>
+ 	
+  <!-- Search and gallery are revealed when navToggle is clicked. -->
+  <div id="mainContent">
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search photos by caption…" autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
+      </div>
+    </div>
+    <p class="search-count" id="searchCount"></p>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <div class="lightbox-imgwrap">
+      <img id="lbImage" src="" alt="">
+      <video id="lbVideo" controls playsinline style="display:none;"></video>
+    </div>
+    <div class="lightbox-cap">
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-sub" id="lbSub"></p>
+    </div>
+    <div class="lightbox-controls">
+      <button class="lb-btn" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
+      <button class="lb-btn" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg></button>
+    </div>
+  </div>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <div class="nav-drawer" id="navDrawer">
+    <button class="nav-close" id="navClose" aria-label="Close menu">&times;</button>
+
+    <div>
+      <h3>Browse</h3>
+      <button class="nav-item" id="filterAll" data-filter="all">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span>All</span><span class="count" id="countAll"></span>
+      </button>
+      <button class="nav-item" id="filterPhotos" data-filter="photo">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-4 4-3-3-6 6"/></svg>
+        <span>Photos</span><span class="count" id="countPhotos"></span>
+      </button>
+      <button class="nav-item active" id="filterVideos" data-filter="video">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+        <span>Videos</span><span class="count" id="countVideos"></span>
+      </button>
+    </div>
+
+    <div>
+      <h3>Music</h3>
+      <div class="nav-music-row">
+        <svg id="navAudioIcon" viewBox="0 0 24 24"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" stroke="none"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+        <span id="navAudioLabel">Playing</span>
+        <button id="navAudioBtn">Pause</button>
+      </div>
+    </div>
+
+    <div id="moreSection">
+      <div class="more-divider"></div>
+      <h3>More</h3>
+      <button class="nav-item" id="ourStoryBtn">
+        <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5z"/><path d="M4 5.5V21M8 7h8M8 11h8M8 15h6"/></svg>
+        <span>Our Story</span>
+      </button>
+      <button class="nav-item" id="documentsBtn" data-filter="document">
+        <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>
+        <span>Documents</span><span class="count" id="countDocuments"></span>
+      </button>
+      <button class="nav-item" id="audioFilesBtn" type="button">
+        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <span>Audio Files</span><span class="count" id="countAudioFiles"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="info-modal" id="storyModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="storyModal" aria-label="Close Our Story">&times;</button>
+      <h2>Our Story</h2>
+      <div class="story-text" id="storyText"></div>
+    </div>
+  </div>
+
+  <div class="info-modal" id="pdfModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="pdfModal" aria-label="Close PDF">&times;</button>
+      <h2 id="pdfTitle">Document</h2>
+      <iframe class="pdf-frame" id="pdfFrame" title="PDF document"></iframe>
+    </div>
+  </div>
+
+  <div class="info-modal" id="textModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="textModal" aria-label="Close text document">&times;</button>
+      <h2 id="textTitle">Document</h2>
+      <div class="document-text" id="documentText"></div>
+    </div>
+  </div>
+
+  <div class="info-modal" id="audioFilesModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="audioFilesModal" aria-label="Close audio files">&times;</button>
+      <h2>Audio Files</h2>
+      <div class="audio-file-list" id="audioFileList"></div>
+      <audio class="audio-file-player" id="audioFilePlayer" controls preload="none" style="display:none"></audio>
+    </div>
+  </div>
+
+  <audio id="bgAudio" loop preload="auto">
+    <source src="__AUDIO_SRC__" type="audio/mpeg">
+  </audio>
+
+
+  <!-- Profile photo zoom overlay -->
+  <div class="profile-zoom" id="profileZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Profile photo preview">
+    <button class="profile-zoom-close" id="profileZoomClose" type="button" aria-label="Close photo">&times;</button>
+    <img id="profileZoomImage" src="" alt="">
+    <div class="profile-zoom-caption" id="profileZoomCaption"></div>
+  </div>
+
+<script type="application/json" id="slidesData">__SLIDES_JSON__</script>
+<script type="application/json" id="profileData">__PROFILE_IMAGES_JSON__</script>
+<script type="application/json" id="audioData">__AUDIO_LIST_JSON__</script>
+<script type="application/json" id="moreData">{"story":__OUR_STORY__,"documents":__DOCUMENTS_JSON__}</script>
+<script>
+(function(){
+  var ALL = JSON.parse(document.getElementById('slidesData').textContent);
+  var hero = ALL.find(function(s){ return s.hero; });
+  var everything = ALL.filter(function(s){ return !s.hero; }); // photos + videos + documents, unfiltered
+  var typeFilter = 'all'; // 'all' | 'photo' | 'video' | 'document'
+  var visible = everything.slice(); // currently displayed (after type filter + search)
+
+  // ---------- Invitation banner ----------
+  var inviteBanner = document.getElementById('inviteBanner');
+  var landingProfile = document.getElementById('landingProfile');
+  if (hero){
+    var heroImg = document.createElement('img');
+    heroImg.src = hero.src; heroImg.alt = hero.title || 'Invitation';
+    heroImg.addEventListener('click', function(){ openLightbox(hero, -1); });
+    inviteBanner.appendChild(heroImg);
+  }
+
+  // ---------- Landing-page profile images ----------
+  var profileImages = JSON.parse(document.getElementById('profileData').textContent || '[]');
+  var profileGrid = document.getElementById('landingProfileGrid');
+  if (profileGrid) {
+    profileImages.forEach(function(item){
+      var figure = document.createElement('figure');
+      figure.className = 'landing-profile-card';
+
+      var img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.title || 'Profile photo';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'Zoom profile photo: ' + (item.title || 'Profile photo'));
+      img.addEventListener('click', function(){ openProfileZoom(item.src, item.title || 'Profile photo'); });
+      img.addEventListener('keydown', function(event){
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProfileZoom(item.src, item.title || 'Profile photo');
+        }
+      });
+
+      var caption = document.createElement('figcaption');
+      caption.textContent = item.title || '';
+
+      figure.appendChild(img);
+      if (item.title) figure.appendChild(caption);
+      profileGrid.appendChild(figure);
+    });
+  }
+
+
+  // ---------- Profile photo zoom controls ----------
+  var profileZoom = document.getElementById('profileZoom');
+  var profileZoomImage = document.getElementById('profileZoomImage');
+  var profileZoomCaption = document.getElementById('profileZoomCaption');
+  var profileZoomClose = document.getElementById('profileZoomClose');
+  var profileZoomPreviousFocus = null;
+
+  function openProfileZoom(src, caption){
+    if (!profileZoom || !profileZoomImage) return;
+    profileZoomPreviousFocus = document.activeElement;
+    profileZoomImage.src = src;
+    profileZoomImage.alt = caption || 'Profile photo';
+    profileZoomCaption.textContent = caption || '';
+    profileZoom.classList.add('open');
+    profileZoom.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    profileZoomClose.focus();
+  }
+
+  function closeProfileZoom(){
+    if (!profileZoom || !profileZoom.classList.contains('open')) return;
+    profileZoom.classList.remove('open');
+    profileZoom.setAttribute('aria-hidden', 'true');
+    profileZoomImage.src = '';
+    profileZoomCaption.textContent = '';
+    document.body.style.overflow = '';
+    if (profileZoomPreviousFocus && typeof profileZoomPreviousFocus.focus === 'function') {
+      profileZoomPreviousFocus.focus();
+    }
+  }
+
+  profileZoomClose.addEventListener('click', closeProfileZoom);
+  profileZoom.addEventListener('click', function(event){
+    if (event.target === profileZoom || event.target === profileZoomImage) closeProfileZoom();
+  });
+  document.addEventListener('keydown', function(event){
+    if (event.key === 'Escape') closeProfileZoom();
+  });
+
+  // ---------- Gallery rendering ----------
+  var gallery = document.getElementById('gallery');
+  var searchCount = document.getElementById('searchCount');
+
+  function renderGallery(){
+    gallery.innerHTML = '';
+    if (visible.length === 0){
+      var msg = document.createElement('div');
+      msg.className = 'no-results';
+      msg.textContent = 'Nothing matches here.';
+      gallery.appendChild(msg);
+      return;
+    }
+    visible.forEach(function(s, i){
+      var card = document.createElement('div');
+      card.className = 'card';
+      var thumbWrap = document.createElement('div');
+      thumbWrap.className = 'thumb-wrap';
+      if (s.type === 'document'){
+        card.classList.add('document-card');
+        var docIcon = document.createElement('div');
+        docIcon.className = 'document-thumb';
+        var docLabel = s.document_type === 'text' ? 'TXT' : 'PDF';
+        docIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg><span>' + docLabel + '</span>';
+        if (s.thumbnail){
+          var cover = document.createElement('img');
+          cover.className = 'document-cover';
+          cover.src = s.thumbnail;
+          cover.alt = (s.title || s.file || 'Document') + ' cover';
+          cover.loading = 'lazy';
+          cover.onerror = function(){ cover.replaceWith(docIcon); };
+          thumbWrap.appendChild(cover);
+        } else {
+          thumbWrap.appendChild(docIcon);
+        }
+      } else if (s.type === 'video'){
+        card.classList.add('video-card');
+        if (s.poster){
+          var vimg = document.createElement('img');
+          vimg.src = s.poster; vimg.alt = s.title || ''; vimg.loading = 'lazy';
+          thumbWrap.appendChild(vimg);
+        } else {
+          var vprev = document.createElement('video');
+          vprev.src = s.src; vprev.muted = true; vprev.preload = 'metadata'; vprev.playsInline = true;
+          thumbWrap.appendChild(vprev);
+        }
+        var badge = document.createElement('div');
+        badge.className = 'play-badge';
+        badge.innerHTML = '<span class="circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>';
+        thumbWrap.appendChild(badge);
+      } else {
+        var img = document.createElement('img');
+        img.src = s.src; img.alt = s.title || ''; img.loading = 'lazy';
+        thumbWrap.appendChild(img);
+      }
+      if (s.file){
+        var fileTag = document.createElement('span');
+        fileTag.className = 'file-tag';
+        fileTag.textContent = s.file;
+        thumbWrap.appendChild(fileTag);
+      }
+      var cap = document.createElement('div');
+      cap.className = 'card-cap';
+      var t = document.createElement('p'); t.className = 'card-title'; t.textContent = s.title || '';
+      var sub = document.createElement('p'); sub.className = 'card-sub'; sub.textContent = s.sub || '';
+      cap.appendChild(t); cap.appendChild(sub);
+      card.appendChild(thumbWrap); card.appendChild(cap);
+      card.addEventListener('click', function(){
+        if (s.type === 'document'){
+          if (s.document_type === 'text'){
+            textTitle.textContent = s.title || s.file || 'Document';
+            documentText.textContent = s.text || '';
+            textModal.classList.add('open');
+            textModal.setAttribute('aria-hidden', 'false');
+          } else {
+            pdfTitle.textContent = s.title || s.file || 'Document';
+            pdfFrame.src = s.src;
+            pdfModal.classList.add('open');
+            pdfModal.setAttribute('aria-hidden', 'false');
+          }
+        } else {
+          openLightbox(s, i);
+        }
+      });
+      gallery.appendChild(card);
+    });
+  }
+
+  // ---------- Search + type filter (combined) ----------
+  var searchInput = document.getElementById('searchInput');
+  var searchClear = document.getElementById('searchClear');
+
+  function applyFilters(){
+    var q = searchInput.value.trim().toLowerCase();
+    searchClear.style.display = q ? 'block' : 'none';
+
+    var base = everything;
+    if (typeFilter === 'photo') base = base.filter(function(s){ return !s.type || s.type === 'photo'; });
+    else if (typeFilter === 'video') base = base.filter(function(s){ return s.type === 'video'; });
+    else if (typeFilter === 'document') base = base.filter(function(s){ return s.type === 'document'; });
+
+    if (!q){
+      visible = base.slice();
+      searchCount.textContent = '';
+    } else {
+      visible = base.filter(function(s){
+        return ((s.title || '') + ' ' + (s.sub || '')).toLowerCase().indexOf(q) !== -1;
+      });
+      searchCount.textContent = visible.length + (visible.length === 1 ? ' result found' : ' results found');
+    }
+    renderGallery();
+  }
+  searchInput.addEventListener('input', applyFilters);
+  searchClear.addEventListener('click', function(){ searchInput.value = ''; applyFilters(); searchInput.focus(); });
+
+  // ---------- Nav drawer: open/close ----------
+  var navToggle = document.getElementById('navToggle');
+  var navDrawer = document.getElementById('navDrawer');
+  var navOverlay = document.getElementById('navOverlay');
+  var navClose = document.getElementById('navClose');
+
+  var mainContent = document.getElementById('mainContent');
+
+  // ---------- Navigation / landing-page visibility ----------
+  // Initial state: landing page is visible; Search + Gallery are hidden.
+  function openDrawer(){
+    // Opening the menu does NOT reveal Search + Gallery.
+    if (mainContent) mainContent.classList.remove('visible');
+    if (inviteBanner) inviteBanner.style.display = 'block';
+    if (landingProfile) landingProfile.style.display = 'block';
+    navDrawer.classList.add('open');
+    navOverlay.classList.add('open');
+  }
+
+  // Close only the drawer. Used after selecting Browse/Photos/Videos/Documents.
+  function closeDrawer(){
+    navDrawer.classList.remove('open');
+    navOverlay.classList.remove('open');
+  }
+
+  // Menu selection: hide landing banner and reveal Search + Gallery.
+  function showGallery(){
+    if (mainContent) mainContent.classList.add('visible');
+    if (inviteBanner) inviteBanner.style.display = 'none';
+    if (landingProfile) landingProfile.style.display = 'none';
+    closeDrawer();
+  }
+
+  // Close (X) or overlay: return completely to the landing page.
+  function closeNavToLanding(){
+    closeDrawer();
+    if (mainContent) mainContent.classList.remove('visible');
+    if (inviteBanner) inviteBanner.style.display = 'block';
+    if (landingProfile) landingProfile.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  navToggle.addEventListener('click', openDrawer);
+  navClose.addEventListener('click', closeNavToLanding);
+  navOverlay.addEventListener('click', closeNavToLanding);
+
+  // ---------- More: Our Story / Documents ----------
+  var moreData = JSON.parse(document.getElementById('moreData').textContent);
+  var ourStoryBtn = document.getElementById('ourStoryBtn');
+  var documentsBtn = document.getElementById('documentsBtn');
+  var moreSection = document.getElementById('moreSection');
+  var storyModal = document.getElementById('storyModal');
+  var pdfModal = document.getElementById('pdfModal');
+  var storyText = document.getElementById('storyText');
+  var pdfFrame = document.getElementById('pdfFrame');
+  var pdfTitle = document.getElementById('pdfTitle');
+  var textModal = document.getElementById('textModal');
+  var textTitle = document.getElementById('textTitle');
+  var documentText = document.getElementById('documentText');
+
+  var hasStory = typeof moreData.story === 'string' && moreData.story.trim() !== '';
+  var documents = Array.isArray(moreData.documents) ? moreData.documents : [];
+
+  if (!hasStory) {
+    ourStoryBtn.style.display = 'none';
+  } else {
+    storyText.textContent = moreData.story;
+  }
+
+  if (!documents.length) {
+    documentsBtn.style.display = 'none';
+  } else {
+    document.getElementById('countDocuments').textContent = documents.length;
+  }
+
+  // ---------- More: Audio files (background.mp3 is deliberately excluded) ----------
+  var audioFiles = [];
+  try {
+    audioFiles = JSON.parse(document.getElementById('audioData').textContent || '[]');
+  } catch (e) { audioFiles = []; }
+  audioFiles = audioFiles.filter(function(item){
+    return item && item.file && item.file.toLowerCase() !== 'background.mp3';
+  });
+  var audioFilesBtn = document.getElementById('audioFilesBtn');
+  var audioFilesModal = document.getElementById('audioFilesModal');
+  var audioFileList = document.getElementById('audioFileList');
+  var audioFilePlayer = document.getElementById('audioFilePlayer');
+  document.getElementById('countAudioFiles').textContent = audioFiles.length;
+  if (!audioFiles.length) {
+    audioFilesBtn.style.display = 'none';
+  } else {
+    audioFiles.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'audio-file-item';
+      var details = document.createElement('div');
+      details.className = 'audio-file-details';
+      var name = document.createElement('span');
+      name.className = 'audio-file-name';
+      name.textContent = item.file; // show the exact filename, including extension
+      details.appendChild(name);
+      if (item.caption && item.caption.trim()) {
+        var caption = document.createElement('span');
+        caption.className = 'audio-file-caption';
+        caption.textContent = item.caption;
+        details.appendChild(caption);
+      }
+      var play = document.createElement('button');
+      play.type = 'button';
+      play.textContent = 'Play';
+      play.setAttribute('aria-label', 'Play ' + item.file);
+      play.addEventListener('click', function(){
+        audioFilePlayer.src = item.src;
+        audioFilePlayer.style.display = 'block';
+        audioFilePlayer.play().catch(function(){});
+        audioFilesModal.querySelectorAll('.audio-file-item button').forEach(function(button){ button.textContent = 'Play'; });
+        play.textContent = 'Playing';
+      });
+      row.appendChild(details);
+      row.appendChild(play);
+      audioFileList.appendChild(row);
+    });
+    audioFilesBtn.addEventListener('click', function(){ openInfoModal(audioFilesModal); });
+  }
+
+  if (!hasStory && !documents.length && !audioFiles.length) moreSection.style.display = 'none';
+
+  function openInfoModal(modal){
+    closeDrawer();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  ourStoryBtn.addEventListener('click', function(){ if (hasStory) openInfoModal(storyModal); });
+
+  // ---------- More modal close buttons ----------
+  document.querySelectorAll('.info-modal-close').forEach(function(button){
+    button.addEventListener('click', function(){
+      var modalId = button.getAttribute('data-modal');
+      var modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      // Stop the PDF from continuing to load/play in the background.
+      if (modalId === 'pdfModal') {
+        pdfFrame.removeAttribute('src');
+      }
+      if (modalId === 'textModal') {
+        documentText.textContent = '';
+      }
+      if (modalId === 'audioFilesModal') {
+        audioFilePlayer.pause();
+        audioFilePlayer.removeAttribute('src');
+        audioFilePlayer.load();
+        audioFilePlayer.style.display = 'none';
+      }
+    });
+  });
+
+  // ---------- Nav drawer: Photos / Videos / Documents / All filter ----------
+  var filterButtons = {
+    all: document.getElementById('filterAll'),
+    photo: document.getElementById('filterPhotos'),
+    video: document.getElementById('filterVideos'),
+    document: document.getElementById('documentsBtn')
+  };
+  var photoCount = everything.filter(function(s){ return !s.type || s.type === 'photo'; }).length;
+  var videoCount = everything.filter(function(s){ return s.type === 'video'; }).length;
+  var documentCount = everything.filter(function(s){ return s.type === 'document'; }).length;
+  document.getElementById('countAll').textContent = everything.length;
+  document.getElementById('countPhotos').textContent = photoCount;
+  document.getElementById('countVideos').textContent = videoCount;
+  document.getElementById('countDocuments').textContent = documentCount;
+  if (videoCount === 0){ filterButtons.video.style.display = 'none'; }
+  if (documentCount === 0){ filterButtons.document.style.display = 'none'; }
+
+  Object.keys(filterButtons).forEach(function(key){
+    filterButtons[key].addEventListener('click', function(){
+      typeFilter = key;
+      Object.keys(filterButtons).forEach(function(k){
+        filterButtons[k].classList.toggle('active', k === key);
+      });
+      applyFilters();
+      showGallery();
+    });
+  });
+
+  // ---------- Lightbox ----------
+  var lightbox = document.getElementById('lightbox');
+  var lbImage = document.getElementById('lbImage');
+  var lbTitle = document.getElementById('lbTitle');
+  var lbSub = document.getElementById('lbSub');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+  // currentIndex is -1 while showing the hero/invitation, or 0..visible.length-1
+  // for a position in the `visible` (searched/filtered) photo list. The two
+  // are tracked with a separate `isHero` flag so a wrap-around photo index
+  // of -1 is never confused with "show the hero".
+  var currentIndex = -1;
+
+  var lbVideo = document.getElementById('lbVideo');
+
+  function showAt(index, isHero){
+    var s;
+    if (isHero){ s = hero; currentIndex = -1; }
+    else { currentIndex = index; s = visible[index]; }
+
+    if (s.type === 'video'){
+      if (!lbImage.style.display || lbImage.style.display !== 'none') lbImage.style.display = 'none';
+      lbImage.removeAttribute('src');
+      lbVideo.style.display = 'block';
+      lbVideo.src = s.src;
+      lbVideo.currentTime = 0;
+      pauseBgMusicForVideo();
+      lbVideo.play().catch(function(){});
+    } else {
+      if (!lbVideo.paused) lbVideo.pause();
+      lbVideo.removeAttribute('src'); lbVideo.load();
+      lbVideo.style.display = 'none';
+      lbImage.style.display = 'block';
+      lbImage.src = s.src; lbImage.alt = s.title || '';
+      resumeBgMusicIfWanted();
+    }
+    lbTitle.textContent = s.title || '';
+    lbSub.textContent = s.sub || '';
+  }
+  function openLightbox(slide, index){
+    if (index === -1) showAt(0, true);
+    else showAt(index, false);
+    var hasNav = visible.length > 0;
+    lbPrev.style.visibility = hasNav ? 'visible' : 'hidden';
+    lbNext.style.visibility = hasNav ? 'visible' : 'hidden';
+    lightbox.classList.add('open');
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    if (!lbVideo.paused) lbVideo.pause();
+    resumeBgMusicIfWanted();
+  }
+  function lbNextPhoto(){
+    if (!visible.length) return;
+    if (currentIndex === -1) showAt(0, false);
+    else if (currentIndex + 1 >= visible.length) showAt(0, true);
+    else showAt(currentIndex + 1, false);
+  }
+  function lbPrevPhoto(){
+    if (!visible.length) return;
+    if (currentIndex === -1) showAt(visible.length - 1, false);
+    else if (currentIndex - 1 < 0) showAt(0, true);
+    else showAt(currentIndex - 1, false);
+  }
+
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+  lbPrev.addEventListener('click', lbPrevPhoto);
+  lbNext.addEventListener('click', lbNextPhoto);
+  document.addEventListener('keydown', function(e){
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbPrev.click();
+    if (e.key === 'ArrowRight') lbNext.click();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    [storyModal, pdfModal, textModal].forEach(function(modal){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    });
+    pdfFrame.removeAttribute('src');
+    audioFilePlayer.pause();
+    audioFilePlayer.removeAttribute('src');
+    audioFilePlayer.load();
+    audioFilePlayer.style.display = 'none';
+  });
+
+  // ---------- Background music (controlled from the nav drawer) ----------
+  var bgAudio = document.getElementById('bgAudio');
+  var navAudioIcon = document.getElementById('navAudioIcon');
+  var navAudioLabel = document.getElementById('navAudioLabel');
+  var navAudioBtn = document.getElementById('navAudioBtn');
+  var navMusicRow = navAudioBtn ? navAudioBtn.closest('.nav-music-row') : null;
+  // Tracks whether the visitor *wants* music on, separately from whether
+  // it's actually playing right now — a video in the lightbox pauses it
+  // temporarily, and we only resume afterwards if they hadn't muted it.
+  var userWantsMusic = true;
+
+  function pauseBgMusicForVideo(){
+    if (bgAudio && !bgAudio.paused) bgAudio.pause();
+  }
+  function resumeBgMusicIfWanted(){
+    if (bgAudio && userWantsMusic && bgAudio.paused) attemptPlay();
+  }
+
+  function setAudioIcon(playing){
+    navAudioIcon.innerHTML = playing
+      ? '<path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" stroke="none"/><path d="M16 8a5 5 0 0 1 0 8"/>'
+      : '<path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" stroke="none"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/>';
+    navAudioLabel.textContent = playing ? 'Playing' : 'Paused';
+    navAudioBtn.textContent = playing ? 'Pause' : 'Play';
+  }
+  function attemptPlay(){
+    if (!bgAudio) return;
+    var p = bgAudio.play();
+    if (p && p.then){
+      p.then(function(){ setAudioIcon(true); }).catch(function(){
+        setAudioIcon(false);
+        var startOnInteract = function(){
+          if (userWantsMusic) bgAudio.play().then(function(){ setAudioIcon(true); }).catch(function(){});
+        };
+        document.addEventListener('click', startOnInteract, {once:true});
+        document.addEventListener('touchstart', startOnInteract, {once:true});
+      });
+    }
+  }
+  if (!bgAudio){
+    if (navMusicRow) navMusicRow.style.display = 'none';
+    userWantsMusic = false;
+  } else {
+    navAudioBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (bgAudio.paused){ userWantsMusic = true; bgAudio.play().then(function(){ setAudioIcon(true); }).catch(function(){}); }
+      else { userWantsMusic = false; bgAudio.pause(); setAudioIcon(false); }
+    });
+  }
+  setAudioIcon(false);
+  attemptPlay();
+
+  // ---------- Initial render ----------
+  renderGallery();
+})();
+</script>
+</body>
+</html>
+
