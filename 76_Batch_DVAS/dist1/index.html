@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harinavi DVAS School - 76 Batch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Great+Vibes&family=Playfair+Display:ital@1&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7A1E2B; --maroon-deep:#4E1119; --gold:#C9A84C; --gold-soft:#E7CE8C;
+    --cream:#F7ECD9; --teal:#1F4B4C; --ink:#2A1810; --card-bg:#2E1319;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0; min-height:100%; background:var(--maroon-deep);
+    background-image:radial-gradient(circle at 15% 10%, rgba(201,168,76,0.10), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(201,168,76,0.08), transparent 50%);
+    font-family:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    color:var(--cream);
+  }
+  @media (prefers-color-scheme: light){ body{ background:var(--maroon-deep); } }
+
+  /* ---------- Landing page ---------- */
+  .landing-header{ text-align:center; padding:calc(30px + env(safe-area-inset-top,0px)) 20px 8px; }
+  .batch-title{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-size:clamp(34px,8vw,50px);
+    font-weight:600; letter-spacing:0.04em;
+    color:#E7B4BC; margin:0; line-height:1.05;
+    text-shadow:0 2px 10px rgba(0,0,0,0.35);
+  }
+  .school-logo{ display:flex; justify-content:center; align-items:center; margin:14px auto 16px; }
+  .school-logo img{
+    width:82px; height:82px; object-fit:contain; display:block;
+    border-radius:50%; background:#fff; padding:5px;
+    border:1px solid rgba(201,168,76,0.65);
+    box-shadow:0 4px 14px rgba(0,0,0,0.25), 0 0 14px rgba(201,168,76,0.15);
+  }
+  .landing-profile{
+    max-width:920px; margin:8px auto 24px; padding:0 18px;
+  }
+  .landing-profile-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px; align-items:start;
+  }
+  .landing-profile-card{
+    margin:0; border-radius:14px; overflow:hidden;
+    background:rgba(0,0,0,0.20); border:1px solid rgba(201,168,76,0.28);
+    box-shadow:0 4px 12px rgba(0,0,0,0.18);
+  }
+  .landing-profile-card img{
+    width:100%; aspect-ratio:1/1; object-fit:cover; display:block;
+  }
+  .landing-profile-card figcaption{
+    padding:6px 5px 8px; text-align:center; color:var(--gold-soft);
+    font-family:'Poppins',Arial,sans-serif; font-size:10px; line-height:1.2;
+  }
+  #mainContent{ display:none; }
+  #mainContent.visible{ display:block; }
+
+  /* ---------- Search ---------- */
+  .search-wrap{ max-width:720px; margin:18px auto 6px; padding:0 20px; }
+  .search-box{
+    display:flex; align-items:center; gap:10px;
+    background:rgba(0,0,0,0.28); border:1px solid rgba(201,168,76,0.4); border-radius:999px;
+    padding:11px 18px;
+  }
+  .search-box svg{ width:18px; height:18px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .search-box input{
+    flex:1; min-width:0; border:0; outline:0; background:transparent; color:var(--cream);
+    font-family:'Poppins', Arial, sans-serif; font-size:15px;
+  }
+  .search-box input::placeholder{ color:rgba(231,206,140,0.55); }
+  .search-clear{ border:0; background:transparent; color:var(--gold-soft); font-size:18px; line-height:1; cursor:pointer; padding:2px 4px; display:none; }
+  .search-count{ max-width:720px; margin:0 auto; padding:8px 24px 0; font-family:'Poppins', Arial, sans-serif; font-size:12px; color:var(--gold-soft); opacity:0.8; text-align:center; }
+
+  /* ---------- Hero / invitation banner ---------- */
+  .invite-banner{ max-width:720px; margin:18px auto 4px; padding:0 20px; }
+  .invite-banner img{
+    width:100%; display:block; border-radius:16px; cursor:pointer;
+    box-shadow:0 0 0 1px rgba(201,168,76,0.35), 0 14px 32px rgba(0,0,0,0.45);
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+    max-width:960px; margin:18px auto 40px; padding:0 16px;
+  }
+  .card{
+    flex:1 1 150px; max-width:220px; background:var(--card-bg);
+    border-radius:12px; overflow:hidden; cursor:pointer;
+    box-shadow:0 0 0 1px rgba(201,168,76,0.22), 0 6px 16px rgba(0,0,0,0.35);
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover, .card:active{ transform:translateY(-3px); box-shadow:0 0 0 1px rgba(201,168,76,0.45), 0 10px 22px rgba(0,0,0,0.45); }
+  .card .thumb-wrap{ position:relative; aspect-ratio:3/4; overflow:hidden; background:#1c0b0f; }
+  .play-badge{
+    position:absolute; inset:0; z-index:1;
+    display:flex; align-items:center; justify-content:center; pointer-events:none;
+  }
+  .play-badge .circle{
+    width:46px; height:46px; border-radius:50%; background:rgba(10,4,5,0.55);
+    border:1px solid rgba(231,206,140,0.7);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .play-badge svg{ width:18px; height:18px; color:var(--gold-soft); margin-left:2px; }
+  .card .file-tag{
+    position:absolute; left:6px; bottom:6px; z-index:2;
+    font-family:'Poppins', monospace; font-size:9.5px; letter-spacing:0.01em;
+    color:var(--gold-soft); background:rgba(0,0,0,0.55); border-radius:4px;
+    padding:2px 6px; pointer-events:none; max-width:calc(100% - 12px);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .document-thumb{
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    background:rgba(201,168,76,0.08); color:var(--gold-soft);
+    font-family:'Poppins',Arial,sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em;
+  }
+  .document-thumb svg{ width:46px; height:46px; fill:none; stroke:currentColor; stroke-width:1.5; }
+  /* Keep document cover images contained within the existing card thumbnail. */
+  .card .document-cover{
+    width:calc(100% - 16px); height:calc(100% - 16px);
+    margin:8px; object-fit:contain; box-sizing:border-box;
+  }
+  .card .card-cap{ padding:9px 11px 11px; }
+  .card .card-title{ font-size:15px; font-weight:600; color:var(--cream); margin:0; line-height:1.2; }
+  .card .card-sub{ font-family:'Poppins', Arial, sans-serif; font-size:10.5px; color:var(--gold-soft); margin:3px 0 0; line-height:1.3; opacity:0.9; }
+  .no-results{ width:100%; text-align:center; font-family:'Poppins', Arial, sans-serif; font-size:14px; color:var(--gold-soft); opacity:0.75; padding:30px 10px; }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(10,4,5,0.94); z-index:50;
+    display:none; align-items:center; justify-content:center; flex-direction:column;
+    padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-imgwrap{ flex:1; width:100%; max-width:720px; display:flex; align-items:center; justify-content:center; min-height:0; }
+  .lightbox img, .lightbox video{ max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
+  .lightbox-cap{ text-align:center; padding:12px 10px 4px; }
+  .lightbox-cap .lb-title{ font-size:clamp(18px,5vw,24px); font-weight:600; color:var(--cream); margin:0; }
+  .lightbox-cap .lb-sub{ font-family:'Poppins', Arial, sans-serif; font-size:12.5px; color:var(--gold-soft); margin:3px 0 0; }
+  .lightbox-controls{ display:flex; align-items:center; justify-content:center; gap:16px; padding-top:14px; flex-shrink:0; }
+  .lb-btn{
+    width:42px; height:42px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(201,168,76,0.1); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .lb-btn svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.2; }
+  .lb-close{
+    position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:16px;
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(0,0,0,0.4); color:var(--gold-soft); font-size:20px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+
+  /* ---------- Nav drawer (photos / videos / music) ---------- */
+  .nav-toggle{
+    position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:16px; z-index:61;
+    width:40px; height:40px; border-radius:50%; border:1px solid rgba(201,168,76,0.5);
+    background:rgba(20,10,8,0.5); backdrop-filter:blur(3px); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .nav-toggle svg{ width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2; }
+  .nav-overlay{
+    position:fixed; inset:0; z-index:60; background:rgba(10,4,5,0.5);
+    display:none;
+  }
+  .nav-overlay.open{ display:block; }
+  .nav-drawer{
+    position:fixed; top:0; left:0; bottom:0; z-index:62;
+    width:min(78vw, 280px); background:var(--card-bg);
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+    transform:translateX(-100%); transition:transform 0.25s ease;
+    padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px));
+    display:flex; flex-direction:column; gap:22px;
+    overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;
+    scrollbar-width:thin; scrollbar-color:rgba(201,168,76,0.55) transparent;
+    -webkit-overflow-scrolling:touch;
+    font-family:'Poppins', Arial, sans-serif;
+  }
+  .nav-drawer.open{ transform:translateX(0); }
+  .nav-drawer::-webkit-scrollbar{width:6px;}
+  .nav-drawer::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.55);border-radius:999px;}
+  .nav-drawer::-webkit-scrollbar-track{background:transparent;}
+  .nav-drawer h3{
+    font-family:'Cormorant Garamond', serif; font-size:13px; font-weight:600;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-soft);
+    opacity:0.8; margin:0 0 10px;
+  }
+  .nav-close{
+    align-self:flex-end; width:32px; height:32px; border-radius:50%; border:1px solid rgba(201,168,76,0.4);
+    background:transparent; color:var(--gold-soft); font-size:18px; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; margin-bottom:-6px;
+  }
+  .nav-item{
+    display:flex; align-items:center; gap:10px; width:100%;
+    padding:10px 12px; border-radius:9px; border:1px solid transparent;
+    background:transparent; color:var(--cream); font-family:inherit; font-size:14.5px;
+    cursor:pointer; text-align:left;
+  }
+  .nav-item svg{ width:17px; height:17px; flex-shrink:0; fill:none; stroke:var(--gold-soft); stroke-width:2; }
+  .nav-item .count{ margin-left:auto; font-size:11.5px; color:var(--gold-soft); opacity:0.75; }
+  .nav-item.active{ background:rgba(201,168,76,0.14); border-color:rgba(201,168,76,0.4); }
+  .nav-subgroups{display:flex;flex-direction:column;gap:2px;margin:0 0 5px 18px;}
+  .nav-item .group-chevron{display:none;}
+  .nav-subgroup{display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px 7px 12px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--gold-soft);font:inherit;font-size:12.5px;text-align:left;cursor:pointer;}
+  .nav-subgroup::before{content:"↳";opacity:.65;font-size:13px;}
+  .nav-subgroup .sub-count{margin-left:auto;font-size:10.5px;opacity:.75;}
+  .nav-subgroup.active{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:var(--cream);}
+  .nav-music-row{
+    display:flex; align-items:center; gap:10px; width:100%;
+    padding:10px 12px; border-radius:9px; border:1px solid rgba(201,168,76,0.3);
+    background:rgba(201,168,76,0.07); color:var(--cream); font-size:14.5px;
+  }
+  .nav-music-row svg{ width:17px; height:17px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .nav-music-row button{
+    margin-left:auto; border:0; background:var(--gold); color:var(--maroon-deep);
+    font-family:inherit; font-size:12px; font-weight:600; padding:6px 12px;
+    border-radius:999px; cursor:pointer;
+  }
+
+  .audio-file-list{display:flex;flex-direction:column;gap:10px;}
+  .audio-file-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:1px solid rgba(201,168,76,0.25);border-radius:10px;background:rgba(201,168,76,0.06);color:var(--cream);text-align:left;}
+  .audio-file-details{display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere;flex:1;}
+  .audio-file-name{font-weight:600;}
+  .audio-file-caption{font-size:13px;line-height:1.45;color:var(--gold-soft);white-space:pre-wrap;overflow-wrap:anywhere;}
+  .audio-file-item button{border:0;border-radius:999px;background:var(--gold);color:var(--maroon-deep);padding:7px 13px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;}
+  .audio-file-player{width:100%;margin-top:16px;}
+
+  /* ---------- More drawer / modals ---------- */
+  .more-divider{ height:1px; background:rgba(201,168,76,0.18); margin:0 0 2px; }
+  .info-modal{
+    position:fixed; inset:0; z-index:70; background:rgba(10,4,5,0.86);
+    display:none; align-items:center; justify-content:center;
+    padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(18px + env(safe-area-inset-bottom,0px));
+  }
+  .info-modal.open{ display:flex; }
+  .info-modal-card{
+    position:relative; width:min(720px,100%); max-height:90vh; overflow:auto;
+    background:var(--card-bg); border:1px solid rgba(201,168,76,0.35);
+    border-radius:16px; box-shadow:0 18px 50px rgba(0,0,0,0.55); padding:24px 20px 22px;
+  }
+  .info-modal-card h2{
+    margin:0 34px 16px 0; color:var(--gold-soft);
+    font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,36px);
+  }
+  .story-text{ white-space:pre-wrap; font-size:17px; line-height:1.65; color:var(--cream); }
+  .document-list{ display:flex; flex-direction:column; gap:10px; }
+  .document-item{
+    display:flex; align-items:center; gap:10px; width:100%; padding:12px 14px;
+    border:1px solid rgba(201,168,76,0.25); border-radius:10px;
+    background:rgba(201,168,76,0.06); color:var(--cream);
+    font-family:'Poppins',Arial,sans-serif; text-align:left; cursor:pointer;
+  }
+  .document-item svg{ width:19px; height:19px; flex-shrink:0; stroke:var(--gold-soft); fill:none; stroke-width:2; }
+  .document-item span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pdf-frame{
+    width:100%; height:min(72vh,700px); border:1px solid rgba(201,168,76,0.2);
+    border-radius:10px; background:#fff;
+  }
+  /* ---------- Newspaper-style TXT document ---------- */
+  .document-text{
+    white-space:pre-wrap;
+    overflow:auto;
+    max-height:min(72vh,700px);
+    padding:18px 20px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.96);
+    color:#2A1810;
+    font-family:'Noto Sans Bengali','Nirmala UI','Vrinda',Arial,sans-serif;
+    font-size:16px;
+    line-height:1.85;
+    text-align:justify;
+
+    /* Newspaper columns */
+    column-count:2;
+    column-gap:30px;
+    column-rule:1px solid rgba(42,24,16,0.18);
+    column-fill:auto;
+  }
+	.cap-annaprashan{ font-family:'Great Vibes', 'Cormorant Garamond', arial; font-size:clamp(20px,3vw,20px); text-align:center; color:#E7B4BC; margin:0; line-height:1; }
+  /* On wider screens use three newspaper columns. */
+  @media (min-width:900px){
+    .document-text{
+      column-count:3;
+      column-gap:34px;
+    }
+  }
+
+  /* Keep the story comfortable on narrow phones. */
+  @media (max-width:520px){
+    .document-text{
+      column-count:2;
+      column-gap:22px;
+      padding:14px 12px;
+      font-size:14px;
+      line-height:1.8;
+    }
+  }
+  
+
+  /* ---------- Profile photo zoom ---------- */
+  .landing-profile-card img{cursor:zoom-in; transition:transform .18s ease;}
+  .landing-profile-card img:focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+  .profile-zoom{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:calc(54px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));background:rgba(10,4,5,.94);}
+  .profile-zoom.open{display:flex;}
+  .profile-zoom img{display:block;max-width:min(96vw,1100px);max-height:calc(100dvh - 90px);width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 12px 42px rgba(0,0,0,.65);cursor:zoom-out;}
+  .profile-zoom-close{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:14px;width:42px;height:42px;border:1px solid rgba(201,168,76,.65);border-radius:50%;background:rgba(0,0,0,.5);color:var(--gold-soft);font-size:28px;line-height:1;cursor:pointer;}
+  .profile-zoom-caption{position:absolute;left:16px;right:16px;bottom:calc(10px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--gold-soft);font-family:'Poppins',Arial,sans-serif;font-size:13px;}
+
+
+	
+	
+	   
+	.school-intro .school-name {
+		display: block;
+		color: #E7B4BC;
+		font-family: "Cormorant Garamond", Georgia, serif;
+		font-size: clamp(28px, 4.5vw, 40px);
+		font-weight: 700;
+		letter-spacing: 0.7px;
+		line-height: 1;
+		margin-bottom: 5px;
+	}
+
+	.school-intro .school-history {
+		color: #F7E9DC;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: clamp(20px, 3.5vw, 27px);
+		line-height: 2;
+		margin: 0 0 24px;
+	}
+
+	.school-intro .batch-quote {
+		color: #F3D99B;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: 22px;
+		line-height: 1.9;
+		margin: 0;
+	}
+
+	.school-intro .batch-year {
+		display: block;
+		color: #F3D99B;
+		font-family: "Cormorant Garamond", Georgia, serif;
+		font-size: clamp(60px, 10vw, 80px);
+		font-weight: 700;
+		line-height: 1.2;
+		margin: 6px 0;
+		text-shadow: 0 2px 12px rgba(201, 168, 76, 0.2);
+	}
+
+	.school-intro .batch-label {
+		display: block;
+		color: #F7E9DC;
+		font-size: 21px;
+		letter-spacing: 1px;
+	}
+
+	.school-intro .school-footer {
+		color: #D9C6C9;
+		font-family: "Noto Serif Bengali", serif;
+		font-size: 17px;
+		line-height: 1.8;
+		margin: 22px 0 0;
+	}
+
+	@media (max-width: 480px) {
+		.school-intro {
+			padding: 24px 14px;
+			border-radius: 12px;
+		}
+
+		.school-intro .school-name {
+			font-size: 27px;
+		}
+
+		.school-intro .school-history {
+			font-size: 21px;
+		}
+
+		.school-intro .batch-quote {
+			font-size: 20px;
+		}
+
+		.school-intro .batch-label {
+			font-size: 19px;
+		}
+
+		.school-intro .school-footer {
+			font-size: 16px;
+		}
+	}
+
+
+  /* ---------- Compact landing header ---------- */
+  .landing-header {
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 12px 2px;
+  }
+  .school-intro {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 12px;
+  }
+  .school-intro .school-name {
+    font-size: clamp(23px, 4vw, 34px);
+    line-height: 1.12;
+    margin: 0 0 3px;
+  }
+  .school-intro .school-history {
+    font-size: clamp(15px, 2.8vw, 20px);
+    line-height: 1.35;
+    margin: 3px 0 5px;
+  }
+  .school-intro .batch-quote {
+    font-size: clamp(15px, 2.7vw, 20px);
+    line-height: 1.3;
+  }
+  .school-intro .batch-year {
+    display: inline;
+    font-size: clamp(25px, 5vw, 38px);
+    line-height: 1;
+    margin: 0 3px;
+  }
+  .school-intro .batch-label {
+    display: inline;
+    font-size: clamp(14px, 2.5vw, 18px);
+    letter-spacing: 0;
+  }
+  .school-intro .school-footer {
+    font-size: clamp(12px, 2vw, 15px);
+    line-height: 1.3;
+    margin: 5px 0 0;
+  }
+  .school-intro .school-divider {
+    margin: 5px auto;
+  }
+  @media (max-width: 480px) {
+    .school-intro { padding: 6px 8px; }
+    .school-intro .school-name { font-size: 23px; }
+    .school-intro .school-history { font-size: 15px; }
+    .school-intro .batch-quote { font-size: 15px; }
+    .school-intro .school-footer { font-size: 12px; }
+  }
+  
+	  /* Keep the menu button separate from the school name */
+	.nav-toggle {
+		position: fixed;
+		top: calc(10px + env(safe-area-inset-top, 0px));
+		left: 10px;
+		z-index: 1001;
+	}
+
+	/* Keep the school name clear of the menu button */
+	.landing-header {
+		box-sizing: border-box;
+		padding: 12px 12px 8px;
+		padding-left: 58px;
+		text-align: center;
+	}
+
+	/* Restore balanced spacing on wider screens */
+	@media (min-width: 600px) {
+		.landing-header {
+			padding-left: 20px;
+		}
+	}
+
+  /* Elegant, compact school identity card */
+  .school-intro {
+    position: relative;
+    isolation: isolate;
+    max-width: 780px;
+    margin: 8px auto 12px;
+    padding: clamp(14px, 3vw, 24px) clamp(14px, 4vw, 32px);
+    overflow: hidden;
+    border: 1px solid rgba(231,206,140,.66);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,248,231,.10), rgba(255,255,255,.025) 48%, rgba(201,168,76,.10));
+    box-shadow: 0 12px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(5px);
+  }
+  .school-intro::before, .school-intro::after {
+    content: ""; position: absolute; z-index: -1; color: rgba(231,206,140,.18);
+    font-size: clamp(48px, 9vw, 82px); line-height: 1; pointer-events: none;
+  }
+  .school-intro::before { top: 2px; left: 10px; }
+  .school-intro::after { bottom: 0; right: 12px; }
+  .school-intro .school-name {
+    color: #F4DFA8; font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600; letter-spacing: .015em; text-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .school-intro .school-divider {
+    width: min(180px, 45%); border: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .school-intro .school-history { color: #F7ECD9; }
+  .school-intro .batch-quote { color: #E7B4BC; }
+  .school-intro .batch-year { color: var(--gold-soft); text-shadow: 0 2px 12px rgba(0,0,0,.28); }
+  .school-intro .school-footer { color: rgba(247,236,217,.82); letter-spacing: .025em; }
+  @media (max-width: 480px) {
+    .school-intro { border-radius: 15px; margin-top: 6px; margin-bottom: 8px; }
+  }
+
+  /* External links inside More */
+  .external-link-list { display:flex; flex-direction:column; gap:10px; }
+  .external-link-card {
+    display:flex; align-items:center; gap:12px; width:100%; padding:14px;
+    border:1px solid rgba(201,168,76,.3); border-radius:13px;
+    background:linear-gradient(120deg, rgba(201,168,76,.10), rgba(255,255,255,.025));
+    color:var(--cream); text-decoration:none;
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .external-link-card:hover, .external-link-card:focus-visible {
+    transform:translateY(-1px); border-color:rgba(231,206,140,.75);
+    background:rgba(201,168,76,.14); outline:none;
+  }
+  .external-link-icon {
+    width:38px; height:38px; display:grid; place-items:center; flex:0 0 38px;
+    border-radius:11px; background:rgba(201,168,76,.15); color:var(--gold-soft);
+    font:600 20px 'Poppins',Arial,sans-serif;
+  }
+  .external-link-copy { min-width:0; display:flex; flex:1; flex-direction:column; gap:4px; }
+  .external-link-title { font:600 14px 'Poppins',Arial,sans-serif; color:var(--gold-soft); }
+  .external-link-description { font:12px/1.45 'Poppins',Arial,sans-serif; color:rgba(247,236,217,.76); overflow-wrap:anywhere; }
+  .external-link-arrow { color:var(--gold); font-size:20px; flex-shrink:0; }
+
+</style>
+</head>
+<body>
+
+  <!-- =====================================================
+       LANDING PAGE
+       1976 HS Batch -> Logo -> Invitation Banner
+  ====================================================== -->
+  <header class="landing-header">
+
+   
+	   
+
+	<div class="school-intro">
+
+		<p class="school-name">
+			Harinavi D.V.A.S. High School
+		</p>
+
+		<hr class="school-divider">
+
+		<p class="school-history">
+			ইতিহাসে ও স্মৃতিকথায় দেড়শো বছর অতিক্রান্ত
+		</p>
+
+		<p class="batch-quote">
+			“ আমরা ছিলাম ”
+			<span class="batch-year">’৭৬</span>
+			<span class="batch-label">এর শেষ H.S. Batch</span>
+		</p>
+
+		<hr class="school-divider">
+
+		<p class="school-footer">
+			একসাথে কাটানো দিনগুলি, স্মৃতিতে অমলিন
+		</p>
+
+	</div>
+	
+  </header>
+
+  
+  <div class="school-logo">
+		<img src="images/logo.png" alt="হরিনাভি এংলো সংস্কৃত স্কুল Logo">
+  </div>
+ 
+
+ 
+  <div class="invite-banner" id="inviteBanner"></div>
+  
+  <!-- Profile images from ./profile are shown on the landing page. -->
+  <section class="landing-profile" id="landingProfile" aria-label="Profile photographs">
+    <div class="landing-profile-grid" id="landingProfileGrid"></div>
+  </section>
+ 	
+  <!-- Search and gallery are revealed when navToggle is clicked. -->
+  <div id="mainContent">
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search photos by caption…" autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
+      </div>
+    </div>
+    <p class="search-count" id="searchCount"></p>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <div class="lightbox-imgwrap">
+      <img id="lbImage" src="" alt="">
+      <video id="lbVideo" controls playsinline style="display:none;"></video>
+    </div>
+    <div class="lightbox-cap">
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-sub" id="lbSub"></p>
+    </div>
+    <div class="lightbox-controls">
+      <button class="lb-btn" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
+      <button class="lb-btn" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg></button>
+    </div>
+  </div>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+  <div class="nav-drawer" id="navDrawer">
+    <button class="nav-close" id="navClose" aria-label="Close menu">&times;</button>
+
+    <div>
+      <h3>Browse</h3>
+      <button class="nav-item" id="filterAll" data-filter="all">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span>All</span><span class="count" id="countAll"></span>
+      </button>
+      <button class="nav-item" id="filterPhotos" data-filter="photo">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-4 4-3-3-6 6"/></svg>
+        <span>Photos</span><span class="count" id="countPhotos"></span>
+      </button>
+      <div class="nav-subgroups" id="photoSubgroups"></div>
+      <button class="nav-item active" id="filterVideos" data-filter="video">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+        <span>Videos</span><span class="count" id="countVideos"></span>
+      </button>
+      <div class="nav-subgroups" id="videoSubgroups"></div>
+    </div>
+
+    <div id="moreSection">
+      <div class="more-divider"></div>
+      <h3>More</h3>
+      <button class="nav-item" id="ourStoryBtn">
+        <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5z"/><path d="M4 5.5V21M8 7h8M8 11h8M8 15h6"/></svg>
+        <span>Our Story</span>
+      </button>
+      <button class="nav-item" id="documentsBtn" data-filter="document">
+        <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>
+        <span>Documents</span><span class="count" id="countDocuments"></span>
+      </button>
+      <div class="nav-subgroups" id="documentSubgroups"></div>
+      <button class="nav-item" id="audioFilesBtn" type="button">
+        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <span>Audio Files</span><span class="count" id="countAudioFiles"></span>
+      </button>
+      <div class="nav-subgroups" id="audioSubgroups"></div>
+      <button class="nav-item" id="externalLinksBtn" type="button">
+        <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/></svg>
+        <span>External Links</span><span class="count" id="countExternalLinks"></span>
+      </button>
+
+      <div class="more-divider"></div>
+      <h3>Music</h3>
+      <div class="nav-music-row">
+        <svg id="navAudioIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor" stroke="none"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+        <span id="navAudioLabel" aria-live="polite">Muted</span>
+        <button id="navAudioBtn" type="button" aria-pressed="false">Unmute</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-modal" id="storyModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="storyModal" aria-label="Close Our Story">&times;</button>
+      <h2>Our Story</h2>
+      <div class="story-text" id="storyText"></div>
+    </div>
+  </div>
+
+  <div class="info-modal" id="pdfModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="pdfModal" aria-label="Close PDF">&times;</button>
+      <h2 id="pdfTitle">Document</h2>
+      <iframe class="pdf-frame" id="pdfFrame" title="PDF document"></iframe>
+    </div>
+  </div>
+
+  <div class="info-modal" id="textModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="textModal" aria-label="Close text document">&times;</button>
+      <h2 id="textTitle">Document</h2>
+      <div class="document-text" id="documentText"></div>
+    </div>
+  </div>
+
+  <div class="info-modal" id="audioFilesModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="audioFilesModal" aria-label="Close audio files">&times;</button>
+      <h2>Audio Files</h2>
+      <div class="audio-file-list" id="audioFileList"></div>
+      <audio class="audio-file-player" id="audioFilePlayer" controls preload="none" style="display:none"></audio>
+    </div>
+  </div>
+
+  <div class="info-modal" id="externalLinksModal" aria-hidden="true">
+    <div class="info-modal-card">
+      <button class="nav-close info-modal-close" data-modal="externalLinksModal" aria-label="Close external links">&times;</button>
+      <h2>External Links</h2>
+      <div class="external-link-list" id="externalLinkList"></div>
+    </div>
+  </div>
+
+  <audio id="bgAudio" loop preload="auto" muted>
+    <source src="audio/background.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <!-- Profile photo zoom overlay -->
+  <div class="profile-zoom" id="profileZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Profile photo preview">
+    <button class="profile-zoom-close" id="profileZoomClose" type="button" aria-label="Close photo">&times;</button>
+    <img id="profileZoomImage" src="" alt="">
+    <div class="profile-zoom-caption" id="profileZoomCaption"></div>
+  </div>
+
+<script type="application/json" id="slidesData">[{"title": "Harinavi School", "sub": "", "hero": true, "src": "images/Harinavi_School.jpg", "file": "Harinavi_School.avif"}, {"title": "The Indian Driverless Vehicle", "sub": "Uses *AI* (Animal Intelligence)", "src": "images/0001_01.jpg", "file": "0001_01.jpg", "subgroup": "Family"}, {"title": "এইতো হচ্ছে কত কথা", "sub": "", "src": "images/0003_01.jpg", "file": "0003_01.jpg", "subgroup": "Family"}, {"title": "রবীনের ছেলে - আমাদের গর্ব", "sub": "", "src": "images/0002_02.jpg", "file": "0002_02.jpg", "subgroup": "School Events"}, {"title": "আমি আছিতো ভাল আছে", "sub": "", "src": "images/0004_03.jpg", "file": "0004_03.jpg", "subgroup": "Travel"}, {"title": "ভগবান যা করেন মঙ্গলের জন্য", "sub": "স্বামীজীর উপদেশমূলক গল্প", "type": "video", "src": "videos/0001_01.mp4", "file": "0001_01.mp4", "subgroup": "Ceremonies"}, {"title": "TRAUMA detected", "sub": "Emergency requirement", "type": "video", "src": "videos/0002_02.mp4", "file": "0002_02.mp4", "subgroup": "School Functions"}, {"title": "কৈলাসেতে ঝর্ণা বরফ", "sub": "মাছে  ভাতে  মামা বাড়ী ", "type": "video", "src": "videos/0003_01.mp4", "file": "0003_01.mp4", "subgroup": "Ceremonies"}, {"title": "0001 01", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0001_01.txt", "src": "documents/0001_01.txt", "thumbnail": "documents/0001_01.jpg", "text": "\n১০০টি 'না'-এর শক্তি - একটি সত্যি জীবনের শিক্ষা\nগতকাল আমার ছেলে বিশালের ফোন এসেছিল। ও আজকাল ইউরোপে থাকে। ও আমাকে এমন একটি গল্প শোনাল যা শুনে আমি অনেকক্ষণ ধরে ভাবতে বাধ্য হলাম। মনে হলো এটা শুধু একটা গল্প নয়, আমাদের সবার জীবনের একটা আয়না।\nবিশাল আমস্টারডামের একটি Costco স্টোরে গিয়েছিল। বাইরে বেশ ঠান্ডা ছিল, মানুষজন তাড়াতাড়ি আসা- যাওয়া করছিল।\nগেটের কাছে একটি ছোট শিশু দাঁড়িয়ে ছিল। বয়স বড়জোর পাঁচ বছর হবে। হাতে চিপসের কিছু প্যাকেট আর গলায় ঝুলছিল একটি ছোট বোর্ড। বোর্ডে আঁকাবাঁকা অক্ষরে লেখা ছিল - \"স্কাউট চ্যারিটির জন্য, মাত্র ২০ ইউরো।\"\nমানুষজন তার পাশ দিয়ে চলে যাচ্ছিল। কারও তাড়া ছিল, কেউ ফোনে ব্যস্ত ছিল, আবার কেউ দেখেও না দেখার ভান করছিল।\nকিন্তু সেই শিশুটি... সে হার মানছিল না।\nসে তার ছোট ছোট পায়ে প্রতিটা পথচারীর কাছে যেত, মুখের দিকে তাকাত আর খুব নিষ্পাপভাবে জিজ্ঞাসা করত, \"আপনি কি একটা প্যাকেট কিনবেন?\"\nকেউ হয়তো কিনে নিত, আবার কেউ হেসে বলত, \"না বাবা, ধন্যবাদ।\"\nআমি ভাবছিলাম, এত ছোট একটা বাচ্চা, এতবার 'না' শুনে হয়তো কেঁদে ফেলবে, মন খারাপ করে তার শিক্ষকের পেছনে গিয়ে লুকাবে।\nকিন্তু না।\nসে প্রতিটা 'না'-এর পর হাসত, আলতো করে মাথা নাড়াত আর পরের মানুষটির দিকে এগিয়ে যেত। তার মুখে কোনো লজ্জা ছিল না, ভয় ছিল না, কোনো হতাশাও ছিল না। ছিল শুধু এক অদ্ভুত আত্মবিশ্বাস।\nবিশাল আর থাকতে না পেরে একটা প্যাকেট কিনে নিল। বাচ্চাটার চোখদুটো উজ্জ্বল হয়ে উঠল। সে লাফিয়ে উঠে বলল, \"আপনাকে অনেক ধন্যবাদ!\"\nতারপর বিশাল ভালোবেসে জিজ্ঞাসা করল, \"তোমাকে আর কটা প্যাকেট বিক্রি করতে হবে? তুমি এখানে কতক্ষণ দাঁড়িয়ে থাকবে?\"\nবাচ্চাটি যে উত্তর দিল, তা বিশালকে ভেতর থেকে নাড়িয়ে দিল।\nসে বলল, \"যতক্ষণ না ১০০ জন মানুষ আমাকে 'না' বলছেন, ততক্ষণ!\"\nবিশাল অবাক হয়ে গেল। সে পাশে দাঁড়িয়ে থাকা শিক্ষকের দিকে তাকাল। শিক্ষক হেসে বললেন:\n\"আমাদের উদ্দেশ্য প্যাকেট বিক্রি করা নয়। আমাদের উদ্দেশ্য হলো এই বাচ্চাটি যেন এই বয়সেই 'না' শুনতে শেখে। 'না' শুনে সেটাকে হাসিমুখে মেনে নিতে শেখে, আর তারপরও পরের মানুষটিকে জিজ্ঞাসা করার সাহস রাখে।\"\nশুনে বিশাল চুপ হয়ে গেল। আমিও চুপ হয়ে গেলাম।\nআমরা আমাদের বাচ্চাদের কী শেখাই?\nখুব পড়াশোনা করো, ফার্স্ট হও, প্রতিযোগিতায় জেতো, সিলেক্ট হও, সবার আগে থেকো।\nআমরা তাদের জিততে শেখাই। কিন্তু আমরা তাদের হারতে শেখাই না।\nআমরা তাদের সাফল্যের রাস্তা দেখাই, কিন্তু ব্যর্থতার মধ্য দিয়ে যাওয়ার সাহস দিই না।\nঅথচ জীবনে সবচেয়ে বেশি প্রয়োজন এই সাহসেরই।\nকারণ জীবন সবসময় 'হ্যাঁ' বলবে না।\nকিছু পরীক্ষা খারাপ হতে পারে। কিছু ইন্টারভিউ ক্লিয়ার হবে না। কিছু ব্যবসা ব্যর্থ হবে। কিছু সম্পর্ক ভেঙে যাবে। কিছু স্বপ্ন পূরণ হতে সময় লাগবে।\nসেদিন যে 'না'-এর মুখোমুখি হতে হবে, তা আমাদের ভেঙে গুড়িয়ে দিতে পারে, আবার গড়েও তুলতে পারে। তফাত শুধু একটাই—আমরা শৈশবে 'না'-এর সঙ্গে বন্ধুত্ব করেছি নাকি শত্রুতা।\nসেই পাঁচ বছরের শিশুটি Costco-র বাইরে চিপস বিক্রি করছিল না।\nসে সাহস বিক্রি করছিল। সে 'না' সংগ্রহ করছিল। সে প্রত্যাখানকে জড়িয়ে ধরতে শিখছিল। সে জীবনের সবচেয়ে বড় পরীক্ষার প্রস্তুতি নিচ্ছিল—পড়ে গিয়ে আবার উঠে দাঁড়ানোর পরীক্ষা।\nভেবে দেখুন, আমাদের সন্তান যদি ১০মে ফেল করে, আমরা কী করি? বকাঝকা করি, খোঁটা দিই, লজ্জিত বোধ করি।\nযদি সে ইন্টারভিউতে বাদ পড়ে, আমরা বলি, \"তোমাকে দিয়ে কিচ্ছু হবে না।\"\nআমরা অজান্তেই তাকে বুঝিয়ে দিই যে 'না' মানেই—তুমি ব্যর্থ, তুমি বেকার।\nঅথচ সেই শিক্ষক শিখিয়েছিলেন যে 'না' মানে হলো: \"এখনই নয়, আবার চেষ্টা করো।\"\nবন্ধুরা, সাফল্য আমাদের আনন্দ দেয়, কিন্তু 'না' সামলানোর ক্ষমতা আমাদের বাঁচতে শেখায়।\nআজ থেকে সন্তানদের শুধু এটাই জিজ্ঞাসা করবেন না, \"বাবা/মা, জিতলে না হারলে? কত নম্বর পেলে?\"\nকখনও কখনও এটাও জিজ্ঞাসা করুন, \"আজ কতবার 'না' শুনলে? আর তারপরও কি চেষ্টা চালিয়ে গেলে? আমি তোমাকে নিয়ে গর্বিত।\"\nএমন সন্তান গড়ে তুলবেন না যে শুধু জিতলেই খুশি হয়।\nএমন সন্তান গড়ে তুলুন যে হারতে ভয় পায় না।\nকারণ যে জেতে, সে হাততালি পায়; কিন্তু যে হেরে গিয়েও ঘুরে দাঁড়ায়, সে জীবনকে জয় করে।\nস্যালুট সেই ছোট্ট শিশুটিকে, যে ১০০টি 'না' দিয়ে আমাদের জীবনের সবচেয়ে বড় 'হ্যাঁ' শিখিয়ে দিল।\nযদি এই গল্পটি আপনার হৃদয় ছুঁয়ে থাকে, তবে অবশ্যই এমন কোনো বাবা-মায়ের কাছে পৌঁছে দিন যারা আজ তাদের সন্তানের রেজাল্ট নিয়ে চিন্তিত। হয়তো তাদেরও এই কথাটি মনে পড়ে যাবে...\nকখনও কখনও ১০০টি 'না', একটি 'হ্যাঁ'-এর চেয়ে অনেক বেশি শিখিয়ে যায়।\n", "subgroup": "Newspapers"}, {"title": "0002 01", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0002_01.txt", "src": "documents/0002_01.txt", "thumbnail": "documents/0002_01.jpg", "text": "একই নারীর প্রেমে... সাতবার ❤️\n​এক নাতি তার ৮০ বছর বয়সি দাদুকে জিজ্ঞেস করল:\n​“দাদু... কীভাবে তুমি ৬০ বছর ধরে একই নারীর প্রেমে টিকে থাকতে পারলে?”\n​নাতির প্রত্যাশা ছিল দাদু হয়তো এমন উত্তর দেবেন:\n​“তোমার পারস্পরিক বোঝাপড়া থাকতে হবে...”\n“খুলে কথা বলতে হবে...”\n“আপস এবং মানিয়ে নেওয়ার ক্ষমতা থাকতে হবে...”\n​কিন্তু দাদু মুচকি হাসলেন, এক মুহূর্তের জন্য দাদির দিকে তাকালেন এবং বললেন:\n​“কে তোমাকে বলল যে আমি ৬০ বছর ধরে একই নারীর প্রেমে ছিলাম?”\n​নাতি অবাক হয়ে গেল।\n​দাদা বলতে লাগলেন...\n​“কুড়ি বছর বয়সে আমি তার সৌন্দর্য এবং জীবন্ত আত্মার প্রেমে পড়েছিলাম।\nসেটি ছিল আমার প্রথম প্রেম। ❤️\n​ত্রিশ বছর বয়সে সে মা হলো। আমি সেই নারীর প্রেমে পড়লাম, যে সারারাত জেগে আমাদের সন্তানকে পরম যত্নে ঘুম পাড়াত।\nসেটি ছিল আমার দ্বিতীয় প্রেম। ❤️\n​চল্লিশ বছর বয়সে আমি সেই সাহসী নারীর প্রেমে পড়লাম, যে হাসিমুখে আমাদের পরিবারের সমস্ত দায়িত্ব বহন করেছিল।\nসেটি ছিল আমার তৃতীয় প্রেম। ❤️\n​পঞ্চাশ বছর বয়সে আমি সেই নারীর প্রেমে পড়লাম, যে আমাদের সন্তানদের ভবিষ্যতের জন্য নিজের স্বপ্ন ও ইচ্ছ বিসর্জন দিয়েছিল।\nসেটি ছিল আমার চতুর্থ প্রেম। ❤️\n​ষাট বছর বয়সে তার মুখে বলিরেখা ফুটে উঠেছিল, কিন্তু আমি সেই সঙ্গিনীর প্রেমে পড়লাম, যে কেবল একটা চাউনিতেই আমার সমস্ত দুশ্চিন্তা বুঝে নিতে পারত।\nসেটি ছিল আমার পঞ্চম প্রেম। ❤️\n​সত্তর বছর বয়সে আমি সেই নারীর প্রেমে পড়লাম, যে প্রতিদিন আমাকে জিজ্ঞেস করত:\n​‘তুমি কি তোমার ওষুধ খেয়েছ?’\n​তার এই গভীর উদ্বেগ আমার হৃদয় ছুঁয়ে গিয়েছিল।\nসেটি ছিল আমার ষষ্ঠ প্রেম। ❤️\n​আর এখন, আশি বছর বয়সে, আমি সেই নারীর প্রেমে পড়েছি যে আমার পাশে ধীরে ধীরে হাঁটে, আমাদের পুরনো স্মৃতিগুলো বারবার বলে এবং আমার সাথে হাসাহাসি করে।\nসেটি আমার সপ্তম প্রেম। ❤️\n​নাতি চুপ করে রইল।\n​দাদা হেসে অবশেষে বললেন:\n​“বিয়ে মানে সারা জীবন একই মানুষের সাথে কাটিয়ে দেওয়া নয়।\n​বিয়ে হলো জীবনের পরিবর্তনের সাথে সাথে একই মানুষের বিভিন্ন রূপের প্রেমে বারবার পড়ে যাওয়া।”\n​সৌন্দর্য বদলায়।\nবয়স বদলায়।\nশরীর বদলায়।\nপরিস্থিতি বদলায়।\n​কিন্তু যদি প্রতিটি পরিবর্তনের মধ্য দিয়েও তুমি তোমার জীবনসঙ্গীর দিকে তাকিয়ে বলতে পারো...\n​❤️ “তুমি সেই মানুষটিই আছো যাকে আমি ভালোবেসেছি।”\n​এটাই হলো দীর্ঘ ও সুখী দাম্পত্যের আসল রহস্য।\n​কারণ...\n​🌹 ভালোবাসা মানে কেবল একবার প্রেমে পড়া নয়।\n​🌹 প্রকৃত ভালোবাসা হলো জীবনের প্রতিটি ঋতুতে, একই মানুষের প্রেমে বারবার পড়ে যাওয়া।\n​আর হয়তো সবচেয়ে সুন্দর প্রশ্নটি হলো:\n​“আজ তোমার জীবনসঙ্গী কি সেই একই মানুষ, যার প্রেমে তুমি প্রথম পড়েছিলে...?”\n​নাকি সে যে এত বছরের, সংগ্রাম, ত্যাগ, স্মৃতি এবং একসাথে কাটানো জীবনের ছাঁচে এক সুন্দর নতুন মানুষে পরিণত হয়েছে?\n​❤️ প্রকৃত ভালোবাসা এক জায়গায় স্থির থাকার নাম নয়।\nএটি হলো একসাথে বদলে যাওয়া... এবং প্রতিদিন, প্রতি মুহূর্তে একে অপরকে বেছে নেওয়া। ❤️", "subgroup": "Newspapers"}, {"title": "0003 02", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0003_02.txt", "src": "documents/0003_02.txt", "thumbnail": "documents/0003_02.jpg", "text": "এক ঘরেই যখন দুই অবিশ্বাস্য প্রতিভা। নোবেল পাওয়ার খবর শুনে মেয়েদের বুকে জড়িয়ে ধরলেন সদ্য নোবেলজয়ী কার্ল, পাশেই স্ত্রী অধ্যাপক ডাঃ মিশেল। \n.\nস্ট্যানফোর্ড বিশ্ববিদ্যালয়ের কার্ল ডাইসারোথ গতকাল মেডিসিনে নোবেল পেলেন।  তিনি এমন একটা বিষয়ের জন্য নোবেল পেলেন যে তা ভবিষ্যতে মানব মস্তিস্কের চিকিৎসারই গতিপথ পাল্টে দিবে।\n.\nআগে এই ছবির দুই অবিশ্বাস্য প্রতিভা কেন বলেছি তাই বলি।  কার্ল ডাইসারোথের পাশেই যে ভদ্রমহিলা দাঁড়িয়ে আছেন তিনি তাঁর স্ত্রী মিশেল মনজে। মিশেল মনজে নিজেও একজন বিশ্বখ্যাত নিউরো সাইন্টিস্ট। ক্যান্সার চিকিৎসায়  এক মহাবিপ্লব ঘটিয়েছেন মিশেল।\n.\nকার্ল বলেছিলেন মিশেল মনজের সাহায্য ছাড়া তার পক্ষে এই সফলতা সম্ভব ছিলোনা। আবার মিশেল ও কার্লের  আবিষ্কৃত অপটোজেনেটিক্স নিজের নিউরো ক্যানসার গবেষণায় ব্যবহার করেছেন।\n.\nতাঁরা দুজনেই স্ট্যানফোর্ড বিশ্ববিদ্যালয়ের অধ্যাপক। কার্ল যেমন  স্ট্যানফোর্ডের  বায়োইঞ্জিনিয়ারিং ও সাইকিয়াট্রি বিভাগের অধ্যাপক। মিশেল তেমনি নিউরোলজি বিভাগের  অধ্যাপক। বর্তমান বিশ্বে এই দম্পত্তিকে সর্বশ্রেষ্ঠ চিকিৎসাবিজ্ঞানী দম্পত্তিদের মধ্যে একজন ধরা হয়।\nযেমন ছিলেন মে-ব্রিট মোজার ও  এডভার্ড মোসার দম্পত্তি। যদিও যৌথভাবে নোবেল পাওয়ার দুই বছরের মাথায় তাঁদের বিচ্ছেদ হয়ে যায়।\n.\nকার্ল এবং মিশেল নিজেদের গবেষণার পাশাপাশি অনেক জটিল স্নায়ুবিক রোগ ও ক্যান্সার গবেষণায় যৌথভাবে কাজ করেছিলেন।\n.\nকার্ল ডাইসারোথের নোবেল জয়ের কারণ, তিনি এমন এক উদ্ভাবন করেছেন, যা ইঁদুরের মস্তিষ্ককে নিয়ন্ত্রণ করতে পারে। ভবিষ্যতে তা মানুষের ক্ষেত্রেও সফল হওয়ার ব্যাপক সম্ভাবনা রয়েছে। কার্ল নোবেল পেয়েছেন  অপটোজেনেটিক্স এর জন্য।  মূলত অপটোজেনেটিক্স হলো এমন একটি বৈজ্ঞানিক পদ্ধতি, যার মাধ্যমে আলোর সাহায্যে জীবন্ত প্রাণীর মস্তিষ্কের নির্দিষ্ট স্নায়ুকোষ বা নিউরনের কার্যকারিতা নিয়ন্ত্রণ করা যায়।\n.\nএই প্রযুক্তির উদ্ভাবন মানব মস্তিষ্কের জটিল রহস্য উন্মোচনে এক নতুন দিগন্তের সূচনা করলো। কারণ এখন পর্যন্ত গবেষকরা জানতে পেরেছেন কীভাবে মস্তিষ্কের নির্দিষ্ট সার্কিট মানুষের স্মৃতি, অনুভূতি এবং আচরণকে নিয়ন্ত্রণ করে।\n.\nযা বিষণ্নতা, অটিজম, সিজোফ্রেনিয়ার মতো জটিল মানসিক রোগের উৎস বুঝতে সাহায্য করছে। অন্ধত্ব দূর করতে এবং মানুষের দৃষ্টিশক্তি ফিরিয়ে আনার গবেষণাতেও অপটোজেনেটিক্স পদ্ধতি প্রয়োগ করা হচ্ছে এবং ভবিষ্যতে আরও নিখুঁতভাবে হবে।\n.\nআগে যেখানে মস্তিষ্কের কোনো অংশকে উদ্দীপিত করতে ইলেকট্রোড ব্যবহার করা হতো ( এখন অপটোজেনেটিক্সের মাধ্যমে কোনো ক্ষতি ছাড়াই নির্দিষ্ট একটি নিউরনকে আলোর সাহায্যে সুইচের মতো 'অন' বা 'অফ' করা যায়।\n.\nআগে ইলেকট্রোড ব্যবহার করলে এটি নির্দিষ্ট অংশ ছাড়াও আশেপাশের সব কোষকে একসাথে প্রভাবিত করতো। ফলে এটা বোঝা যেতোনা।\nএখন যখনই ফাইবার অপটিকের মাধ্যমে নীল আলো ফেলা হয়, তখন নিউরনটি সক্রিয় হয়ে মস্তিষ্কে সংকেত পাঠায়। আবার কোনো কোনো বিশেষ প্রোটিনের ওপর হলুদ আলো ফেললে নিউরনটি নিষ্ক্রিয় অর্থাৎ অফ হয়ে যায়।\n.\nএটা কি যে ফলপ্রসূ তা বলার অপেক্ষা রাখেনা। কারণ মানব মস্তিষ্কে প্রায় ১০০ বিলিয়ন নিউরন রয়েছে। এই জটিল নেটওয়ার্কের ঠিক কোন অংশটি আমাদের কোন আচরণ বা আবেগের জন্য দায়ী, তা আগে সুনির্দিষ্টভাবে জানা অসম্ভব ছিল। অপটোজেনেটিক্স এই অসম্ভবকে সম্ভব করেছে।\nকার্ল ডাইসারোথরা এই পরীক্ষাটি চালিয়েছেন ইঁদুরের উপর। সেখানে দেখা গেছে   বিজ্ঞানীরা ইঁদুরের মস্তিষ্কের নির্দিষ্ট কোষে আলো ফেলে তার ভয়, ক্ষুধা, রাগ বা স্মৃতির মতো বিষয়গুলোকে তাৎক্ষণিকভাবে চালনা বা পরিবর্তন করতে সক্ষম হয়েছেন।\n.\nকার্লের আগে দুই জার্মান বিজ্ঞানী পিটার হেগেমান ও জর্জ নাগেল একটি এককোষী শৈবালের মধ্যে ‘চ্যানেলরোডোপসিন’ নামের এক প্রোটিন আবিষ্কার করেছিলেন। পরে কার্ল ডাইসেরথ ওই প্রোটিনকে স্নায়ুকোষের জন্য একটি আলোক-নিয়ন্ত্রিত সুইচে রূপান্তর করেন।\n.\nপিটার হেগেমান ও জর্জ নাগেলও কার্লের সঙ্গে এ বছর নোবেল পেয়েছেন।\n.\nঅন্যদিকে মিশেল মনজে  আবিষ্কার করেছেন ব্রেন ক্যান্সার কীভাবে মস্তিষ্কের সিগন্যাল হাইজ্যাক করে বৃদ্ধি পায়, যা ক্যান্সার চিকিৎসায় এক বিশাল মাইলফলক ধরা হয়। মনজে কে বলা হয় ক্যানসার নিউরোসায়েন্সের বর্তমান বিশ্বের সবচেয়ে শীর্ষ বিজ্ঞানী।\n.\nশিশুদের একটি অত্যন্ত মারাত্মক ও নিরাময়-অযোগ্য ব্রেন টিউমার হলো ডিআইপিজি (Diffuse Intrinsic Pontine Glioma)। মনজে হলেন প্রথম বিজ্ঞানী যিনি ল্যাবরেটরিতে এই ক্যানসারের কোষ সফলভাবে কালচার করতে পেরেছিলেন।\n.\nক্যানসার রোগীদের কিমোথেরাপির পর যে মানসিক যে বিভ্রান্তি  হয়, তার পেছনের স্নায়ভিত্তিক যে কারণ ও মাইক্রোগ্লিয়া কোষের ভূমিকা তিনিই প্রথম উন্মোচন করেছিলেন।\n.\nকার্ল সরাসরি চিকিৎসা না করলেও মিশেল কিন্তু নিজে প্র্যাকটিসিং ডাক্তারও।\n.\nমিশেল তাঁর ল্যাবের আবিষ্কারকে সরাসরি ক্লিনিক্যাল ট্রায়ালের মাধ্যমে ব্রেন ক্যান্সারে আক্রান্ত শিশুদের জীবন বাঁচাতে ব্যবহার ব্যবহার করেন। এই দুই অবিশ্বাস্য প্রতিভা যখন এক ঘরে, তখন কয়েক বছরের মধ্যে আরও একটি নোবেল এই ঘরেই আসতে যাচ্ছে। মিশেলের গবেষণাও তাই প্রমাণ করে।\n.\nআর সেটা যদি হয়ে যায় গার্টি কোরি-কার্ল কোরি ও মেব্রিট মোসার ও এডভার্ড মোসার দম্পত্তির পর তারা হবে চিকিৎসা বিজ্ঞানে নোবেলজয়ী তৃতীয় কোন দম্পত্তি।\n.\nবাঙালী দম্পত্তিরা যখন ফেইসবুক আর ইন্সটাগ্রামে  রিলস দেখে কথিত সেলিব্রেটি নামক অমুক গায়িকা আর তমুক নায়িকার বিয়ে আর ডিভোর্স হয়েছে বলে ফুটো তালাশে ব্যস্ত, আর  যত্রতত্র বয়ান দেয়ায় ত্রস্ত তখন এসব প্রতিভারা মানব জগতের চিকিৎসা ইতিহাসই পাল্টে দিচ্ছেন! ", "subgroup": "Books & Notes"}, {"title": "0004 03", "sub": "PDF Document", "type": "document", "document_type": "pdf", "file": "0004_03.pdf", "src": "documents/0004_03.pdf", "thumbnail": "documents/0004_03.jpg", "subgroup": "Official"}]</script>
+<script type="application/json" id="hierarchyData">{"photo": [{"name": "Family", "suffix": "01"}, {"name": "School Events", "suffix": "02"}, {"name": "Travel", "suffix": "03"}], "video": [{"name": "Ceremonies", "suffix": "01"}, {"name": "School Functions", "suffix": "02"}, {"name": "Personal", "suffix": "03"}], "document": [{"name": "Newspapers", "suffix": "01"}, {"name": "Books & Notes", "suffix": "02"}, {"name": "Official", "suffix": "03"}], "audio": [{"name": "Songs", "suffix": "01"}, {"name": "Speeches", "suffix": "02"}, {"name": "Recordings", "suffix": "03"}]}</script>
+<script type="application/json" id="externalLinksData">[{"title": "Transaction Management", "url": "https://sunilc.pythonanywhere.com/transaction/", "description": "Open the transaction management application"}]</script>
+<script type="application/json" id="profileData">[{"src": "profile/0001_01.jpg", "title": "0001 01"}, {"src": "profile/0002_01.jpg", "title": "0002 01"}, {"src": "profile/0003_01.jpg", "title": "0003 01"}, {"src": "profile/0004_01.jpg", "title": "0004 01"}, {"src": "profile/0005_01.jpg", "title": "0005 01"}, {"src": "profile/0006_01.jpg", "title": "0006 01"}]</script>
+<script type="application/json" id="audioData">[{"title": "আমার-ইচ্ছা", "caption": "অধীরের কবিতা - সুনীলের পাঠ", "sub": "Audio File", "type": "audio", "subgroup": "Uncategorized", "file": "আমার-ইচ্ছা.m4a", "src": "audio/আমার-ইচ্ছা.m4a"}, {"title": "ছোটোবড়ো 03", "caption": "", "sub": "Audio File", "type": "audio", "subgroup": "Recordings", "file": "ছোটোবড়ো_03.mp3", "src": "audio/ছোটোবড়ো_03.mp3"}, {"title": "তুই ফেলে এসেছিস কারে", "caption": "রবীন্দ্রসঙ্গীত - সুনীলের গানের চেষ্টা", "sub": "Audio File", "type": "audio", "subgroup": "Uncategorized", "file": "তুই ফেলে এসেছিস কারে.m4a", "src": "audio/তুই ফেলে এসেছিস কারে.m4a"}, {"title": "স্বাধীনতা 02", "caption": "", "sub": "Audio File", "type": "audio", "subgroup": "Speeches", "file": "স্বাধীনতা_02.mp3", "src": "audio/স্বাধীনতা_02.mp3"}, {"title": "হারিয়ে", "caption": "কবি -  প্রেমেন্দ্র মিত্র   - সুনীলের পাঠ", "sub": "Audio File", "type": "audio", "subgroup": "Uncategorized", "file": "হারিয়ে.m4a", "src": "audio/হারিয়ে.m4a"}]</script>
+<script type="application/json" id="moreData">{"story":"","documents":[{"title": "0001 01", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0001_01.txt", "src": "documents/0001_01.txt", "thumbnail": "documents/0001_01.jpg", "text": "\n\u09e7\u09e6\u09e6\u099f\u09bf '\u09a8\u09be'-\u098f\u09b0 \u09b6\u0995\u09cd\u09a4\u09bf - \u098f\u0995\u099f\u09bf \u09b8\u09a4\u09cd\u09af\u09bf \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u09b6\u09bf\u0995\u09cd\u09b7\u09be\n\u0997\u09a4\u0995\u09be\u09b2 \u0986\u09ae\u09be\u09b0 \u099b\u09c7\u09b2\u09c7 \u09ac\u09bf\u09b6\u09be\u09b2\u09c7\u09b0 \u09ab\u09cb\u09a8 \u098f\u09b8\u09c7\u099b\u09bf\u09b2\u0964 \u0993 \u0986\u099c\u0995\u09be\u09b2 \u0987\u0989\u09b0\u09cb\u09aa\u09c7 \u09a5\u09be\u0995\u09c7\u0964 \u0993 \u0986\u09ae\u09be\u0995\u09c7 \u098f\u09ae\u09a8 \u098f\u0995\u099f\u09bf \u0997\u09b2\u09cd\u09aa \u09b6\u09cb\u09a8\u09be\u09b2 \u09af\u09be \u09b6\u09c1\u09a8\u09c7 \u0986\u09ae\u09bf \u0985\u09a8\u09c7\u0995\u0995\u09cd\u09b7\u09a3 \u09a7\u09b0\u09c7 \u09ad\u09be\u09ac\u09a4\u09c7 \u09ac\u09be\u09a7\u09cd\u09af \u09b9\u09b2\u09be\u09ae\u0964 \u09ae\u09a8\u09c7 \u09b9\u09b2\u09cb \u098f\u099f\u09be \u09b6\u09c1\u09a7\u09c1 \u098f\u0995\u099f\u09be \u0997\u09b2\u09cd\u09aa \u09a8\u09df, \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09b8\u09ac\u09be\u09b0 \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u098f\u0995\u099f\u09be \u0986\u09df\u09a8\u09be\u0964\n\u09ac\u09bf\u09b6\u09be\u09b2 \u0986\u09ae\u09b8\u09cd\u099f\u09be\u09b0\u09a1\u09be\u09ae\u09c7\u09b0 \u098f\u0995\u099f\u09bf Costco \u09b8\u09cd\u099f\u09cb\u09b0\u09c7 \u0997\u09bf\u09df\u09c7\u099b\u09bf\u09b2\u0964 \u09ac\u09be\u0987\u09b0\u09c7 \u09ac\u09c7\u09b6 \u09a0\u09be\u09a8\u09cd\u09a1\u09be \u099b\u09bf\u09b2, \u09ae\u09be\u09a8\u09c1\u09b7\u099c\u09a8 \u09a4\u09be\u09dc\u09be\u09a4\u09be\u09dc\u09bf \u0986\u09b8\u09be- \u09af\u09be\u0993\u09df\u09be \u0995\u09b0\u099b\u09bf\u09b2\u0964\n\u0997\u09c7\u099f\u09c7\u09b0 \u0995\u09be\u099b\u09c7 \u098f\u0995\u099f\u09bf \u099b\u09cb\u099f \u09b6\u09bf\u09b6\u09c1 \u09a6\u09be\u0981\u09dc\u09bf\u09df\u09c7 \u099b\u09bf\u09b2\u0964 \u09ac\u09df\u09b8 \u09ac\u09dc\u099c\u09cb\u09b0 \u09aa\u09be\u0981\u099a \u09ac\u099b\u09b0 \u09b9\u09ac\u09c7\u0964 \u09b9\u09be\u09a4\u09c7 \u099a\u09bf\u09aa\u09b8\u09c7\u09b0 \u0995\u09bf\u099b\u09c1 \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099f \u0986\u09b0 \u0997\u09b2\u09be\u09df \u099d\u09c1\u09b2\u099b\u09bf\u09b2 \u098f\u0995\u099f\u09bf \u099b\u09cb\u099f \u09ac\u09cb\u09b0\u09cd\u09a1\u0964 \u09ac\u09cb\u09b0\u09cd\u09a1\u09c7 \u0986\u0981\u0995\u09be\u09ac\u09be\u0981\u0995\u09be \u0985\u0995\u09cd\u09b7\u09b0\u09c7 \u09b2\u09c7\u0996\u09be \u099b\u09bf\u09b2 - \"\u09b8\u09cd\u0995\u09be\u0989\u099f \u099a\u09cd\u09af\u09be\u09b0\u09bf\u099f\u09bf\u09b0 \u099c\u09a8\u09cd\u09af, \u09ae\u09be\u09a4\u09cd\u09b0 \u09e8\u09e6 \u0987\u0989\u09b0\u09cb\u0964\"\n\u09ae\u09be\u09a8\u09c1\u09b7\u099c\u09a8 \u09a4\u09be\u09b0 \u09aa\u09be\u09b6 \u09a6\u09bf\u09df\u09c7 \u099a\u09b2\u09c7 \u09af\u09be\u099a\u09cd\u099b\u09bf\u09b2\u0964 \u0995\u09be\u09b0\u0993 \u09a4\u09be\u09dc\u09be \u099b\u09bf\u09b2, \u0995\u09c7\u0989 \u09ab\u09cb\u09a8\u09c7 \u09ac\u09cd\u09af\u09b8\u09cd\u09a4 \u099b\u09bf\u09b2, \u0986\u09ac\u09be\u09b0 \u0995\u09c7\u0989 \u09a6\u09c7\u0996\u09c7\u0993 \u09a8\u09be \u09a6\u09c7\u0996\u09be\u09b0 \u09ad\u09be\u09a8 \u0995\u09b0\u099b\u09bf\u09b2\u0964\n\u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09b8\u09c7\u0987 \u09b6\u09bf\u09b6\u09c1\u099f\u09bf... \u09b8\u09c7 \u09b9\u09be\u09b0 \u09ae\u09be\u09a8\u099b\u09bf\u09b2 \u09a8\u09be\u0964\n\u09b8\u09c7 \u09a4\u09be\u09b0 \u099b\u09cb\u099f \u099b\u09cb\u099f \u09aa\u09be\u09df\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09be \u09aa\u09a5\u099a\u09be\u09b0\u09c0\u09b0 \u0995\u09be\u099b\u09c7 \u09af\u09c7\u09a4, \u09ae\u09c1\u0996\u09c7\u09b0 \u09a6\u09bf\u0995\u09c7 \u09a4\u09be\u0995\u09be\u09a4 \u0986\u09b0 \u0996\u09c1\u09ac \u09a8\u09bf\u09b7\u09cd\u09aa\u09be\u09aa\u09ad\u09be\u09ac\u09c7 \u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be \u0995\u09b0\u09a4, \"\u0986\u09aa\u09a8\u09bf \u0995\u09bf \u098f\u0995\u099f\u09be \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099f \u0995\u09bf\u09a8\u09ac\u09c7\u09a8?\"\n\u0995\u09c7\u0989 \u09b9\u09df\u09a4\u09cb \u0995\u09bf\u09a8\u09c7 \u09a8\u09bf\u09a4, \u0986\u09ac\u09be\u09b0 \u0995\u09c7\u0989 \u09b9\u09c7\u09b8\u09c7 \u09ac\u09b2\u09a4, \"\u09a8\u09be \u09ac\u09be\u09ac\u09be, \u09a7\u09a8\u09cd\u09af\u09ac\u09be\u09a6\u0964\"\n\u0986\u09ae\u09bf \u09ad\u09be\u09ac\u099b\u09bf\u09b2\u09be\u09ae, \u098f\u09a4 \u099b\u09cb\u099f \u098f\u0995\u099f\u09be \u09ac\u09be\u099a\u09cd\u099a\u09be, \u098f\u09a4\u09ac\u09be\u09b0 '\u09a8\u09be' \u09b6\u09c1\u09a8\u09c7 \u09b9\u09df\u09a4\u09cb \u0995\u09c7\u0981\u09a6\u09c7 \u09ab\u09c7\u09b2\u09ac\u09c7, \u09ae\u09a8 \u0996\u09be\u09b0\u09be\u09aa \u0995\u09b0\u09c7 \u09a4\u09be\u09b0 \u09b6\u09bf\u0995\u09cd\u09b7\u0995\u09c7\u09b0 \u09aa\u09c7\u099b\u09a8\u09c7 \u0997\u09bf\u09df\u09c7 \u09b2\u09c1\u0995\u09be\u09ac\u09c7\u0964\n\u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09a8\u09be\u0964\n\u09b8\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09be '\u09a8\u09be'-\u098f\u09b0 \u09aa\u09b0 \u09b9\u09be\u09b8\u09a4, \u0986\u09b2\u09a4\u09cb \u0995\u09b0\u09c7 \u09ae\u09be\u09a5\u09be \u09a8\u09be\u09dc\u09be\u09a4 \u0986\u09b0 \u09aa\u09b0\u09c7\u09b0 \u09ae\u09be\u09a8\u09c1\u09b7\u099f\u09bf\u09b0 \u09a6\u09bf\u0995\u09c7 \u098f\u0997\u09bf\u09df\u09c7 \u09af\u09c7\u09a4\u0964 \u09a4\u09be\u09b0 \u09ae\u09c1\u0996\u09c7 \u0995\u09cb\u09a8\u09cb \u09b2\u099c\u09cd\u099c\u09be \u099b\u09bf\u09b2 \u09a8\u09be, \u09ad\u09df \u099b\u09bf\u09b2 \u09a8\u09be, \u0995\u09cb\u09a8\u09cb \u09b9\u09a4\u09be\u09b6\u09be\u0993 \u099b\u09bf\u09b2 \u09a8\u09be\u0964 \u099b\u09bf\u09b2 \u09b6\u09c1\u09a7\u09c1 \u098f\u0995 \u0985\u09a6\u09cd\u09ad\u09c1\u09a4 \u0986\u09a4\u09cd\u09ae\u09ac\u09bf\u09b6\u09cd\u09ac\u09be\u09b8\u0964\n\u09ac\u09bf\u09b6\u09be\u09b2 \u0986\u09b0 \u09a5\u09be\u0995\u09a4\u09c7 \u09a8\u09be \u09aa\u09c7\u09b0\u09c7 \u098f\u0995\u099f\u09be \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099f \u0995\u09bf\u09a8\u09c7 \u09a8\u09bf\u09b2\u0964 \u09ac\u09be\u099a\u09cd\u099a\u09be\u099f\u09be\u09b0 \u099a\u09cb\u0996\u09a6\u09c1\u099f\u09cb \u0989\u099c\u09cd\u099c\u09cd\u09ac\u09b2 \u09b9\u09df\u09c7 \u0989\u09a0\u09b2\u0964 \u09b8\u09c7 \u09b2\u09be\u09ab\u09bf\u09df\u09c7 \u0989\u09a0\u09c7 \u09ac\u09b2\u09b2, \"\u0986\u09aa\u09a8\u09be\u0995\u09c7 \u0985\u09a8\u09c7\u0995 \u09a7\u09a8\u09cd\u09af\u09ac\u09be\u09a6!\"\n\u09a4\u09be\u09b0\u09aa\u09b0 \u09ac\u09bf\u09b6\u09be\u09b2 \u09ad\u09be\u09b2\u09cb\u09ac\u09c7\u09b8\u09c7 \u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be \u0995\u09b0\u09b2, \"\u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u0986\u09b0 \u0995\u099f\u09be \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099f \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u09a4\u09c7 \u09b9\u09ac\u09c7? \u09a4\u09c1\u09ae\u09bf \u098f\u0996\u09be\u09a8\u09c7 \u0995\u09a4\u0995\u09cd\u09b7\u09a3 \u09a6\u09be\u0981\u09dc\u09bf\u09df\u09c7 \u09a5\u09be\u0995\u09ac\u09c7?\"\n\u09ac\u09be\u099a\u09cd\u099a\u09be\u099f\u09bf \u09af\u09c7 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09bf\u09b2, \u09a4\u09be \u09ac\u09bf\u09b6\u09be\u09b2\u0995\u09c7 \u09ad\u09c7\u09a4\u09b0 \u09a5\u09c7\u0995\u09c7 \u09a8\u09be\u09dc\u09bf\u09df\u09c7 \u09a6\u09bf\u09b2\u0964\n\u09b8\u09c7 \u09ac\u09b2\u09b2, \"\u09af\u09a4\u0995\u09cd\u09b7\u09a3 \u09a8\u09be \u09e7\u09e6\u09e6 \u099c\u09a8 \u09ae\u09be\u09a8\u09c1\u09b7 \u0986\u09ae\u09be\u0995\u09c7 '\u09a8\u09be' \u09ac\u09b2\u099b\u09c7\u09a8, \u09a4\u09a4\u0995\u09cd\u09b7\u09a3!\"\n\u09ac\u09bf\u09b6\u09be\u09b2 \u0985\u09ac\u09be\u0995 \u09b9\u09df\u09c7 \u0997\u09c7\u09b2\u0964 \u09b8\u09c7 \u09aa\u09be\u09b6\u09c7 \u09a6\u09be\u0981\u09dc\u09bf\u09df\u09c7 \u09a5\u09be\u0995\u09be \u09b6\u09bf\u0995\u09cd\u09b7\u0995\u09c7\u09b0 \u09a6\u09bf\u0995\u09c7 \u09a4\u09be\u0995\u09be\u09b2\u0964 \u09b6\u09bf\u0995\u09cd\u09b7\u0995 \u09b9\u09c7\u09b8\u09c7 \u09ac\u09b2\u09b2\u09c7\u09a8:\n\"\u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0989\u09a6\u09cd\u09a6\u09c7\u09b6\u09cd\u09af \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099f \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u09be \u09a8\u09df\u0964 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0989\u09a6\u09cd\u09a6\u09c7\u09b6\u09cd\u09af \u09b9\u09b2\u09cb \u098f\u0987 \u09ac\u09be\u099a\u09cd\u099a\u09be\u099f\u09bf \u09af\u09c7\u09a8 \u098f\u0987 \u09ac\u09df\u09b8\u09c7\u0987 '\u09a8\u09be' \u09b6\u09c1\u09a8\u09a4\u09c7 \u09b6\u09c7\u0996\u09c7\u0964 '\u09a8\u09be' \u09b6\u09c1\u09a8\u09c7 \u09b8\u09c7\u099f\u09be\u0995\u09c7 \u09b9\u09be\u09b8\u09bf\u09ae\u09c1\u0996\u09c7 \u09ae\u09c7\u09a8\u09c7 \u09a8\u09bf\u09a4\u09c7 \u09b6\u09c7\u0996\u09c7, \u0986\u09b0 \u09a4\u09be\u09b0\u09aa\u09b0\u0993 \u09aa\u09b0\u09c7\u09b0 \u09ae\u09be\u09a8\u09c1\u09b7\u099f\u09bf\u0995\u09c7 \u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be \u0995\u09b0\u09be\u09b0 \u09b8\u09be\u09b9\u09b8 \u09b0\u09be\u0996\u09c7\u0964\"\n\u09b6\u09c1\u09a8\u09c7 \u09ac\u09bf\u09b6\u09be\u09b2 \u099a\u09c1\u09aa \u09b9\u09df\u09c7 \u0997\u09c7\u09b2\u0964 \u0986\u09ae\u09bf\u0993 \u099a\u09c1\u09aa \u09b9\u09df\u09c7 \u0997\u09c7\u09b2\u09be\u09ae\u0964\n\u0986\u09ae\u09b0\u09be \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09ac\u09be\u099a\u09cd\u099a\u09be\u09a6\u09c7\u09b0 \u0995\u09c0 \u09b6\u09c7\u0996\u09be\u0987?\n\u0996\u09c1\u09ac \u09aa\u09dc\u09be\u09b6\u09cb\u09a8\u09be \u0995\u09b0\u09cb, \u09ab\u09be\u09b0\u09cd\u09b8\u09cd\u099f \u09b9\u0993, \u09aa\u09cd\u09b0\u09a4\u09bf\u09af\u09cb\u0997\u09bf\u09a4\u09be\u09df \u099c\u09c7\u09a4\u09cb, \u09b8\u09bf\u09b2\u09c7\u0995\u09cd\u099f \u09b9\u0993, \u09b8\u09ac\u09be\u09b0 \u0986\u0997\u09c7 \u09a5\u09c7\u0995\u09cb\u0964\n\u0986\u09ae\u09b0\u09be \u09a4\u09be\u09a6\u09c7\u09b0 \u099c\u09bf\u09a4\u09a4\u09c7 \u09b6\u09c7\u0996\u09be\u0987\u0964 \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u0986\u09ae\u09b0\u09be \u09a4\u09be\u09a6\u09c7\u09b0 \u09b9\u09be\u09b0\u09a4\u09c7 \u09b6\u09c7\u0996\u09be\u0987 \u09a8\u09be\u0964\n\u0986\u09ae\u09b0\u09be \u09a4\u09be\u09a6\u09c7\u09b0 \u09b8\u09be\u09ab\u09b2\u09cd\u09af\u09c7\u09b0 \u09b0\u09be\u09b8\u09cd\u09a4\u09be \u09a6\u09c7\u0996\u09be\u0987, \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09ac\u09cd\u09af\u09b0\u09cd\u09a5\u09a4\u09be\u09b0 \u09ae\u09a7\u09cd\u09af \u09a6\u09bf\u09df\u09c7 \u09af\u09be\u0993\u09df\u09be\u09b0 \u09b8\u09be\u09b9\u09b8 \u09a6\u09bf\u0987 \u09a8\u09be\u0964\n\u0985\u09a5\u099a \u099c\u09c0\u09ac\u09a8\u09c7 \u09b8\u09ac\u099a\u09c7\u09df\u09c7 \u09ac\u09c7\u09b6\u09bf \u09aa\u09cd\u09b0\u09df\u09cb\u099c\u09a8 \u098f\u0987 \u09b8\u09be\u09b9\u09b8\u09c7\u09b0\u0987\u0964\n\u0995\u09be\u09b0\u09a3 \u099c\u09c0\u09ac\u09a8 \u09b8\u09ac\u09b8\u09ae\u09df '\u09b9\u09cd\u09af\u09be\u0981' \u09ac\u09b2\u09ac\u09c7 \u09a8\u09be\u0964\n\u0995\u09bf\u099b\u09c1 \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be \u0996\u09be\u09b0\u09be\u09aa \u09b9\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u0964 \u0995\u09bf\u099b\u09c1 \u0987\u09a8\u09cd\u099f\u09be\u09b0\u09ad\u09bf\u0989 \u0995\u09cd\u09b2\u09bf\u09af\u09bc\u09be\u09b0 \u09b9\u09ac\u09c7 \u09a8\u09be\u0964 \u0995\u09bf\u099b\u09c1 \u09ac\u09cd\u09af\u09ac\u09b8\u09be \u09ac\u09cd\u09af\u09b0\u09cd\u09a5 \u09b9\u09ac\u09c7\u0964 \u0995\u09bf\u099b\u09c1 \u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995 \u09ad\u09c7\u0999\u09c7 \u09af\u09be\u09ac\u09c7\u0964 \u0995\u09bf\u099b\u09c1 \u09b8\u09cd\u09ac\u09aa\u09cd\u09a8 \u09aa\u09c2\u09b0\u09a3 \u09b9\u09a4\u09c7 \u09b8\u09ae\u09df \u09b2\u09be\u0997\u09ac\u09c7\u0964\n\u09b8\u09c7\u09a6\u09bf\u09a8 \u09af\u09c7 '\u09a8\u09be'-\u098f\u09b0 \u09ae\u09c1\u0996\u09cb\u09ae\u09c1\u0996\u09bf \u09b9\u09a4\u09c7 \u09b9\u09ac\u09c7, \u09a4\u09be \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09ad\u09c7\u0999\u09c7 \u0997\u09c1\u09dc\u09bf\u09df\u09c7 \u09a6\u09bf\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7, \u0986\u09ac\u09be\u09b0 \u0997\u09dc\u09c7\u0993 \u09a4\u09c1\u09b2\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u0964 \u09a4\u09ab\u09be\u09a4 \u09b6\u09c1\u09a7\u09c1 \u098f\u0995\u099f\u09be\u0987\u2014\u0986\u09ae\u09b0\u09be \u09b6\u09c8\u09b6\u09ac\u09c7 '\u09a8\u09be'-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09ac\u09a8\u09cd\u09a7\u09c1\u09a4\u09cd\u09ac \u0995\u09b0\u09c7\u099b\u09bf \u09a8\u09be\u0995\u09bf \u09b6\u09a4\u09cd\u09b0\u09c1\u09a4\u09be\u0964\n\u09b8\u09c7\u0987 \u09aa\u09be\u0981\u099a \u09ac\u099b\u09b0\u09c7\u09b0 \u09b6\u09bf\u09b6\u09c1\u099f\u09bf Costco-\u09b0 \u09ac\u09be\u0987\u09b0\u09c7 \u099a\u09bf\u09aa\u09b8 \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u099b\u09bf\u09b2 \u09a8\u09be\u0964\n\u09b8\u09c7 \u09b8\u09be\u09b9\u09b8 \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u099b\u09bf\u09b2\u0964 \u09b8\u09c7 '\u09a8\u09be' \u09b8\u0982\u0997\u09cd\u09b0\u09b9 \u0995\u09b0\u099b\u09bf\u09b2\u0964 \u09b8\u09c7 \u09aa\u09cd\u09b0\u09a4\u09cd\u09af\u09be\u0996\u09be\u09a8\u0995\u09c7 \u099c\u09dc\u09bf\u09df\u09c7 \u09a7\u09b0\u09a4\u09c7 \u09b6\u09bf\u0996\u099b\u09bf\u09b2\u0964 \u09b8\u09c7 \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u09b8\u09ac\u099a\u09c7\u09df\u09c7 \u09ac\u09dc \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be\u09b0 \u09aa\u09cd\u09b0\u09b8\u09cd\u09a4\u09c1\u09a4\u09bf \u09a8\u09bf\u099a\u09cd\u099b\u09bf\u09b2\u2014\u09aa\u09dc\u09c7 \u0997\u09bf\u09df\u09c7 \u0986\u09ac\u09be\u09b0 \u0989\u09a0\u09c7 \u09a6\u09be\u0981\u09dc\u09be\u09a8\u09cb\u09b0 \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be\u0964\n\u09ad\u09c7\u09ac\u09c7 \u09a6\u09c7\u0996\u09c1\u09a8, \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8 \u09af\u09a6\u09bf \u09e7\u09e6\u09ae\u09c7 \u09ab\u09c7\u09b2 \u0995\u09b0\u09c7, \u0986\u09ae\u09b0\u09be \u0995\u09c0 \u0995\u09b0\u09bf? \u09ac\u0995\u09be\u099d\u0995\u09be \u0995\u09b0\u09bf, \u0996\u09cb\u0981\u099f\u09be \u09a6\u09bf\u0987, \u09b2\u099c\u09cd\u099c\u09bf\u09a4 \u09ac\u09cb\u09a7 \u0995\u09b0\u09bf\u0964\n\u09af\u09a6\u09bf \u09b8\u09c7 \u0987\u09a8\u09cd\u099f\u09be\u09b0\u09ad\u09bf\u0989\u09a4\u09c7 \u09ac\u09be\u09a6 \u09aa\u09dc\u09c7, \u0986\u09ae\u09b0\u09be \u09ac\u09b2\u09bf, \"\u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u09a6\u09bf\u09df\u09c7 \u0995\u09bf\u099a\u09cd\u099b\u09c1 \u09b9\u09ac\u09c7 \u09a8\u09be\u0964\"\n\u0986\u09ae\u09b0\u09be \u0985\u099c\u09be\u09a8\u09cd\u09a4\u09c7\u0987 \u09a4\u09be\u0995\u09c7 \u09ac\u09c1\u099d\u09bf\u09df\u09c7 \u09a6\u09bf\u0987 \u09af\u09c7 '\u09a8\u09be' \u09ae\u09be\u09a8\u09c7\u0987\u2014\u09a4\u09c1\u09ae\u09bf \u09ac\u09cd\u09af\u09b0\u09cd\u09a5, \u09a4\u09c1\u09ae\u09bf \u09ac\u09c7\u0995\u09be\u09b0\u0964\n\u0985\u09a5\u099a \u09b8\u09c7\u0987 \u09b6\u09bf\u0995\u09cd\u09b7\u0995 \u09b6\u09bf\u0996\u09bf\u09df\u09c7\u099b\u09bf\u09b2\u09c7\u09a8 \u09af\u09c7 '\u09a8\u09be' \u09ae\u09be\u09a8\u09c7 \u09b9\u09b2\u09cb: \"\u098f\u0996\u09a8\u0987 \u09a8\u09df, \u0986\u09ac\u09be\u09b0 \u099a\u09c7\u09b7\u09cd\u099f\u09be \u0995\u09b0\u09cb\u0964\"\n\u09ac\u09a8\u09cd\u09a7\u09c1\u09b0\u09be, \u09b8\u09be\u09ab\u09b2\u09cd\u09af \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0986\u09a8\u09a8\u09cd\u09a6 \u09a6\u09c7\u09df, \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 '\u09a8\u09be' \u09b8\u09be\u09ae\u09b2\u09be\u09a8\u09cb\u09b0 \u0995\u09cd\u09b7\u09ae\u09a4\u09be \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09ac\u09be\u0981\u099a\u09a4\u09c7 \u09b6\u09c7\u0996\u09be\u09df\u0964\n\u0986\u099c \u09a5\u09c7\u0995\u09c7 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8\u09a6\u09c7\u09b0 \u09b6\u09c1\u09a7\u09c1 \u098f\u099f\u09be\u0987 \u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be \u0995\u09b0\u09ac\u09c7\u09a8 \u09a8\u09be, \"\u09ac\u09be\u09ac\u09be/\u09ae\u09be, \u099c\u09bf\u09a4\u09b2\u09c7 \u09a8\u09be \u09b9\u09be\u09b0\u09b2\u09c7? \u0995\u09a4 \u09a8\u09ae\u09cd\u09ac\u09b0 \u09aa\u09c7\u09b2\u09c7?\"\n\u0995\u0996\u09a8\u0993 \u0995\u0996\u09a8\u0993 \u098f\u099f\u09be\u0993 \u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be \u0995\u09b0\u09c1\u09a8, \"\u0986\u099c \u0995\u09a4\u09ac\u09be\u09b0 '\u09a8\u09be' \u09b6\u09c1\u09a8\u09b2\u09c7? \u0986\u09b0 \u09a4\u09be\u09b0\u09aa\u09b0\u0993 \u0995\u09bf \u099a\u09c7\u09b7\u09cd\u099f\u09be \u099a\u09be\u09b2\u09bf\u09df\u09c7 \u0997\u09c7\u09b2\u09c7? \u0986\u09ae\u09bf \u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u09a8\u09bf\u09df\u09c7 \u0997\u09b0\u09cd\u09ac\u09bf\u09a4\u0964\"\n\u098f\u09ae\u09a8 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8 \u0997\u09dc\u09c7 \u09a4\u09c1\u09b2\u09ac\u09c7\u09a8 \u09a8\u09be \u09af\u09c7 \u09b6\u09c1\u09a7\u09c1 \u099c\u09bf\u09a4\u09b2\u09c7\u0987 \u0996\u09c1\u09b6\u09bf \u09b9\u09df\u0964\n\u098f\u09ae\u09a8 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8 \u0997\u09dc\u09c7 \u09a4\u09c1\u09b2\u09c1\u09a8 \u09af\u09c7 \u09b9\u09be\u09b0\u09a4\u09c7 \u09ad\u09df \u09aa\u09be\u09df \u09a8\u09be\u0964\n\u0995\u09be\u09b0\u09a3 \u09af\u09c7 \u099c\u09c7\u09a4\u09c7, \u09b8\u09c7 \u09b9\u09be\u09a4\u09a4\u09be\u09b2\u09bf \u09aa\u09be\u09df; \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09af\u09c7 \u09b9\u09c7\u09b0\u09c7 \u0997\u09bf\u09df\u09c7\u0993 \u0998\u09c1\u09b0\u09c7 \u09a6\u09be\u0981\u09dc\u09be\u09df, \u09b8\u09c7 \u099c\u09c0\u09ac\u09a8\u0995\u09c7 \u099c\u09df \u0995\u09b0\u09c7\u0964\n\u09b8\u09cd\u09af\u09be\u09b2\u09c1\u099f \u09b8\u09c7\u0987 \u099b\u09cb\u099f\u09cd\u099f \u09b6\u09bf\u09b6\u09c1\u099f\u09bf\u0995\u09c7, \u09af\u09c7 \u09e7\u09e6\u09e6\u099f\u09bf '\u09a8\u09be' \u09a6\u09bf\u09df\u09c7 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u09b8\u09ac\u099a\u09c7\u09df\u09c7 \u09ac\u09dc '\u09b9\u09cd\u09af\u09be\u0981' \u09b6\u09bf\u0996\u09bf\u09df\u09c7 \u09a6\u09bf\u09b2\u0964\n\u09af\u09a6\u09bf \u098f\u0987 \u0997\u09b2\u09cd\u09aa\u099f\u09bf \u0986\u09aa\u09a8\u09be\u09b0 \u09b9\u09c3\u09a6\u09df \u099b\u09c1\u0981\u09df\u09c7 \u09a5\u09be\u0995\u09c7, \u09a4\u09ac\u09c7 \u0985\u09ac\u09b6\u09cd\u09af\u0987 \u098f\u09ae\u09a8 \u0995\u09cb\u09a8\u09cb \u09ac\u09be\u09ac\u09be-\u09ae\u09be\u09df\u09c7\u09b0 \u0995\u09be\u099b\u09c7 \u09aa\u09cc\u0981\u099b\u09c7 \u09a6\u09bf\u09a8 \u09af\u09be\u09b0\u09be \u0986\u099c \u09a4\u09be\u09a6\u09c7\u09b0 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8\u09c7\u09b0 \u09b0\u09c7\u099c\u09be\u09b2\u09cd\u099f \u09a8\u09bf\u09df\u09c7 \u099a\u09bf\u09a8\u09cd\u09a4\u09bf\u09a4\u0964 \u09b9\u09df\u09a4\u09cb \u09a4\u09be\u09a6\u09c7\u09b0\u0993 \u098f\u0987 \u0995\u09a5\u09be\u099f\u09bf \u09ae\u09a8\u09c7 \u09aa\u09dc\u09c7 \u09af\u09be\u09ac\u09c7...\n\u0995\u0996\u09a8\u0993 \u0995\u0996\u09a8\u0993 \u09e7\u09e6\u09e6\u099f\u09bf '\u09a8\u09be', \u098f\u0995\u099f\u09bf '\u09b9\u09cd\u09af\u09be\u0981'-\u098f\u09b0 \u099a\u09c7\u09df\u09c7 \u0985\u09a8\u09c7\u0995 \u09ac\u09c7\u09b6\u09bf \u09b6\u09bf\u0996\u09bf\u09df\u09c7 \u09af\u09be\u09df\u0964\n", "subgroup": "Newspapers"}, {"title": "0002 01", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0002_01.txt", "src": "documents/0002_01.txt", "thumbnail": "documents/0002_01.jpg", "text": "\u098f\u0995\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7... \u09b8\u09be\u09a4\u09ac\u09be\u09b0 \u2764\ufe0f\n\u200b\u098f\u0995 \u09a8\u09be\u09a4\u09bf \u09a4\u09be\u09b0 \u09ee\u09e6 \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09bf \u09a6\u09be\u09a6\u09c1\u0995\u09c7 \u099c\u09bf\u099c\u09cd\u099e\u09c7\u09b8 \u0995\u09b0\u09b2:\n\u200b\u201c\u09a6\u09be\u09a6\u09c1... \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09a4\u09c1\u09ae\u09bf \u09ec\u09e6 \u09ac\u099b\u09b0 \u09a7\u09b0\u09c7 \u098f\u0995\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u099f\u09bf\u0995\u09c7 \u09a5\u09be\u0995\u09a4\u09c7 \u09aa\u09be\u09b0\u09b2\u09c7?\u201d\n\u200b\u09a8\u09be\u09a4\u09bf\u09b0 \u09aa\u09cd\u09b0\u09a4\u09cd\u09af\u09be\u09b6\u09be \u099b\u09bf\u09b2 \u09a6\u09be\u09a6\u09c1 \u09b9\u09df\u09a4\u09cb \u098f\u09ae\u09a8 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09c7\u09ac\u09c7\u09a8:\n\u200b\u201c\u09a4\u09cb\u09ae\u09be\u09b0 \u09aa\u09be\u09b0\u09b8\u09cd\u09aa\u09b0\u09bf\u0995 \u09ac\u09cb\u099d\u09be\u09aa\u09dc\u09be \u09a5\u09be\u0995\u09a4\u09c7 \u09b9\u09ac\u09c7...\u201d\n\u201c\u0996\u09c1\u09b2\u09c7 \u0995\u09a5\u09be \u09ac\u09b2\u09a4\u09c7 \u09b9\u09ac\u09c7...\u201d\n\u201c\u0986\u09aa\u09b8 \u098f\u09ac\u0982 \u09ae\u09be\u09a8\u09bf\u09df\u09c7 \u09a8\u09c7\u0993\u09df\u09be\u09b0 \u0995\u09cd\u09b7\u09ae\u09a4\u09be \u09a5\u09be\u0995\u09a4\u09c7 \u09b9\u09ac\u09c7...\u201d\n\u200b\u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09a6\u09be\u09a6\u09c1 \u09ae\u09c1\u099a\u0995\u09bf \u09b9\u09be\u09b8\u09b2\u09c7\u09a8, \u098f\u0995 \u09ae\u09c1\u09b9\u09c2\u09b0\u09cd\u09a4\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09a6\u09be\u09a6\u09bf\u09b0 \u09a6\u09bf\u0995\u09c7 \u09a4\u09be\u0995\u09be\u09b2\u09c7\u09a8 \u098f\u09ac\u0982 \u09ac\u09b2\u09b2\u09c7\u09a8:\n\u200b\u201c\u0995\u09c7 \u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u09ac\u09b2\u09b2 \u09af\u09c7 \u0986\u09ae\u09bf \u09ec\u09e6 \u09ac\u099b\u09b0 \u09a7\u09b0\u09c7 \u098f\u0995\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u099b\u09bf\u09b2\u09be\u09ae?\u201d\n\u200b\u09a8\u09be\u09a4\u09bf \u0985\u09ac\u09be\u0995 \u09b9\u09df\u09c7 \u0997\u09c7\u09b2\u0964\n\u200b\u09a6\u09be\u09a6\u09be \u09ac\u09b2\u09a4\u09c7 \u09b2\u09be\u0997\u09b2\u09c7\u09a8...\n\u200b\u201c\u0995\u09c1\u09dc\u09bf \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u0986\u09ae\u09bf \u09a4\u09be\u09b0 \u09b8\u09cc\u09a8\u09cd\u09a6\u09b0\u09cd\u09af \u098f\u09ac\u0982 \u099c\u09c0\u09ac\u09a8\u09cd\u09a4 \u0986\u09a4\u09cd\u09ae\u09be\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09c7\u099b\u09bf\u09b2\u09be\u09ae\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u09aa\u09cd\u09b0\u09a5\u09ae \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u09a4\u09cd\u09b0\u09bf\u09b6 \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u09b8\u09c7 \u09ae\u09be \u09b9\u09b2\u09cb\u0964 \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09b2\u09be\u09ae, \u09af\u09c7 \u09b8\u09be\u09b0\u09be\u09b0\u09be\u09a4 \u099c\u09c7\u0997\u09c7 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8\u0995\u09c7 \u09aa\u09b0\u09ae \u09af\u09a4\u09cd\u09a8\u09c7 \u0998\u09c1\u09ae \u09aa\u09be\u09dc\u09be\u09a4\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u09a6\u09cd\u09ac\u09bf\u09a4\u09c0\u09df \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u099a\u09b2\u09cd\u09b2\u09bf\u09b6 \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09b8\u09be\u09b9\u09b8\u09c0 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09b2\u09be\u09ae, \u09af\u09c7 \u09b9\u09be\u09b8\u09bf\u09ae\u09c1\u0996\u09c7 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09aa\u09b0\u09bf\u09ac\u09be\u09b0\u09c7\u09b0 \u09b8\u09ae\u09b8\u09cd\u09a4 \u09a6\u09be\u09df\u09bf\u09a4\u09cd\u09ac \u09ac\u09b9\u09a8 \u0995\u09b0\u09c7\u099b\u09bf\u09b2\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u09a4\u09c3\u09a4\u09c0\u09df \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u09aa\u099e\u09cd\u099a\u09be\u09b6 \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09b2\u09be\u09ae, \u09af\u09c7 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09b8\u09a8\u09cd\u09a4\u09be\u09a8\u09a6\u09c7\u09b0 \u09ad\u09ac\u09bf\u09b7\u09cd\u09af\u09a4\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09a8\u09bf\u099c\u09c7\u09b0 \u09b8\u09cd\u09ac\u09aa\u09cd\u09a8 \u0993 \u0987\u099a\u09cd\u099b \u09ac\u09bf\u09b8\u09b0\u09cd\u099c\u09a8 \u09a6\u09bf\u09df\u09c7\u099b\u09bf\u09b2\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u099a\u09a4\u09c1\u09b0\u09cd\u09a5 \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u09b7\u09be\u099f \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u09a4\u09be\u09b0 \u09ae\u09c1\u0996\u09c7 \u09ac\u09b2\u09bf\u09b0\u09c7\u0996\u09be \u09ab\u09c1\u099f\u09c7 \u0989\u09a0\u09c7\u099b\u09bf\u09b2, \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09b8\u0999\u09cd\u0997\u09bf\u09a8\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09b2\u09be\u09ae, \u09af\u09c7 \u0995\u09c7\u09ac\u09b2 \u098f\u0995\u099f\u09be \u099a\u09be\u0989\u09a8\u09bf\u09a4\u09c7\u0987 \u0986\u09ae\u09be\u09b0 \u09b8\u09ae\u09b8\u09cd\u09a4 \u09a6\u09c1\u09b6\u09cd\u099a\u09bf\u09a8\u09cd\u09a4\u09be \u09ac\u09c1\u099d\u09c7 \u09a8\u09bf\u09a4\u09c7 \u09aa\u09be\u09b0\u09a4\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u09aa\u099e\u09cd\u099a\u09ae \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u09b8\u09a4\u09cd\u09a4\u09b0 \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7 \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09b2\u09be\u09ae, \u09af\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u0986\u09ae\u09be\u0995\u09c7 \u099c\u09bf\u099c\u09cd\u099e\u09c7\u09b8 \u0995\u09b0\u09a4:\n\u200b\u2018\u09a4\u09c1\u09ae\u09bf \u0995\u09bf \u09a4\u09cb\u09ae\u09be\u09b0 \u0993\u09b7\u09c1\u09a7 \u0996\u09c7\u09df\u09c7\u099b?\u2019\n\u200b\u09a4\u09be\u09b0 \u098f\u0987 \u0997\u09ad\u09c0\u09b0 \u0989\u09a6\u09cd\u09ac\u09c7\u0997 \u0986\u09ae\u09be\u09b0 \u09b9\u09c3\u09a6\u09df \u099b\u09c1\u0981\u09df\u09c7 \u0997\u09bf\u09df\u09c7\u099b\u09bf\u09b2\u0964\n\u09b8\u09c7\u099f\u09bf \u099b\u09bf\u09b2 \u0986\u09ae\u09be\u09b0 \u09b7\u09b7\u09cd\u09a0 \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u0986\u09b0 \u098f\u0996\u09a8, \u0986\u09b6\u09bf \u09ac\u099b\u09b0 \u09ac\u09df\u09b8\u09c7, \u0986\u09ae\u09bf \u09b8\u09c7\u0987 \u09a8\u09be\u09b0\u09c0\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09c7\u099b\u09bf \u09af\u09c7 \u0986\u09ae\u09be\u09b0 \u09aa\u09be\u09b6\u09c7 \u09a7\u09c0\u09b0\u09c7 \u09a7\u09c0\u09b0\u09c7 \u09b9\u09be\u0981\u099f\u09c7, \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u09aa\u09c1\u09b0\u09a8\u09cb \u09b8\u09cd\u09ae\u09c3\u09a4\u09bf\u0997\u09c1\u09b2\u09cb \u09ac\u09be\u09b0\u09ac\u09be\u09b0 \u09ac\u09b2\u09c7 \u098f\u09ac\u0982 \u0986\u09ae\u09be\u09b0 \u09b8\u09be\u09a5\u09c7 \u09b9\u09be\u09b8\u09be\u09b9\u09be\u09b8\u09bf \u0995\u09b0\u09c7\u0964\n\u09b8\u09c7\u099f\u09bf \u0986\u09ae\u09be\u09b0 \u09b8\u09aa\u09cd\u09a4\u09ae \u09aa\u09cd\u09b0\u09c7\u09ae\u0964 \u2764\ufe0f\n\u200b\u09a8\u09be\u09a4\u09bf \u099a\u09c1\u09aa \u0995\u09b0\u09c7 \u09b0\u0987\u09b2\u0964\n\u200b\u09a6\u09be\u09a6\u09be \u09b9\u09c7\u09b8\u09c7 \u0985\u09ac\u09b6\u09c7\u09b7\u09c7 \u09ac\u09b2\u09b2\u09c7\u09a8:\n\u200b\u201c\u09ac\u09bf\u09df\u09c7 \u09ae\u09be\u09a8\u09c7 \u09b8\u09be\u09b0\u09be \u099c\u09c0\u09ac\u09a8 \u098f\u0995\u0987 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u0995\u09be\u099f\u09bf\u09df\u09c7 \u09a6\u09c7\u0993\u09df\u09be \u09a8\u09df\u0964\n\u200b\u09ac\u09bf\u09df\u09c7 \u09b9\u09b2\u09cb \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u09aa\u09b0\u09bf\u09ac\u09b0\u09cd\u09a4\u09a8\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u09b8\u09be\u09a5\u09c7 \u098f\u0995\u0987 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09ac\u09bf\u09ad\u09bf\u09a8\u09cd\u09a8 \u09b0\u09c2\u09aa\u09c7\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09ac\u09be\u09b0\u09ac\u09be\u09b0 \u09aa\u09dc\u09c7 \u09af\u09be\u0993\u09df\u09be\u0964\u201d\n\u200b\u09b8\u09cc\u09a8\u09cd\u09a6\u09b0\u09cd\u09af \u09ac\u09a6\u09b2\u09be\u09df\u0964\n\u09ac\u09df\u09b8 \u09ac\u09a6\u09b2\u09be\u09df\u0964\n\u09b6\u09b0\u09c0\u09b0 \u09ac\u09a6\u09b2\u09be\u09df\u0964\n\u09aa\u09b0\u09bf\u09b8\u09cd\u09a5\u09bf\u09a4\u09bf \u09ac\u09a6\u09b2\u09be\u09df\u0964\n\u200b\u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09af\u09a6\u09bf \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09aa\u09b0\u09bf\u09ac\u09b0\u09cd\u09a4\u09a8\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af \u09a6\u09bf\u09df\u09c7\u0993 \u09a4\u09c1\u09ae\u09bf \u09a4\u09cb\u09ae\u09be\u09b0 \u099c\u09c0\u09ac\u09a8\u09b8\u0999\u09cd\u0997\u09c0\u09b0 \u09a6\u09bf\u0995\u09c7 \u09a4\u09be\u0995\u09bf\u09df\u09c7 \u09ac\u09b2\u09a4\u09c7 \u09aa\u09be\u09b0\u09cb...\n\u200b\u2764\ufe0f \u201c\u09a4\u09c1\u09ae\u09bf \u09b8\u09c7\u0987 \u09ae\u09be\u09a8\u09c1\u09b7\u099f\u09bf\u0987 \u0986\u099b\u09cb \u09af\u09be\u0995\u09c7 \u0986\u09ae\u09bf \u09ad\u09be\u09b2\u09cb\u09ac\u09c7\u09b8\u09c7\u099b\u09bf\u0964\u201d\n\u200b\u098f\u099f\u09be\u0987 \u09b9\u09b2\u09cb \u09a6\u09c0\u09b0\u09cd\u0998 \u0993 \u09b8\u09c1\u0996\u09c0 \u09a6\u09be\u09ae\u09cd\u09aa\u09a4\u09cd\u09af\u09c7\u09b0 \u0986\u09b8\u09b2 \u09b0\u09b9\u09b8\u09cd\u09af\u0964\n\u200b\u0995\u09be\u09b0\u09a3...\n\u200b\ud83c\udf39 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09be \u09ae\u09be\u09a8\u09c7 \u0995\u09c7\u09ac\u09b2 \u098f\u0995\u09ac\u09be\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09aa\u09dc\u09be \u09a8\u09df\u0964\n\u200b\ud83c\udf39 \u09aa\u09cd\u09b0\u0995\u09c3\u09a4 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09be \u09b9\u09b2\u09cb \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u098b\u09a4\u09c1\u09a4\u09c7, \u098f\u0995\u0987 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09ac\u09be\u09b0\u09ac\u09be\u09b0 \u09aa\u09dc\u09c7 \u09af\u09be\u0993\u09df\u09be\u0964\n\u200b\u0986\u09b0 \u09b9\u09df\u09a4\u09cb \u09b8\u09ac\u099a\u09c7\u09df\u09c7 \u09b8\u09c1\u09a8\u09cd\u09a6\u09b0 \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u099f\u09bf \u09b9\u09b2\u09cb:\n\u200b\u201c\u0986\u099c \u09a4\u09cb\u09ae\u09be\u09b0 \u099c\u09c0\u09ac\u09a8\u09b8\u0999\u09cd\u0997\u09c0 \u0995\u09bf \u09b8\u09c7\u0987 \u098f\u0995\u0987 \u09ae\u09be\u09a8\u09c1\u09b7, \u09af\u09be\u09b0 \u09aa\u09cd\u09b0\u09c7\u09ae\u09c7 \u09a4\u09c1\u09ae\u09bf \u09aa\u09cd\u09b0\u09a5\u09ae \u09aa\u09dc\u09c7\u099b\u09bf\u09b2\u09c7...?\u201d\n\u200b\u09a8\u09be\u0995\u09bf \u09b8\u09c7 \u09af\u09c7 \u098f\u09a4 \u09ac\u099b\u09b0\u09c7\u09b0, \u09b8\u0982\u0997\u09cd\u09b0\u09be\u09ae, \u09a4\u09cd\u09af\u09be\u0997, \u09b8\u09cd\u09ae\u09c3\u09a4\u09bf \u098f\u09ac\u0982 \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u0995\u09be\u099f\u09be\u09a8\u09cb \u099c\u09c0\u09ac\u09a8\u09c7\u09b0 \u099b\u09be\u0981\u099a\u09c7 \u098f\u0995 \u09b8\u09c1\u09a8\u09cd\u09a6\u09b0 \u09a8\u09a4\u09c1\u09a8 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7 \u09aa\u09b0\u09bf\u09a3\u09a4 \u09b9\u09df\u09c7\u099b\u09c7?\n\u200b\u2764\ufe0f \u09aa\u09cd\u09b0\u0995\u09c3\u09a4 \u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09be \u098f\u0995 \u099c\u09be\u09df\u0997\u09be\u09df \u09b8\u09cd\u09a5\u09bf\u09b0 \u09a5\u09be\u0995\u09be\u09b0 \u09a8\u09be\u09ae \u09a8\u09df\u0964\n\u098f\u099f\u09bf \u09b9\u09b2\u09cb \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u09ac\u09a6\u09b2\u09c7 \u09af\u09be\u0993\u09df\u09be... \u098f\u09ac\u0982 \u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8, \u09aa\u09cd\u09b0\u09a4\u09bf \u09ae\u09c1\u09b9\u09c2\u09b0\u09cd\u09a4\u09c7 \u098f\u0995\u09c7 \u0985\u09aa\u09b0\u0995\u09c7 \u09ac\u09c7\u099b\u09c7 \u09a8\u09c7\u0993\u09df\u09be\u0964 \u2764\ufe0f", "subgroup": "Newspapers"}, {"title": "0003 02", "sub": "Text Document", "type": "document", "document_type": "text", "file": "0003_02.txt", "src": "documents/0003_02.txt", "thumbnail": "documents/0003_02.jpg", "text": "\u098f\u0995 \u0998\u09b0\u09c7\u0987 \u09af\u0996\u09a8 \u09a6\u09c1\u0987 \u0985\u09ac\u09bf\u09b6\u09cd\u09ac\u09be\u09b8\u09cd\u09af \u09aa\u09cd\u09b0\u09a4\u09bf\u09ad\u09be\u0964 \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09be\u0993\u09df\u09be\u09b0 \u0996\u09ac\u09b0 \u09b6\u09c1\u09a8\u09c7 \u09ae\u09c7\u09df\u09c7\u09a6\u09c7\u09b0 \u09ac\u09c1\u0995\u09c7 \u099c\u09dc\u09bf\u09df\u09c7 \u09a7\u09b0\u09b2\u09c7\u09a8 \u09b8\u09a6\u09cd\u09af \u09a8\u09cb\u09ac\u09c7\u09b2\u099c\u09df\u09c0 \u0995\u09be\u09b0\u09cd\u09b2, \u09aa\u09be\u09b6\u09c7\u0987 \u09b8\u09cd\u09a4\u09cd\u09b0\u09c0 \u0985\u09a7\u09cd\u09af\u09be\u09aa\u0995 \u09a1\u09be\u0983 \u09ae\u09bf\u09b6\u09c7\u09b2\u0964 \n.\n\u09b8\u09cd\u099f\u09cd\u09af\u09be\u09a8\u09ab\u09cb\u09b0\u09cd\u09a1 \u09ac\u09bf\u09b6\u09cd\u09ac\u09ac\u09bf\u09a6\u09cd\u09af\u09be\u09b2\u09df\u09c7\u09b0 \u0995\u09be\u09b0\u09cd\u09b2 \u09a1\u09be\u0987\u09b8\u09be\u09b0\u09cb\u09a5 \u0997\u09a4\u0995\u09be\u09b2 \u09ae\u09c7\u09a1\u09bf\u09b8\u09bf\u09a8\u09c7 \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09c7\u09b2\u09c7\u09a8\u0964  \u09a4\u09bf\u09a8\u09bf \u098f\u09ae\u09a8 \u098f\u0995\u099f\u09be \u09ac\u09bf\u09b7\u09df\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09c7\u09b2\u09c7\u09a8 \u09af\u09c7 \u09a4\u09be \u09ad\u09ac\u09bf\u09b7\u09cd\u09af\u09a4\u09c7 \u09ae\u09be\u09a8\u09ac \u09ae\u09b8\u09cd\u09a4\u09bf\u09b8\u09cd\u0995\u09c7\u09b0 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be\u09b0\u0987 \u0997\u09a4\u09bf\u09aa\u09a5 \u09aa\u09be\u09b2\u09cd\u099f\u09c7 \u09a6\u09bf\u09ac\u09c7\u0964\n.\n\u0986\u0997\u09c7 \u098f\u0987 \u099b\u09ac\u09bf\u09b0 \u09a6\u09c1\u0987 \u0985\u09ac\u09bf\u09b6\u09cd\u09ac\u09be\u09b8\u09cd\u09af \u09aa\u09cd\u09b0\u09a4\u09bf\u09ad\u09be \u0995\u09c7\u09a8 \u09ac\u09b2\u09c7\u099b\u09bf \u09a4\u09be\u0987 \u09ac\u09b2\u09bf\u0964  \u0995\u09be\u09b0\u09cd\u09b2 \u09a1\u09be\u0987\u09b8\u09be\u09b0\u09cb\u09a5\u09c7\u09b0 \u09aa\u09be\u09b6\u09c7\u0987 \u09af\u09c7 \u09ad\u09a6\u09cd\u09b0\u09ae\u09b9\u09bf\u09b2\u09be \u09a6\u09be\u0981\u09dc\u09bf\u09df\u09c7 \u0986\u099b\u09c7\u09a8 \u09a4\u09bf\u09a8\u09bf \u09a4\u09be\u0981\u09b0 \u09b8\u09cd\u09a4\u09cd\u09b0\u09c0 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09ae\u09a8\u099c\u09c7\u0964 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09ae\u09a8\u099c\u09c7 \u09a8\u09bf\u099c\u09c7\u0993 \u098f\u0995\u099c\u09a8 \u09ac\u09bf\u09b6\u09cd\u09ac\u0996\u09cd\u09af\u09be\u09a4 \u09a8\u09bf\u0989\u09b0\u09cb \u09b8\u09be\u0987\u09a8\u09cd\u099f\u09bf\u09b8\u09cd\u099f\u0964 \u0995\u09cd\u09af\u09be\u09a8\u09cd\u09b8\u09be\u09b0 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be\u09df  \u098f\u0995 \u09ae\u09b9\u09be\u09ac\u09bf\u09aa\u09cd\u09b2\u09ac \u0998\u099f\u09bf\u09df\u09c7\u099b\u09c7\u09a8 \u09ae\u09bf\u09b6\u09c7\u09b2\u0964\n.\n\u0995\u09be\u09b0\u09cd\u09b2 \u09ac\u09b2\u09c7\u099b\u09bf\u09b2\u09c7\u09a8 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09ae\u09a8\u099c\u09c7\u09b0 \u09b8\u09be\u09b9\u09be\u09af\u09cd\u09af \u099b\u09be\u09dc\u09be \u09a4\u09be\u09b0 \u09aa\u0995\u09cd\u09b7\u09c7 \u098f\u0987 \u09b8\u09ab\u09b2\u09a4\u09be \u09b8\u09ae\u09cd\u09ad\u09ac \u099b\u09bf\u09b2\u09cb\u09a8\u09be\u0964 \u0986\u09ac\u09be\u09b0 \u09ae\u09bf\u09b6\u09c7\u09b2 \u0993 \u0995\u09be\u09b0\u09cd\u09b2\u09c7\u09b0  \u0986\u09ac\u09bf\u09b7\u09cd\u0995\u09c3\u09a4 \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8 \u09a8\u09bf\u099c\u09c7\u09b0 \u09a8\u09bf\u0989\u09b0\u09cb \u0995\u09cd\u09af\u09be\u09a8\u09b8\u09be\u09b0 \u0997\u09ac\u09c7\u09b7\u09a3\u09be\u09df \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c7\u099b\u09c7\u09a8\u0964\n.\n\u09a4\u09be\u0981\u09b0\u09be \u09a6\u09c1\u099c\u09a8\u09c7\u0987 \u09b8\u09cd\u099f\u09cd\u09af\u09be\u09a8\u09ab\u09cb\u09b0\u09cd\u09a1 \u09ac\u09bf\u09b6\u09cd\u09ac\u09ac\u09bf\u09a6\u09cd\u09af\u09be\u09b2\u09af\u09bc\u09c7\u09b0 \u0985\u09a7\u09cd\u09af\u09be\u09aa\u0995\u0964 \u0995\u09be\u09b0\u09cd\u09b2 \u09af\u09c7\u09ae\u09a8  \u09b8\u09cd\u099f\u09cd\u09af\u09be\u09a8\u09ab\u09cb\u09b0\u09cd\u09a1\u09c7\u09b0  \u09ac\u09be\u09af\u09bc\u09cb\u0987\u099e\u09cd\u099c\u09bf\u09a8\u09bf\u09af\u09bc\u09be\u09b0\u09bf\u0982 \u0993 \u09b8\u09be\u0987\u0995\u09bf\u09af\u09bc\u09be\u099f\u09cd\u09b0\u09bf \u09ac\u09bf\u09ad\u09be\u0997\u09c7\u09b0 \u0985\u09a7\u09cd\u09af\u09be\u09aa\u0995\u0964 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09a4\u09c7\u09ae\u09a8\u09bf \u09a8\u09bf\u0989\u09b0\u09cb\u09b2\u099c\u09bf \u09ac\u09bf\u09ad\u09be\u0997\u09c7\u09b0  \u0985\u09a7\u09cd\u09af\u09be\u09aa\u0995\u0964 \u09ac\u09b0\u09cd\u09a4\u09ae\u09be\u09a8 \u09ac\u09bf\u09b6\u09cd\u09ac\u09c7 \u098f\u0987 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u0995\u09c7 \u09b8\u09b0\u09cd\u09ac\u09b6\u09cd\u09b0\u09c7\u09b7\u09cd\u09a0 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be\u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c0 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u09a6\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u098f\u0995\u099c\u09a8 \u09a7\u09b0\u09be \u09b9\u09df\u0964\n\u09af\u09c7\u09ae\u09a8 \u099b\u09bf\u09b2\u09c7\u09a8 \u09ae\u09c7-\u09ac\u09cd\u09b0\u09bf\u099f \u09ae\u09cb\u099c\u09be\u09b0 \u0993  \u098f\u09a1\u09ad\u09be\u09b0\u09cd\u09a1 \u09ae\u09cb\u09b8\u09be\u09b0 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u0964 \u09af\u09a6\u09bf\u0993 \u09af\u09cc\u09a5\u09ad\u09be\u09ac\u09c7 \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09be\u0993\u09df\u09be\u09b0 \u09a6\u09c1\u0987 \u09ac\u099b\u09b0\u09c7\u09b0 \u09ae\u09be\u09a5\u09be\u09df \u09a4\u09be\u0981\u09a6\u09c7\u09b0 \u09ac\u09bf\u099a\u09cd\u099b\u09c7\u09a6 \u09b9\u09df\u09c7 \u09af\u09be\u09df\u0964\n.\n\u0995\u09be\u09b0\u09cd\u09b2 \u098f\u09ac\u0982 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09a8\u09bf\u099c\u09c7\u09a6\u09c7\u09b0 \u0997\u09ac\u09c7\u09b7\u09a3\u09be\u09b0 \u09aa\u09be\u09b6\u09be\u09aa\u09be\u09b6\u09bf \u0985\u09a8\u09c7\u0995 \u099c\u099f\u09bf\u09b2 \u09b8\u09cd\u09a8\u09be\u09af\u09bc\u09c1\u09ac\u09bf\u0995 \u09b0\u09cb\u0997 \u0993 \u0995\u09cd\u09af\u09be\u09a8\u09cd\u09b8\u09be\u09b0 \u0997\u09ac\u09c7\u09b7\u09a3\u09be\u09af\u09bc \u09af\u09cc\u09a5\u09ad\u09be\u09ac\u09c7 \u0995\u09be\u099c \u0995\u09b0\u09c7\u099b\u09bf\u09b2\u09c7\u09a8\u0964\n.\n\u0995\u09be\u09b0\u09cd\u09b2 \u09a1\u09be\u0987\u09b8\u09be\u09b0\u09cb\u09a5\u09c7\u09b0 \u09a8\u09cb\u09ac\u09c7\u09b2 \u099c\u09df\u09c7\u09b0 \u0995\u09be\u09b0\u09a3, \u09a4\u09bf\u09a8\u09bf \u098f\u09ae\u09a8 \u098f\u0995 \u0989\u09a6\u09cd\u09ad\u09be\u09ac\u09a8 \u0995\u09b0\u09c7\u099b\u09c7\u09a8, \u09af\u09be \u0987\u0981\u09a6\u09c1\u09b0\u09c7\u09b0 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u0995\u09c7 \u09a8\u09bf\u09df\u09a8\u09cd\u09a4\u09cd\u09b0\u09a3 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u0964 \u09ad\u09ac\u09bf\u09b7\u09cd\u09af\u09a4\u09c7 \u09a4\u09be \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u0995\u09cd\u09b7\u09c7\u09a4\u09cd\u09b0\u09c7\u0993 \u09b8\u09ab\u09b2 \u09b9\u0993\u09df\u09be\u09b0 \u09ac\u09cd\u09af\u09be\u09aa\u0995 \u09b8\u09ae\u09cd\u09ad\u09be\u09ac\u09a8\u09be \u09b0\u09df\u09c7\u099b\u09c7\u0964 \u0995\u09be\u09b0\u09cd\u09b2 \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09c7\u09df\u09c7\u099b\u09c7\u09a8  \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8 \u098f\u09b0 \u099c\u09a8\u09cd\u09af\u0964  \u09ae\u09c2\u09b2\u09a4 \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8 \u09b9\u09b2\u09cb \u098f\u09ae\u09a8 \u098f\u0995\u099f\u09bf \u09ac\u09c8\u099c\u09cd\u099e\u09be\u09a8\u09bf\u0995 \u09aa\u09a6\u09cd\u09a7\u09a4\u09bf, \u09af\u09be\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u0986\u09b2\u09cb\u09b0 \u09b8\u09be\u09b9\u09be\u09af\u09cd\u09af\u09c7 \u099c\u09c0\u09ac\u09a8\u09cd\u09a4 \u09aa\u09cd\u09b0\u09be\u09a3\u09c0\u09b0 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f \u09b8\u09cd\u09a8\u09be\u09af\u09bc\u09c1\u0995\u09cb\u09b7 \u09ac\u09be \u09a8\u09bf\u0989\u09b0\u09a8\u09c7\u09b0 \u0995\u09be\u09b0\u09cd\u09af\u0995\u09be\u09b0\u09bf\u09a4\u09be \u09a8\u09bf\u09af\u09bc\u09a8\u09cd\u09a4\u09cd\u09b0\u09a3 \u0995\u09b0\u09be \u09af\u09be\u09af\u09bc\u0964\n.\n\u098f\u0987 \u09aa\u09cd\u09b0\u09af\u09c1\u0995\u09cd\u09a4\u09bf\u09b0 \u0989\u09a6\u09cd\u09ad\u09be\u09ac\u09a8 \u09ae\u09be\u09a8\u09ac \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u099c\u099f\u09bf\u09b2 \u09b0\u09b9\u09b8\u09cd\u09af \u0989\u09a8\u09cd\u09ae\u09cb\u099a\u09a8\u09c7 \u098f\u0995 \u09a8\u09a4\u09c1\u09a8 \u09a6\u09bf\u0997\u09a8\u09cd\u09a4\u09c7\u09b0 \u09b8\u09c2\u099a\u09a8\u09be \u0995\u09b0\u09b2\u09cb\u0964 \u0995\u09be\u09b0\u09a3 \u098f\u0996\u09a8 \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u0997\u09ac\u09c7\u09b7\u0995\u09b0\u09be \u099c\u09be\u09a8\u09a4\u09c7 \u09aa\u09c7\u09b0\u09c7\u099b\u09c7\u09a8 \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f \u09b8\u09be\u09b0\u09cd\u0995\u09bf\u099f \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09b8\u09cd\u09ae\u09c3\u09a4\u09bf, \u0985\u09a8\u09c1\u09ad\u09c2\u09a4\u09bf \u098f\u09ac\u0982 \u0986\u099a\u09b0\u09a3\u0995\u09c7 \u09a8\u09bf\u09af\u09bc\u09a8\u09cd\u09a4\u09cd\u09b0\u09a3 \u0995\u09b0\u09c7\u0964\n.\n\u09af\u09be \u09ac\u09bf\u09b7\u09a3\u09cd\u09a8\u09a4\u09be, \u0985\u099f\u09bf\u099c\u09ae, \u09b8\u09bf\u099c\u09cb\u09ab\u09cd\u09b0\u09c7\u09a8\u09bf\u09af\u09bc\u09be\u09b0 \u09ae\u09a4\u09cb \u099c\u099f\u09bf\u09b2 \u09ae\u09be\u09a8\u09b8\u09bf\u0995 \u09b0\u09cb\u0997\u09c7\u09b0 \u0989\u09ce\u09b8 \u09ac\u09c1\u099d\u09a4\u09c7 \u09b8\u09be\u09b9\u09be\u09af\u09cd\u09af \u0995\u09b0\u099b\u09c7\u0964 \u0985\u09a8\u09cd\u09a7\u09a4\u09cd\u09ac \u09a6\u09c2\u09b0 \u0995\u09b0\u09a4\u09c7 \u098f\u09ac\u0982 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09a6\u09c3\u09b7\u09cd\u099f\u09bf\u09b6\u0995\u09cd\u09a4\u09bf \u09ab\u09bf\u09b0\u09bf\u09af\u09bc\u09c7 \u0986\u09a8\u09be\u09b0 \u0997\u09ac\u09c7\u09b7\u09a3\u09be\u09a4\u09c7\u0993 \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8 \u09aa\u09a6\u09cd\u09a7\u09a4\u09bf \u09aa\u09cd\u09b0\u09af\u09bc\u09cb\u0997 \u0995\u09b0\u09be \u09b9\u099a\u09cd\u099b\u09c7 \u098f\u09ac\u0982 \u09ad\u09ac\u09bf\u09b7\u09cd\u09af\u09a4\u09c7 \u0986\u09b0\u0993 \u09a8\u09bf\u0996\u09c1\u0981\u09a4\u09ad\u09be\u09ac\u09c7 \u09b9\u09ac\u09c7\u0964\n.\n\u0986\u0997\u09c7 \u09af\u09c7\u0996\u09be\u09a8\u09c7 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u0995\u09cb\u09a8\u09cb \u0985\u0982\u09b6\u0995\u09c7 \u0989\u09a6\u09cd\u09a6\u09c0\u09aa\u09bf\u09a4 \u0995\u09b0\u09a4\u09c7 \u0987\u09b2\u09c7\u0995\u099f\u09cd\u09b0\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09be \u09b9\u09a4\u09cb ( \u098f\u0996\u09a8 \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8\u09c7\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u0995\u09cb\u09a8\u09cb \u0995\u09cd\u09b7\u09a4\u09bf \u099b\u09be\u09dc\u09be\u0987 \u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f \u098f\u0995\u099f\u09bf \u09a8\u09bf\u0989\u09b0\u09a8\u0995\u09c7 \u0986\u09b2\u09cb\u09b0 \u09b8\u09be\u09b9\u09be\u09af\u09cd\u09af\u09c7 \u09b8\u09c1\u0987\u099a\u09c7\u09b0 \u09ae\u09a4\u09cb '\u0985\u09a8' \u09ac\u09be '\u0985\u09ab' \u0995\u09b0\u09be \u09af\u09be\u09df\u0964\n.\n\u0986\u0997\u09c7 \u0987\u09b2\u09c7\u0995\u099f\u09cd\u09b0\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09b2\u09c7 \u098f\u099f\u09bf \u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f \u0985\u0982\u09b6 \u099b\u09be\u09dc\u09be\u0993 \u0986\u09b6\u09c7\u09aa\u09be\u09b6\u09c7\u09b0 \u09b8\u09ac \u0995\u09cb\u09b7\u0995\u09c7 \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u09aa\u09cd\u09b0\u09ad\u09be\u09ac\u09bf\u09a4 \u0995\u09b0\u09a4\u09cb\u0964 \u09ab\u09b2\u09c7 \u098f\u099f\u09be \u09ac\u09cb\u099d\u09be \u09af\u09c7\u09a4\u09cb\u09a8\u09be\u0964\n\u098f\u0996\u09a8 \u09af\u0996\u09a8\u0987 \u09ab\u09be\u0987\u09ac\u09be\u09b0 \u0985\u09aa\u099f\u09bf\u0995\u09c7\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u09a8\u09c0\u09b2 \u0986\u09b2\u09cb \u09ab\u09c7\u09b2\u09be \u09b9\u09df, \u09a4\u0996\u09a8 \u09a8\u09bf\u0989\u09b0\u09a8\u099f\u09bf \u09b8\u0995\u09cd\u09b0\u09bf\u09df \u09b9\u09df\u09c7 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7 \u09b8\u0982\u0995\u09c7\u09a4 \u09aa\u09be\u09a0\u09be\u09df\u0964 \u0986\u09ac\u09be\u09b0 \u0995\u09cb\u09a8\u09cb \u0995\u09cb\u09a8\u09cb \u09ac\u09bf\u09b6\u09c7\u09b7 \u09aa\u09cd\u09b0\u09cb\u099f\u09bf\u09a8\u09c7\u09b0 \u0993\u09aa\u09b0 \u09b9\u09b2\u09c1\u09a6 \u0986\u09b2\u09cb \u09ab\u09c7\u09b2\u09b2\u09c7 \u09a8\u09bf\u0989\u09b0\u09a8\u099f\u09bf \u09a8\u09bf\u09b7\u09cd\u0995\u09cd\u09b0\u09bf\u09df \u0985\u09b0\u09cd\u09a5\u09be\u09ce \u0985\u09ab \u09b9\u09df\u09c7 \u09af\u09be\u09df\u0964\n.\n\u098f\u099f\u09be \u0995\u09bf \u09af\u09c7 \u09ab\u09b2\u09aa\u09cd\u09b0\u09b8\u09c2 \u09a4\u09be \u09ac\u09b2\u09be\u09b0 \u0985\u09aa\u09c7\u0995\u09cd\u09b7\u09be \u09b0\u09be\u0996\u09c7\u09a8\u09be\u0964 \u0995\u09be\u09b0\u09a3 \u09ae\u09be\u09a8\u09ac \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7 \u09aa\u09cd\u09b0\u09be\u09df \u09e7\u09e6\u09e6 \u09ac\u09bf\u09b2\u09bf\u09df\u09a8 \u09a8\u09bf\u0989\u09b0\u09a8 \u09b0\u09df\u09c7\u099b\u09c7\u0964 \u098f\u0987 \u099c\u099f\u09bf\u09b2 \u09a8\u09c7\u099f\u0993\u09df\u09be\u09b0\u09cd\u0995\u09c7\u09b0 \u09a0\u09bf\u0995 \u0995\u09cb\u09a8 \u0985\u0982\u09b6\u099f\u09bf \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0995\u09cb\u09a8 \u0986\u099a\u09b0\u09a3 \u09ac\u09be \u0986\u09ac\u09c7\u0997\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09a6\u09be\u09df\u09c0, \u09a4\u09be \u0986\u0997\u09c7 \u09b8\u09c1\u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f\u09ad\u09be\u09ac\u09c7 \u099c\u09be\u09a8\u09be \u0985\u09b8\u09ae\u09cd\u09ad\u09ac \u099b\u09bf\u09b2\u0964 \u0985\u09aa\u099f\u09cb\u099c\u09c7\u09a8\u09c7\u099f\u09bf\u0995\u09cd\u09b8 \u098f\u0987 \u0985\u09b8\u09ae\u09cd\u09ad\u09ac\u0995\u09c7 \u09b8\u09ae\u09cd\u09ad\u09ac \u0995\u09b0\u09c7\u099b\u09c7\u0964\n\u0995\u09be\u09b0\u09cd\u09b2 \u09a1\u09be\u0987\u09b8\u09be\u09b0\u09cb\u09a5\u09b0\u09be \u098f\u0987 \u09aa\u09b0\u09c0\u0995\u09cd\u09b7\u09be\u099f\u09bf \u099a\u09be\u09b2\u09bf\u09df\u09c7\u099b\u09c7\u09a8 \u0987\u0981\u09a6\u09c1\u09b0\u09c7\u09b0 \u0989\u09aa\u09b0\u0964 \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u09a6\u09c7\u0996\u09be \u0997\u09c7\u099b\u09c7   \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c0\u09b0\u09be \u0987\u0981\u09a6\u09c1\u09b0\u09c7\u09b0 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u09a8\u09bf\u09b0\u09cd\u09a6\u09bf\u09b7\u09cd\u099f \u0995\u09cb\u09b7\u09c7 \u0986\u09b2\u09cb \u09ab\u09c7\u09b2\u09c7 \u09a4\u09be\u09b0 \u09ad\u09df, \u0995\u09cd\u09b7\u09c1\u09a7\u09be, \u09b0\u09be\u0997 \u09ac\u09be \u09b8\u09cd\u09ae\u09c3\u09a4\u09bf\u09b0 \u09ae\u09a4\u09cb \u09ac\u09bf\u09b7\u09df\u0997\u09c1\u09b2\u09cb\u0995\u09c7 \u09a4\u09be\u09ce\u0995\u09cd\u09b7\u09a3\u09bf\u0995\u09ad\u09be\u09ac\u09c7 \u099a\u09be\u09b2\u09a8\u09be \u09ac\u09be \u09aa\u09b0\u09bf\u09ac\u09b0\u09cd\u09a4\u09a8 \u0995\u09b0\u09a4\u09c7 \u09b8\u0995\u09cd\u09b7\u09ae \u09b9\u09df\u09c7\u099b\u09c7\u09a8\u0964\n.\n\u0995\u09be\u09b0\u09cd\u09b2\u09c7\u09b0 \u0986\u0997\u09c7 \u09a6\u09c1\u0987 \u099c\u09be\u09b0\u09cd\u09ae\u09be\u09a8 \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c0 \u09aa\u09bf\u099f\u09be\u09b0 \u09b9\u09c7\u0997\u09c7\u09ae\u09be\u09a8 \u0993 \u099c\u09b0\u09cd\u099c \u09a8\u09be\u0997\u09c7\u09b2 \u098f\u0995\u099f\u09bf \u098f\u0995\u0995\u09cb\u09b7\u09c0 \u09b6\u09c8\u09ac\u09be\u09b2\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u2018\u099a\u09cd\u09af\u09be\u09a8\u09c7\u09b2\u09b0\u09cb\u09a1\u09cb\u09aa\u09b8\u09bf\u09a8\u2019 \u09a8\u09be\u09ae\u09c7\u09b0 \u098f\u0995 \u09aa\u09cd\u09b0\u09cb\u099f\u09bf\u09a8 \u0986\u09ac\u09bf\u09b7\u09cd\u0995\u09be\u09b0 \u0995\u09b0\u09c7\u099b\u09bf\u09b2\u09c7\u09a8\u0964 \u09aa\u09b0\u09c7 \u0995\u09be\u09b0\u09cd\u09b2 \u09a1\u09be\u0987\u09b8\u09c7\u09b0\u09a5 \u0993\u0987 \u09aa\u09cd\u09b0\u09cb\u099f\u09bf\u09a8\u0995\u09c7 \u09b8\u09cd\u09a8\u09be\u09df\u09c1\u0995\u09cb\u09b7\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u098f\u0995\u099f\u09bf \u0986\u09b2\u09cb\u0995-\u09a8\u09bf\u09df\u09a8\u09cd\u09a4\u09cd\u09b0\u09bf\u09a4 \u09b8\u09c1\u0987\u099a\u09c7 \u09b0\u09c2\u09aa\u09be\u09a8\u09cd\u09a4\u09b0 \u0995\u09b0\u09c7\u09a8\u0964\n.\n\u09aa\u09bf\u099f\u09be\u09b0 \u09b9\u09c7\u0997\u09c7\u09ae\u09be\u09a8 \u0993 \u099c\u09b0\u09cd\u099c \u09a8\u09be\u0997\u09c7\u09b2\u0993 \u0995\u09be\u09b0\u09cd\u09b2\u09c7\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u098f \u09ac\u099b\u09b0 \u09a8\u09cb\u09ac\u09c7\u09b2 \u09aa\u09c7\u09df\u09c7\u099b\u09c7\u09a8\u0964\n.\n\u0985\u09a8\u09cd\u09af\u09a6\u09bf\u0995\u09c7 \u09ae\u09bf\u09b6\u09c7\u09b2 \u09ae\u09a8\u099c\u09c7  \u0986\u09ac\u09bf\u09b7\u09cd\u0995\u09be\u09b0 \u0995\u09b0\u09c7\u099b\u09c7\u09a8 \u09ac\u09cd\u09b0\u09c7\u09a8 \u0995\u09cd\u09af\u09be\u09a8\u09cd\u09b8\u09be\u09b0 \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09ae\u09b8\u09cd\u09a4\u09bf\u09b7\u09cd\u0995\u09c7\u09b0 \u09b8\u09bf\u0997\u09a8\u09cd\u09af\u09be\u09b2 \u09b9\u09be\u0987\u099c\u09cd\u09af\u09be\u0995 \u0995\u09b0\u09c7 \u09ac\u09c3\u09a6\u09cd\u09a7\u09bf \u09aa\u09be\u09df, \u09af\u09be \u0995\u09cd\u09af\u09be\u09a8\u09cd\u09b8\u09be\u09b0 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be\u09df \u098f\u0995 \u09ac\u09bf\u09b6\u09be\u09b2 \u09ae\u09be\u0987\u09b2\u09ab\u09b2\u0995 \u09a7\u09b0\u09be \u09b9\u09df\u0964 \u09ae\u09a8\u099c\u09c7 \u0995\u09c7 \u09ac\u09b2\u09be \u09b9\u09df \u0995\u09cd\u09af\u09be\u09a8\u09b8\u09be\u09b0 \u09a8\u09bf\u0989\u09b0\u09cb\u09b8\u09be\u09df\u09c7\u09a8\u09cd\u09b8\u09c7\u09b0 \u09ac\u09b0\u09cd\u09a4\u09ae\u09be\u09a8 \u09ac\u09bf\u09b6\u09cd\u09ac\u09c7\u09b0 \u09b8\u09ac\u099a\u09c7\u09df\u09c7 \u09b6\u09c0\u09b0\u09cd\u09b7 \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c0\u0964\n.\n\u09b6\u09bf\u09b6\u09c1\u09a6\u09c7\u09b0 \u098f\u0995\u099f\u09bf \u0985\u09a4\u09cd\u09af\u09a8\u09cd\u09a4 \u09ae\u09be\u09b0\u09be\u09a4\u09cd\u09ae\u0995 \u0993 \u09a8\u09bf\u09b0\u09be\u09ae\u09df-\u0985\u09af\u09cb\u0997\u09cd\u09af \u09ac\u09cd\u09b0\u09c7\u09a8 \u099f\u09bf\u0989\u09ae\u09be\u09b0 \u09b9\u09b2\u09cb \u09a1\u09bf\u0986\u0987\u09aa\u09bf\u099c\u09bf (Diffuse Intrinsic Pontine Glioma)\u0964 \u09ae\u09a8\u099c\u09c7 \u09b9\u09b2\u09c7\u09a8 \u09aa\u09cd\u09b0\u09a5\u09ae \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c0 \u09af\u09bf\u09a8\u09bf \u09b2\u09cd\u09af\u09be\u09ac\u09b0\u09c7\u099f\u09b0\u09bf\u09a4\u09c7 \u098f\u0987 \u0995\u09cd\u09af\u09be\u09a8\u09b8\u09be\u09b0\u09c7\u09b0 \u0995\u09cb\u09b7 \u09b8\u09ab\u09b2\u09ad\u09be\u09ac\u09c7 \u0995\u09be\u09b2\u099a\u09be\u09b0 \u0995\u09b0\u09a4\u09c7 \u09aa\u09c7\u09b0\u09c7\u099b\u09bf\u09b2\u09c7\u09a8\u0964\n.\n\u0995\u09cd\u09af\u09be\u09a8\u09b8\u09be\u09b0 \u09b0\u09cb\u0997\u09c0\u09a6\u09c7\u09b0 \u0995\u09bf\u09ae\u09cb\u09a5\u09c7\u09b0\u09be\u09aa\u09bf\u09b0 \u09aa\u09b0 \u09af\u09c7 \u09ae\u09be\u09a8\u09b8\u09bf\u0995 \u09af\u09c7 \u09ac\u09bf\u09ad\u09cd\u09b0\u09be\u09a8\u09cd\u09a4\u09bf  \u09b9\u09df, \u09a4\u09be\u09b0 \u09aa\u09c7\u099b\u09a8\u09c7\u09b0 \u09b8\u09cd\u09a8\u09be\u09df\u09ad\u09bf\u09a4\u09cd\u09a4\u09bf\u0995 \u09af\u09c7 \u0995\u09be\u09b0\u09a3 \u0993 \u09ae\u09be\u0987\u0995\u09cd\u09b0\u09cb\u0997\u09cd\u09b2\u09bf\u09df\u09be \u0995\u09cb\u09b7\u09c7\u09b0 \u09ad\u09c2\u09ae\u09bf\u0995\u09be \u09a4\u09bf\u09a8\u09bf\u0987 \u09aa\u09cd\u09b0\u09a5\u09ae \u0989\u09a8\u09cd\u09ae\u09cb\u099a\u09a8 \u0995\u09b0\u09c7\u099b\u09bf\u09b2\u09c7\u09a8\u0964\n.\n\u0995\u09be\u09b0\u09cd\u09b2 \u09b8\u09b0\u09be\u09b8\u09b0\u09bf \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be \u09a8\u09be \u0995\u09b0\u09b2\u09c7\u0993 \u09ae\u09bf\u09b6\u09c7\u09b2 \u0995\u09bf\u09a8\u09cd\u09a4\u09c1 \u09a8\u09bf\u099c\u09c7 \u09aa\u09cd\u09b0\u09cd\u09af\u09be\u0995\u099f\u09bf\u09b8\u09bf\u0982 \u09a1\u09be\u0995\u09cd\u09a4\u09be\u09b0\u0993\u0964\n.\n\u09ae\u09bf\u09b6\u09c7\u09b2 \u09a4\u09be\u0981\u09b0 \u09b2\u09cd\u09af\u09be\u09ac\u09c7\u09b0 \u0986\u09ac\u09bf\u09b7\u09cd\u0995\u09be\u09b0\u0995\u09c7 \u09b8\u09b0\u09be\u09b8\u09b0\u09bf \u0995\u09cd\u09b2\u09bf\u09a8\u09bf\u0995\u09cd\u09af\u09be\u09b2 \u099f\u09cd\u09b0\u09be\u09df\u09be\u09b2\u09c7\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u09ac\u09cd\u09b0\u09c7\u09a8 \u0995\u09cd\u09af\u09be\u09a8\u09cd\u09b8\u09be\u09b0\u09c7 \u0986\u0995\u09cd\u09b0\u09be\u09a8\u09cd\u09a4 \u09b6\u09bf\u09b6\u09c1\u09a6\u09c7\u09b0 \u099c\u09c0\u09ac\u09a8 \u09ac\u09be\u0981\u099a\u09be\u09a4\u09c7 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c7\u09a8\u0964 \u098f\u0987 \u09a6\u09c1\u0987 \u0985\u09ac\u09bf\u09b6\u09cd\u09ac\u09be\u09b8\u09cd\u09af \u09aa\u09cd\u09b0\u09a4\u09bf\u09ad\u09be \u09af\u0996\u09a8 \u098f\u0995 \u0998\u09b0\u09c7, \u09a4\u0996\u09a8 \u0995\u09df\u09c7\u0995 \u09ac\u099b\u09b0\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u0986\u09b0\u0993 \u098f\u0995\u099f\u09bf \u09a8\u09cb\u09ac\u09c7\u09b2 \u098f\u0987 \u0998\u09b0\u09c7\u0987 \u0986\u09b8\u09a4\u09c7 \u09af\u09be\u099a\u09cd\u099b\u09c7\u0964 \u09ae\u09bf\u09b6\u09c7\u09b2\u09c7\u09b0 \u0997\u09ac\u09c7\u09b7\u09a3\u09be\u0993 \u09a4\u09be\u0987 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 \u0995\u09b0\u09c7\u0964\n.\n\u0986\u09b0 \u09b8\u09c7\u099f\u09be \u09af\u09a6\u09bf \u09b9\u09df\u09c7 \u09af\u09be\u09df \u0997\u09be\u09b0\u09cd\u099f\u09bf \u0995\u09cb\u09b0\u09bf-\u0995\u09be\u09b0\u09cd\u09b2 \u0995\u09cb\u09b0\u09bf \u0993 \u09ae\u09c7\u09ac\u09cd\u09b0\u09bf\u099f \u09ae\u09cb\u09b8\u09be\u09b0 \u0993 \u098f\u09a1\u09ad\u09be\u09b0\u09cd\u09a1 \u09ae\u09cb\u09b8\u09be\u09b0 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u09b0 \u09aa\u09b0 \u09a4\u09be\u09b0\u09be \u09b9\u09ac\u09c7 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be \u09ac\u09bf\u099c\u09cd\u099e\u09be\u09a8\u09c7 \u09a8\u09cb\u09ac\u09c7\u09b2\u099c\u09df\u09c0 \u09a4\u09c3\u09a4\u09c0\u09df \u0995\u09cb\u09a8 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u0964\n.\n\u09ac\u09be\u0999\u09be\u09b2\u09c0 \u09a6\u09ae\u09cd\u09aa\u09a4\u09cd\u09a4\u09bf\u09b0\u09be \u09af\u0996\u09a8 \u09ab\u09c7\u0987\u09b8\u09ac\u09c1\u0995 \u0986\u09b0 \u0987\u09a8\u09cd\u09b8\u099f\u09be\u0997\u09cd\u09b0\u09be\u09ae\u09c7  \u09b0\u09bf\u09b2\u09b8 \u09a6\u09c7\u0996\u09c7 \u0995\u09a5\u09bf\u09a4 \u09b8\u09c7\u09b2\u09bf\u09ac\u09cd\u09b0\u09c7\u099f\u09bf \u09a8\u09be\u09ae\u0995 \u0985\u09ae\u09c1\u0995 \u0997\u09be\u09df\u09bf\u0995\u09be \u0986\u09b0 \u09a4\u09ae\u09c1\u0995 \u09a8\u09be\u09df\u09bf\u0995\u09be\u09b0 \u09ac\u09bf\u09df\u09c7 \u0986\u09b0 \u09a1\u09bf\u09ad\u09cb\u09b0\u09cd\u09b8 \u09b9\u09df\u09c7\u099b\u09c7 \u09ac\u09b2\u09c7 \u09ab\u09c1\u099f\u09cb \u09a4\u09be\u09b2\u09be\u09b6\u09c7 \u09ac\u09cd\u09af\u09b8\u09cd\u09a4, \u0986\u09b0  \u09af\u09a4\u09cd\u09b0\u09a4\u09a4\u09cd\u09b0 \u09ac\u09df\u09be\u09a8 \u09a6\u09c7\u09df\u09be\u09df \u09a4\u09cd\u09b0\u09b8\u09cd\u09a4 \u09a4\u0996\u09a8 \u098f\u09b8\u09ac \u09aa\u09cd\u09b0\u09a4\u09bf\u09ad\u09be\u09b0\u09be \u09ae\u09be\u09a8\u09ac \u099c\u0997\u09a4\u09c7\u09b0 \u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be \u0987\u09a4\u09bf\u09b9\u09be\u09b8\u0987 \u09aa\u09be\u09b2\u09cd\u099f\u09c7 \u09a6\u09bf\u099a\u09cd\u099b\u09c7\u09a8! ", "subgroup": "Books & Notes"}, {"title": "0004 03", "sub": "PDF Document", "type": "document", "document_type": "pdf", "file": "0004_03.pdf", "src": "documents/0004_03.pdf", "thumbnail": "documents/0004_03.jpg", "subgroup": "Official"}]}</script>
+<script>
+(function(){
+  // Background music starts muted. The button toggles mute/unmute; unmuting
+  // also starts playback when the visitor has not started the track yet.
+  var bgAudio = document.getElementById('bgAudio');
+  var navAudioBtn = document.getElementById('navAudioBtn');
+  var navAudioLabel = document.getElementById('navAudioLabel');
+  function updateMusicToggle(){
+    var muted = bgAudio.muted || bgAudio.paused;
+    // A paused track is reported as Muted until the user starts it.
+    navAudioLabel.textContent = bgAudio.muted ? 'Muted' : (bgAudio.paused ? 'Ready' : 'Playing');
+    navAudioBtn.textContent = bgAudio.muted ? 'Unmute' : 'Mute';
+    navAudioBtn.setAttribute('aria-pressed', bgAudio.muted ? 'false' : 'true');
+  }
+  bgAudio.muted = true;
+  updateMusicToggle();
+  navAudioBtn.addEventListener('click', function(){
+    if (bgAudio.muted) {
+      bgAudio.muted = false;
+      var playPromise = bgAudio.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(updateMusicToggle).catch(function(){
+          bgAudio.muted = true;
+          updateMusicToggle();
+        });
+      } else {
+        updateMusicToggle();
+      }
+    } else {
+      bgAudio.muted = true;
+      updateMusicToggle();
+    }
+  });
+  bgAudio.addEventListener('play', updateMusicToggle);
+  bgAudio.addEventListener('pause', updateMusicToggle);
+  bgAudio.addEventListener('volumechange', updateMusicToggle);
+
+  var ALL = JSON.parse(document.getElementById('slidesData').textContent);
+  var hero = ALL.find(function(s){ return s.hero; });
+  var everything = ALL.filter(function(s){ return !s.hero; }); // photos + videos + documents, unfiltered
+  var hierarchy = JSON.parse(document.getElementById('hierarchyData').textContent || '{}');
+  var typeFilter = 'all'; // 'all' | 'photo' | 'video' | 'document'
+  var subgroupFilter = null;
+  var visible = everything.slice(); // currently displayed (after type filter + subgroup + search)
+
+  // ---------- Invitation banner ----------
+  var inviteBanner = document.getElementById('inviteBanner');
+  var landingProfile = document.getElementById('landingProfile');
+  if (hero){
+    var heroImg = document.createElement('img');
+    heroImg.src = hero.src; heroImg.alt = hero.title || 'Invitation';
+    heroImg.addEventListener('click', function(){ openLightbox(hero, -1); });
+    inviteBanner.appendChild(heroImg);
+  }
+
+  // ---------- Landing-page profile images ----------
+  var profileImages = JSON.parse(document.getElementById('profileData').textContent || '[]');
+  var profileGrid = document.getElementById('landingProfileGrid');
+  if (profileGrid) {
+    profileImages.forEach(function(item){
+      var figure = document.createElement('figure');
+      figure.className = 'landing-profile-card';
+
+      var img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.title || 'Profile photo';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'Zoom profile photo: ' + (item.title || 'Profile photo'));
+      img.addEventListener('click', function(){ openProfileZoom(item.src, item.title || 'Profile photo'); });
+      img.addEventListener('keydown', function(event){
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProfileZoom(item.src, item.title || 'Profile photo');
+        }
+      });
+
+      var caption = document.createElement('figcaption');
+      caption.textContent = item.title || '';
+
+      figure.appendChild(img);
+      if (item.title) figure.appendChild(caption);
+      profileGrid.appendChild(figure);
+    });
+  }
+
+
+  // ---------- Profile photo zoom controls ----------
+  var profileZoom = document.getElementById('profileZoom');
+  var profileZoomImage = document.getElementById('profileZoomImage');
+  var profileZoomCaption = document.getElementById('profileZoomCaption');
+  var profileZoomClose = document.getElementById('profileZoomClose');
+  var profileZoomPreviousFocus = null;
+
+  function openProfileZoom(src, caption){
+    if (!profileZoom || !profileZoomImage) return;
+    profileZoomPreviousFocus = document.activeElement;
+    profileZoomImage.src = src;
+    profileZoomImage.alt = caption || 'Profile photo';
+    profileZoomCaption.textContent = caption || '';
+    profileZoom.classList.add('open');
+    profileZoom.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    profileZoomClose.focus();
+  }
+
+  function closeProfileZoom(){
+    if (!profileZoom || !profileZoom.classList.contains('open')) return;
+    profileZoom.classList.remove('open');
+    profileZoom.setAttribute('aria-hidden', 'true');
+    profileZoomImage.src = '';
+    profileZoomCaption.textContent = '';
+    document.body.style.overflow = '';
+    if (profileZoomPreviousFocus && typeof profileZoomPreviousFocus.focus === 'function') {
+      profileZoomPreviousFocus.focus();
+    }
+  }
+
+  profileZoomClose.addEventListener('click', closeProfileZoom);
+  profileZoom.addEventListener('click', function(event){
+    if (event.target === profileZoom || event.target === profileZoomImage) closeProfileZoom();
+  });
+  document.addEventListener('keydown', function(event){
+    if (event.key === 'Escape') closeProfileZoom();
+  });
+
+  // ---------- Gallery rendering ----------
+  var gallery = document.getElementById('gallery');
+  var searchCount = document.getElementById('searchCount');
+
+  function renderGallery(){
+    gallery.innerHTML = '';
+    if (visible.length === 0){
+      var msg = document.createElement('div');
+      msg.className = 'no-results';
+      msg.textContent = 'Nothing matches here.';
+      gallery.appendChild(msg);
+      return;
+    }
+    visible.forEach(function(s, i){
+      var card = document.createElement('div');
+      card.className = 'card';
+      var thumbWrap = document.createElement('div');
+      thumbWrap.className = 'thumb-wrap';
+      if (s.type === 'document'){
+        card.classList.add('document-card');
+        var docIcon = document.createElement('div');
+        docIcon.className = 'document-thumb';
+        var docLabel = s.document_type === 'text' ? 'TXT' : 'PDF';
+        docIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg><span>' + docLabel + '</span>';
+        if (s.thumbnail){
+          var cover = document.createElement('img');
+          cover.className = 'document-cover';
+          cover.src = s.thumbnail;
+          cover.alt = (s.title || s.file || 'Document') + ' cover';
+          cover.loading = 'lazy';
+          cover.onerror = function(){ cover.replaceWith(docIcon); };
+          thumbWrap.appendChild(cover);
+        } else {
+          thumbWrap.appendChild(docIcon);
+        }
+      } else if (s.type === 'video'){
+        card.classList.add('video-card');
+        if (s.poster){
+          var vimg = document.createElement('img');
+          vimg.src = s.poster; vimg.alt = s.title || ''; vimg.loading = 'lazy';
+          thumbWrap.appendChild(vimg);
+        } else {
+          var vprev = document.createElement('video');
+          vprev.src = s.src; vprev.muted = true; vprev.preload = 'metadata'; vprev.playsInline = true;
+          thumbWrap.appendChild(vprev);
+        }
+        var badge = document.createElement('div');
+        badge.className = 'play-badge';
+        badge.innerHTML = '<span class="circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>';
+        thumbWrap.appendChild(badge);
+      } else {
+        var img = document.createElement('img');
+        img.src = s.src; img.alt = s.title || ''; img.loading = 'lazy';
+        thumbWrap.appendChild(img);
+      }
+      if (s.file){
+        var fileTag = document.createElement('span');
+        fileTag.className = 'file-tag';
+        fileTag.textContent = s.file;
+        thumbWrap.appendChild(fileTag);
+      }
+      var cap = document.createElement('div');
+      cap.className = 'card-cap';
+      var t = document.createElement('p'); t.className = 'card-title'; t.textContent = s.title || '';
+      var sub = document.createElement('p'); sub.className = 'card-sub'; sub.textContent = s.sub || '';
+      cap.appendChild(t); cap.appendChild(sub);
+      card.appendChild(thumbWrap); card.appendChild(cap);
+      card.addEventListener('click', function(){
+        if (s.type === 'document'){
+          if (s.document_type === 'text'){
+            textTitle.textContent = s.title || s.file || 'Document';
+            documentText.textContent = s.text || '';
+            textModal.classList.add('open');
+            textModal.setAttribute('aria-hidden', 'false');
+          } else {
+            pdfTitle.textContent = s.title || s.file || 'Document';
+            pdfFrame.src = s.src;
+            pdfModal.classList.add('open');
+            pdfModal.setAttribute('aria-hidden', 'false');
+          }
+        } else {
+          openLightbox(s, i);
+        }
+      });
+      gallery.appendChild(card);
+    });
+  }
+
+  // ---------- Search + type filter (combined) ----------
+  var searchInput = document.getElementById('searchInput');
+  var searchClear = document.getElementById('searchClear');
+
+  function applyFilters(){
+    var q = searchInput.value.trim().toLowerCase();
+    searchClear.style.display = q ? 'block' : 'none';
+
+    var base = everything;
+    if (typeFilter === 'photo') base = base.filter(function(s){ return !s.type || s.type === 'photo'; });
+    else if (typeFilter === 'video') base = base.filter(function(s){ return s.type === 'video'; });
+    else if (typeFilter === 'document') base = base.filter(function(s){ return s.type === 'document'; });
+    if (subgroupFilter) base = base.filter(function(s){ return (s.type || 'photo') === typeFilter && s.subgroup === subgroupFilter; });
+
+    if (!q){
+      visible = base.slice();
+      searchCount.textContent = '';
+    } else {
+      visible = base.filter(function(s){
+        return ((s.title || '') + ' ' + (s.sub || '')).toLowerCase().indexOf(q) !== -1;
+      });
+      searchCount.textContent = visible.length + (visible.length === 1 ? ' result found' : ' results found');
+    }
+    renderGallery();
+  }
+  searchInput.addEventListener('input', applyFilters);
+  searchClear.addEventListener('click', function(){ searchInput.value = ''; applyFilters(); searchInput.focus(); });
+
+  // ---------- Nav drawer: open/close ----------
+  var navToggle = document.getElementById('navToggle');
+  var navDrawer = document.getElementById('navDrawer');
+  var navOverlay = document.getElementById('navOverlay');
+  var navClose = document.getElementById('navClose');
+
+  var mainContent = document.getElementById('mainContent');
+
+  // ---------- Navigation / landing-page visibility ----------
+  // Initial state: landing page is visible; Search + Gallery are hidden.
+  function openDrawer(){
+    // Opening the menu does NOT reveal Search + Gallery.
+    if (mainContent) mainContent.classList.remove('visible');
+    if (inviteBanner) inviteBanner.style.display = 'block';
+    if (landingProfile) landingProfile.style.display = 'block';
+    navDrawer.classList.add('open');
+    navOverlay.classList.add('open');
+  }
+
+  // Close only the drawer. Used after selecting Browse/Photos/Videos/Documents.
+  function closeDrawer(){
+    navDrawer.classList.remove('open');
+    navOverlay.classList.remove('open');
+  }
+
+  // Menu selection: hide landing banner and reveal Search + Gallery.
+  function showGallery(){
+    if (mainContent) mainContent.classList.add('visible');
+    if (inviteBanner) inviteBanner.style.display = 'none';
+    if (landingProfile) landingProfile.style.display = 'none';
+    closeDrawer();
+  }
+
+  // Close (X) or overlay: return completely to the landing page.
+  function closeNavToLanding(){
+    closeDrawer();
+    if (mainContent) mainContent.classList.remove('visible');
+    if (inviteBanner) inviteBanner.style.display = 'block';
+    if (landingProfile) landingProfile.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  navToggle.addEventListener('click', openDrawer);
+  navClose.addEventListener('click', closeNavToLanding);
+  navOverlay.addEventListener('click', closeNavToLanding);
+
+  // ---------- More: Our Story / Documents ----------
+  var moreData = JSON.parse(document.getElementById('moreData').textContent);
+  var ourStoryBtn = document.getElementById('ourStoryBtn');
+  var documentsBtn = document.getElementById('documentsBtn');
+  var moreSection = document.getElementById('moreSection');
+  var storyModal = document.getElementById('storyModal');
+  var pdfModal = document.getElementById('pdfModal');
+  var storyText = document.getElementById('storyText');
+  var pdfFrame = document.getElementById('pdfFrame');
+  var pdfTitle = document.getElementById('pdfTitle');
+  var textModal = document.getElementById('textModal');
+  var textTitle = document.getElementById('textTitle');
+  var documentText = document.getElementById('documentText');
+
+  var hasStory = typeof moreData.story === 'string' && moreData.story.trim() !== '';
+  var documents = Array.isArray(moreData.documents) ? moreData.documents : [];
+
+  if (!hasStory) {
+    ourStoryBtn.style.display = 'none';
+  } else {
+    storyText.textContent = moreData.story;
+  }
+
+  if (!documents.length) {
+    documentsBtn.style.display = 'none';
+  } else {
+    document.getElementById('countDocuments').textContent = documents.length;
+  }
+
+  // ---------- More: Audio files and hierarchy-driven subgroups ----------
+  var audioFiles = [];
+  try {
+    audioFiles = JSON.parse(document.getElementById('audioData').textContent || '[]');
+  } catch (e) { audioFiles = []; }
+  audioFiles = audioFiles.filter(function(item){
+    return item && item.file && item.file.toLowerCase() !== 'background.mp3';
+  });
+  var audioFilesBtn = document.getElementById('audioFilesBtn');
+  var audioFilesModal = document.getElementById('audioFilesModal');
+  var audioFileList = document.getElementById('audioFileList');
+  var audioFilePlayer = document.getElementById('audioFilePlayer');
+  document.getElementById('countAudioFiles').textContent = audioFiles.length;
+
+  function renderAudioFiles(subgroupName){
+    audioFileList.innerHTML = '';
+    var selectedFiles = subgroupName
+      ? audioFiles.filter(function(item){ return item.subgroup === subgroupName; })
+      : audioFiles;
+    selectedFiles.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'audio-file-item';
+      var details = document.createElement('div');
+      details.className = 'audio-file-details';
+      var name = document.createElement('span');
+      name.className = 'audio-file-name';
+      name.textContent = item.file;
+      details.appendChild(name);
+      if (item.caption && item.caption.trim()) {
+        var caption = document.createElement('span');
+        caption.className = 'audio-file-caption';
+        caption.textContent = item.caption;
+        details.appendChild(caption);
+      }
+      var play = document.createElement('button');
+      play.type = 'button';
+      play.textContent = 'Play';
+      play.setAttribute('aria-label', 'Play ' + item.file);
+      play.addEventListener('click', function(){
+        audioFilePlayer.src = item.src;
+        audioFilePlayer.style.display = 'block';
+        audioFilePlayer.play().catch(function(){});
+        audioFilesModal.querySelectorAll('.audio-file-item button').forEach(function(button){ button.textContent = 'Play'; });
+        play.textContent = 'Playing';
+      });
+      row.appendChild(details);
+      row.appendChild(play);
+      audioFileList.appendChild(row);
+    });
+    if (!selectedFiles.length) {
+      var empty = document.createElement('p');
+      empty.className = 'audio-file-caption';
+      empty.textContent = 'No audio files in this subgroup yet.';
+      audioFileList.appendChild(empty);
+    }
+    document.querySelector('#audioFilesModal h2').textContent = subgroupName ? 'Audio Files — ' + subgroupName : 'Audio Files';
+  }
+
+  var audioSubgroups = document.getElementById('audioSubgroups');
+  var audioHierarchy = Array.isArray(hierarchy.audio) ? hierarchy.audio : [];
+  var audioNames = audioHierarchy.map(function(item){ return item.name; });
+  if (audioFiles.some(function(item){ return !audioNames.includes(item.subgroup); }) && !audioNames.includes('Uncategorized')) {
+    audioNames.push('Uncategorized');
+  }
+  audioNames.forEach(function(name){
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'nav-subgroup';
+    var label = document.createElement('span');
+    label.textContent = name;
+    var count = document.createElement('span');
+    count.className = 'sub-count';
+    count.textContent = audioFiles.filter(function(item){ return item.subgroup === name; }).length;
+    button.appendChild(label);
+    button.appendChild(count);
+    button.addEventListener('click', function(){
+      renderAudioFiles(name);
+      openInfoModal(audioFilesModal);
+    });
+    audioSubgroups.appendChild(button);
+  });
+  if (!audioFiles.length) {
+    audioFilesBtn.style.display = 'none';
+    audioSubgroups.style.display = 'none';
+  } else {
+    audioFilesBtn.addEventListener('click', function(){
+      renderAudioFiles(null);
+      openInfoModal(audioFilesModal);
+    });
+  }
+
+  // ---------- More: External links (supports any number of configured URLs) ----------
+  var externalLinks = [];
+  try {
+    externalLinks = JSON.parse(document.getElementById('externalLinksData').textContent || '[]');
+  } catch (e) { externalLinks = []; }
+  externalLinks = externalLinks.filter(function(item) {
+    return item && typeof item.title === 'string' && item.title.trim() &&
+      typeof item.url === 'string' && /^https?:\/\//i.test(item.url.trim());
+  });
+  var externalLinksBtn = document.getElementById('externalLinksBtn');
+  var externalLinksModal = document.getElementById('externalLinksModal');
+  var externalLinkList = document.getElementById('externalLinkList');
+  document.getElementById('countExternalLinks').textContent = externalLinks.length;
+  if (!externalLinks.length) {
+    externalLinksBtn.style.display = 'none';
+  } else {
+    externalLinks.forEach(function(item) {
+      var link = document.createElement('a');
+      link.className = 'external-link-card';
+      link.href = item.url.trim();
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      var icon = document.createElement('span');
+      icon.className = 'external-link-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = '↗';
+      var copy = document.createElement('span');
+      copy.className = 'external-link-copy';
+      var title = document.createElement('span');
+      title.className = 'external-link-title';
+      title.textContent = item.title.trim();
+      copy.appendChild(title);
+      if (item.description && String(item.description).trim()) {
+        var description = document.createElement('span');
+        description.className = 'external-link-description';
+        description.textContent = String(item.description).trim();
+        copy.appendChild(description);
+      }
+      var arrow = document.createElement('span');
+      arrow.className = 'external-link-arrow';
+      arrow.textContent = '↗';
+      arrow.setAttribute('aria-hidden', 'true');
+      link.appendChild(icon);
+      link.appendChild(copy);
+      link.appendChild(arrow);
+      externalLinkList.appendChild(link);
+    });
+    externalLinksBtn.addEventListener('click', function() { openInfoModal(externalLinksModal); });
+  }
+
+
+  function openInfoModal(modal){
+    closeDrawer();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  ourStoryBtn.addEventListener('click', function(){ if (hasStory) openInfoModal(storyModal); });
+
+  // ---------- More modal close buttons ----------
+  document.querySelectorAll('.info-modal-close').forEach(function(button){
+    button.addEventListener('click', function(){
+      var modalId = button.getAttribute('data-modal');
+      var modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      // Stop the PDF from continuing to load/play in the background.
+      if (modalId === 'pdfModal') {
+        pdfFrame.removeAttribute('src');
+      }
+      if (modalId === 'textModal') {
+        documentText.textContent = '';
+      }
+      if (modalId === 'audioFilesModal') {
+        audioFilePlayer.pause();
+        audioFilePlayer.removeAttribute('src');
+        audioFilePlayer.load();
+        audioFilePlayer.style.display = 'none';
+      }
+    });
+  });
+
+  // ---------- Nav drawer: main filters + hierarchy-driven subgroups ----------
+  var filterButtons = {
+    all: document.getElementById('filterAll'),
+    photo: document.getElementById('filterPhotos'),
+    video: document.getElementById('filterVideos'),
+    document: document.getElementById('documentsBtn')
+  };
+  var photoCount = everything.filter(function(s){ return !s.type || s.type === 'photo'; }).length;
+  var videoCount = everything.filter(function(s){ return s.type === 'video'; }).length;
+  var documentCount = everything.filter(function(s){ return s.type === 'document'; }).length;
+  document.getElementById('countAll').textContent = everything.length;
+  document.getElementById('countPhotos').textContent = photoCount;
+  document.getElementById('countVideos').textContent = videoCount;
+  document.getElementById('countDocuments').textContent = documentCount;
+  if (photoCount === 0) filterButtons.photo.style.display = 'none';
+  if (videoCount === 0) filterButtons.video.style.display = 'none';
+  if (documentCount === 0) filterButtons.document.style.display = 'none';
+
+  function mediaTypeItems(type){
+    return everything.filter(function(s){ return (s.type || 'photo') === type; });
+  }
+  function setMainFilter(type){
+    typeFilter = type;
+    subgroupFilter = null;
+    Object.keys(filterButtons).forEach(function(k){
+      filterButtons[k].classList.toggle('active', k === type);
+    });
+    document.querySelectorAll('.nav-subgroup').forEach(function(btn){ btn.classList.remove('active'); });
+    applyFilters();
+    showGallery();
+  }
+  function buildSubgroups(type, containerId){
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    var items = mediaTypeItems(type);
+    var configured = Array.isArray(hierarchy[type]) ? hierarchy[type] : [];
+    var names = configured.map(function(item){ return item.name; });
+    if (items.some(function(item){ return !names.includes(item.subgroup); }) && !names.includes('Uncategorized')) names.push('Uncategorized');
+    names.forEach(function(name){
+      var count = items.filter(function(item){ return item.subgroup === name; }).length;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'nav-subgroup';
+      button.dataset.mediaType = type;
+      button.dataset.subgroup = name;
+      var label = document.createElement('span');
+      label.textContent = name;
+      var countLabel = document.createElement('span');
+      countLabel.className = 'sub-count';
+      countLabel.textContent = count;
+      button.appendChild(label);
+      button.appendChild(countLabel);
+      button.addEventListener('click', function(){
+        typeFilter = type;
+        subgroupFilter = name;
+        Object.keys(filterButtons).forEach(function(k){ filterButtons[k].classList.toggle('active', false); });
+        document.querySelectorAll('.nav-subgroup').forEach(function(other){ other.classList.toggle('active', other === button); });
+        applyFilters();
+        showGallery();
+      });
+      container.appendChild(button);
+    });
+  }
+  buildSubgroups('photo', 'photoSubgroups');
+  buildSubgroups('video', 'videoSubgroups');
+  buildSubgroups('document', 'documentSubgroups');
+
+  // Subgroups for Photos, Videos and Documents stay visible at all times.
+  // Clicking a main category filters its files without collapsing any subgroup list.
+  Object.keys(filterButtons).forEach(function(key){
+    filterButtons[key].addEventListener('click', function(){
+      setMainFilter(key);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
+

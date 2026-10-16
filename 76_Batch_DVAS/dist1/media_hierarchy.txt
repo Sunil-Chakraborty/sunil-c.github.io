@@ -1,0 +1,23 @@
+# Suffix mapping: Subgroup Name | numeric filename suffix
+# Example: 0002_02.jpg or song_01.mp3 -> suffix 02 or 01.
+# Mappings are per main group. Unconfigured suffixes appear under Uncategorized.
+
+Photos
+    Family | 01
+    School Events | 02
+    Travel | 03
+
+Videos
+    Ceremonies | 01
+    School Functions | 02
+    Personal | 03
+
+Documents
+    Newspapers | 01
+    Books & Notes | 02
+    Official | 03
+
+Audio Files
+    Songs | 01
+    Speeches | 02
+    Recordings | 03
