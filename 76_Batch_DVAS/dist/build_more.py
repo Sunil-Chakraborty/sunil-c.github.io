@@ -81,6 +81,23 @@ DOCUMENT_ORDER = []
 
 OUR_STORY = ""
 
+# External links shown under More. Add or edit entries here.
+EXTERNAL_LINKS = [
+    {
+        "title": "অধীরের কবিতা সংকলন ",
+        "url": "https://sunil-chakraborty.github.io/sunil-c.github.io/76_Batch_DVAS/",
+        "description": "কবি অধীর মন্ডলের কলমে কবিতামালা (+91 79809 33948)",
+        "icon": "↗",
+    },
+    
+    {
+        "title": "Petty Cash Management",
+        "url": "https://sunilc.pythonanywhere.com/transaction/",
+        "description": "A simple and transparent way to manage group tour expenses, contributions, individual payments, and settlements among friends and family.",
+        "icon": "↗",
+    },
+]
+
 OUTPUT_DIR = "dist"
 
 MAX_DIMENSION = 800
@@ -843,6 +860,11 @@ def build():
     output = output.replace(
         "__DOCUMENTS_JSON__",
         json.dumps(documents),
+    )
+
+    output = output.replace(
+        "__EXTERNAL_LINKS_JSON__",
+        json.dumps(EXTERNAL_LINKS, ensure_ascii=False),
     )
 
     # ==========================================================
