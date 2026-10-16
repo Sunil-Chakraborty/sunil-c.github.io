@@ -81,16 +81,23 @@ DOCUMENT_ORDER = []
 
 OUR_STORY = ""
 
-# Links shown under More > External Links. Add as many entries as needed.
-# Each entry supports title, url, and an optional description.
+# External links shown under More. Add or edit entries here.
 EXTERNAL_LINKS = [
     {
-        "title": "Transaction Management",
-        "url": "https://sunilc.pythonanywhere.com/transaction/",
-        "description": "Open the transaction management application",
+        "title": "অধীরের কবিতা সংকলন ",
+        "url": "https://sunil-chakraborty.github.io/sunil-c.github.io/76_Batch_DVAS/",
+        "description": "কবি অধীর মন্ডলের কলমে কবিতামালা (+91 79809 33948)",
+        "icon": "↗",
     },
-    # {"title": "Another Service", "url": "https://example.com/", "description": "Optional short note"},
+    
+    {
+        "title": "Petty Cash Management",
+        "url": "https://sunilc.pythonanywhere.com/transaction/",
+        "description": "A simple and transparent way to manage group tour expenses, contributions, individual payments, and settlements among friends and family.",
+        "icon": "↗",
+    },
 ]
+
 
 # The template displays all configured Photos/Videos/Documents/Audio subgroups.
 # Music controls are placed after External Links and start muted by default.
