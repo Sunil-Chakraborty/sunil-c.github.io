@@ -1,5 +1,12 @@
 README.txt
 
+without use of media_hierarchy.txt
+https://sunil-chakraborty.github.io/sunil-c.github.io/76_Batch_DVAS/dist/
+https://tinyurl.com/Echoes-of-76-Batch
+
+Use media_hierarchy.txt
+https://sunil-chakraborty.github.io/sunil-c.github.io/76_Batch_DVAS/dist1/
+
 Harinavi School / 76 Batch Gallery Builder Navigation and Media
 Hierarchy Configuration
 
